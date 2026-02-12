@@ -20,6 +20,132 @@
     "updated_at": "2026-02-12T05:50:13.726039Z",
     "content": "Criteria support added to stories. README and AGENTS.md polished. All v1 features done. Remaining: node stats command (todo). Ready to commit cumulative update.",
     "focus_area": "current-focus",
+    "__type__": "archive",
+    "archived_from": "current-focus",
+    "reason": "superseded by new active node"
+  },
+  "2191070d-0c62-4eb7-bc7b-de1fe14cf512": {
+    "uid": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+    "tags": {
+      "skills": 1.0,
+      "resolution": 1.0,
+      "story-driven": 1.0,
+      "standard": 1.0
+    },
+    "created_at": "2026-02-12T17:29:35.663808Z",
+    "updated_at": "2026-02-12T17:29:35.663808Z",
+    "role": "Dual-format skills resolution",
+    "benefit": "Agents can resolve skills across Anthropic standard and story-driven formats using keyword matching over folder names and descriptions.",
+    "criteria": [
+      "Support SKILL.md standard format parsing",
+      "Support skill.json story-driven parsing with nesting awareness",
+      "Resolve repos from user-level config and env vars",
+      "skills resolve matches folder name and description by keyword",
+      "Expose CLI commands for list and resolve"
+    ],
+    "status": "done",
+    "__type__": "story"
+  },
+  "b7c67f58-fb56-4cd9-99bd-f002a350aa65": {
+    "uid": "b7c67f58-fb56-4cd9-99bd-f002a350aa65",
+    "tags": {
+      "skills": 1.0,
+      "models": 1.0,
+      "resolution": 1.0
+    },
+    "created_at": "2026-02-12T17:29:42.087186Z",
+    "updated_at": "2026-02-12T17:29:42.087186Z",
+    "component": "Skills models",
+    "test_scenario": "Given dual-format skill data, when loaded, then unified and format-specific Pydantic models validate parsed skill metadata and content",
+    "expected_result": "SkillInfo, StandardSkill, StoryDrivenSkill, FeatureExt, SkillFeature, SkillsConfig models with tests",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "e4b51102-1d16-4937-8c5a-1ab1f71ae9e0": {
+    "uid": "e4b51102-1d16-4937-8c5a-1ab1f71ae9e0",
+    "tags": {
+      "skills": 1.0,
+      "parsers": 1.0,
+      "standard": 1.0,
+      "story-driven": 1.0
+    },
+    "created_at": "2026-02-12T17:29:48.152677Z",
+    "updated_at": "2026-02-12T17:29:48.152677Z",
+    "component": "Parsers by format",
+    "test_scenario": "Given a skill folder, when marker files are present, then parser modules load either SKILL.md (standard) or skill.json (+ skill.md) story-driven",
+    "expected_result": "Separate parsers/standard.py and parsers/story_driven.py with format-specific tests",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "34a10afc-c1d1-4668-8cd6-3c3670c70cdc": {
+    "uid": "34a10afc-c1d1-4668-8cd6-3c3670c70cdc",
+    "tags": {
+      "skills": 1.0,
+      "config": 1.0,
+      "env": 1.0
+    },
+    "created_at": "2026-02-12T17:29:53.698354Z",
+    "updated_at": "2026-02-12T17:29:53.698354Z",
+    "component": "User-level skills config",
+    "test_scenario": "Given ~/.config/pvrclawk/config.toml and env vars, when loading config, then repo and group paths are merged and deduplicated",
+    "expected_result": "Load skills_repo[], skills_group[], skills_format[]; merge MY_SKILLS_REPO and SKILLS_GROUP_DIR",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "cbc3df8c-bc51-45d0-8bfc-03e5b9531ad7": {
+    "uid": "cbc3df8c-bc51-45d0-8bfc-03e5b9531ad7",
+    "tags": {
+      "skills": 1.0,
+      "scanner": 1.0,
+      "resolver": 1.0,
+      "matching": 1.0
+    },
+    "created_at": "2026-02-12T17:30:02.713687Z",
+    "updated_at": "2026-02-12T17:30:02.713687Z",
+    "component": "Scanner and resolver",
+    "test_scenario": "Given multiple skill repos, when resolving keywords, then matching uses folder names and descriptions with ranked results",
+    "expected_result": "Recursive scan of skills/ folders, format detection, keyword ranking: exact-name > partial-name > description",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "18bf4b37-f8e2-403b-bf13-b4752e484eaa": {
+    "uid": "18bf4b37-f8e2-403b-bf13-b4752e484eaa",
+    "tags": {
+      "skills": 1.0,
+      "cli": 1.0,
+      "commands": 1.0
+    },
+    "created_at": "2026-02-12T17:30:08.590237Z",
+    "updated_at": "2026-02-12T17:30:08.590237Z",
+    "component": "Skills CLI group",
+    "test_scenario": "Given root pvrclawk command, when skills group is invoked, then list and resolve commands expose discovered and parsed skills",
+    "expected_result": "Add src/pvrclawk/skills package, register in app.py, commands: skills list, skills resolve",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "f06f56bd-36c6-4ef2-8d67-b1f1fac76ed8": {
+    "uid": "f06f56bd-36c6-4ef2-8d67-b1f1fac76ed8",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0,
+      "skills": 1.0
+    },
+    "created_at": "2026-02-12T17:36:54.940772Z",
+    "updated_at": "2026-02-12T17:36:54.940772Z",
+    "content": "DONE: Implemented skills v1 with dual-format parsing (SKILL.md + skill.json), user-level config merge (~/.config/pvrclawk + env vars), scanner/resolver, skills list/resolve CLI, and AGENTS folder split. 87 tests passing.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "80c2687d-0b10-4c6b-8942-c04f399b4921": {
+    "uid": "80c2687d-0b10-4c6b-8942-c04f399b4921",
+    "tags": {
+      "active": 1.0,
+      "skills": 1.0
+    },
+    "created_at": "2026-02-12T17:37:02.521914Z",
+    "updated_at": "2026-02-12T17:37:02.521914Z",
+    "content": "Skills v1 delivered: dual-format skill resolution, user-level skills config, CLI list/resolve, and AGENTS folder docs. Next likely step: add skills show and execution pipeline for dynamic contexts/templating.",
+    "focus_area": "current-focus",
     "__type__": "active"
   }
 }

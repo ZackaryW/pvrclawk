@@ -217,5 +217,77 @@
       "created_at": "2026-02-12T05:10:48.203679Z",
       "last_accessed": "2026-02-12T05:10:48.203679Z"
     }
+  ],
+  "2191070d-0c62-4eb7-bc7b-de1fe14cf512": [
+    {
+      "uid": "b438a486-1ab4-44e8-98a8-304f9c0c234a",
+      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+      "target": "b7c67f58-fb56-4cd9-99bd-f002a350aa65",
+      "tags": [
+        "skills",
+        "models"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T17:30:17.679658Z",
+      "last_accessed": "2026-02-12T17:30:17.679658Z"
+    },
+    {
+      "uid": "716b05d2-e08f-4b31-87b8-145bf0fd4ee7",
+      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+      "target": "e4b51102-1d16-4937-8c5a-1ab1f71ae9e0",
+      "tags": [
+        "skills",
+        "parsers"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T17:30:18.063748Z",
+      "last_accessed": "2026-02-12T17:30:18.063748Z"
+    },
+    {
+      "uid": "f411653d-08f2-4960-a8b5-013b8e5ccd7c",
+      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+      "target": "34a10afc-c1d1-4668-8cd6-3c3670c70cdc",
+      "tags": [
+        "skills",
+        "config"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T17:30:18.513522Z",
+      "last_accessed": "2026-02-12T17:30:18.513522Z"
+    },
+    {
+      "uid": "a889a36f-5846-473b-9ebb-954c97d7f878",
+      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+      "target": "cbc3df8c-bc51-45d0-8bfc-03e5b9531ad7",
+      "tags": [
+        "skills",
+        "resolver"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T17:30:18.942994Z",
+      "last_accessed": "2026-02-12T17:30:18.942994Z"
+    },
+    {
+      "uid": "48c1841e-c0c6-4110-8e1f-293577b2eba0",
+      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+      "target": "18bf4b37-f8e2-403b-bf13-b4752e484eaa",
+      "tags": [
+        "skills",
+        "cli"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T17:30:19.310330Z",
+      "last_accessed": "2026-02-12T17:30:19.310330Z"
+    }
   ]
 }

@@ -12,17 +12,21 @@ This tool is designed to be invoked directly by agents via CLI. The agent reads 
 
 ## Install
 
-Requires Python 3.12+.
+Requires Python 3.12+. The goal is to make `pvrclawk` available as a command in the agent's environment. How you do that is up to you:
 
 ```bash
 # Development (uv)
 uv sync
 uv run pvrclawk --help
 
-# Or install into any environment
+# Install globally
 pip install .
 pvrclawk --help
+
+# Or via pipx, Docker, etc.
 ```
+
+Once installed, agents interact with it via [`AGENTS/index.md`](AGENTS/index.md) — this instruction folder is the sole protocol an agent needs. It assumes `pvrclawk` is available in the shell.
 
 ## Quick start
 
@@ -147,7 +151,15 @@ TDD is mandatory: every feature starts with a failing test.
 
 ## For agents
 
-See [`AGENTS.md`](AGENTS.md) for session bootstrap instructions, query patterns, and the full protocol.
+[`AGENTS/index.md`](AGENTS/index.md) is the entry point for AI agents. It links to focused docs for membank and skills workflows, and covers:
+
+- **Trigger phrases** (e.g. "update membank", "check context") and what actions they map to
+- Bootstrap protocol (what to run at session start)
+- Full command reference with examples
+- Tag syntax, node types, story-driven workflow
+- Rules for maintaining the bank
+
+Drop the `AGENTS/` folder into any project that uses pvrclawk. The agent reads `index.md`, runs the CLI, and manages context autonomously.
 
 ## License
 
