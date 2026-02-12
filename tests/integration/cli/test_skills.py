@@ -106,3 +106,26 @@ def test_skills_resolve_path_only_outputs_only_paths(runner, tmp_path, monkeypat
     lines = [line.strip() for line in result.output.splitlines() if line.strip()]
     assert lines == [str((repo / "skills" / "web-testing").resolve())]
 
+
+def test_skills_update_skips_non_git_repo(runner, tmp_path, monkeypatch):
+    repo = tmp_path / "my-skills-v2"
+    (repo / "skills").mkdir(parents=True)
+    monkeypatch.setenv("MY_SKILLS_REPO", str(repo))
+    monkeypatch.delenv("SKILLS_GROUP_DIR", raising=False)
+
+    result = runner.invoke(main, ["skills", "update", "-a"])
+    assert result.exit_code == 0
+    assert "SKIPPED" in result.output
+    assert str(repo.resolve()) in result.output
+
+
+def test_skills_update_requires_all_flag(runner, tmp_path, monkeypatch):
+    repo = tmp_path / "my-skills-v2"
+    (repo / "skills").mkdir(parents=True)
+    monkeypatch.setenv("MY_SKILLS_REPO", str(repo))
+    monkeypatch.delenv("SKILLS_GROUP_DIR", raising=False)
+
+    result = runner.invoke(main, ["skills", "update"])
+    assert result.exit_code != 0
+    assert "Use -a/--all" in result.output
+

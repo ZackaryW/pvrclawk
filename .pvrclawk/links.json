@@ -349,5 +349,22 @@
       "created_at": "2026-02-12T18:05:58.447486Z",
       "last_accessed": "2026-02-12T18:05:58.447486Z"
     }
+  ],
+  "6b1c7b7b-0f4d-4fcd-a76c-6da9e9ec72f6": [
+    {
+      "uid": "1ff926ce-696a-4aec-bd0f-31044879cf42",
+      "source": "6b1c7b7b-0f4d-4fcd-a76c-6da9e9ec72f6",
+      "target": "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9",
+      "tags": [
+        "membank",
+        "node",
+        "list"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:09:19.242646Z",
+      "last_accessed": "2026-02-12T18:09:19.242646Z"
+    }
   ]
 }
