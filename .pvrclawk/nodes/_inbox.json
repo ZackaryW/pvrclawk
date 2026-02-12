@@ -11,5 +11,48 @@
     "content": "Implemented session context dedup for membank: added session model/storage lifecycle, session up/tear/reset/info commands, --session/env/session.json resolution, focus/list header-only truncation for served nodes, and integration tests for lifecycle/expiry/override behavior.",
     "status": "done",
     "__type__": "progress"
+  },
+  "06c87f53-1580-4647-9853-6312f27bfb94": {
+    "uid": "06c87f53-1580-4647-9853-6312f27bfb94",
+    "tags": {
+      "task": 1.0,
+      "membank": 1.0,
+      "docs": 1.0,
+      "session": 1.0
+    },
+    "created_at": "2026-02-12T21:02:49.721456Z",
+    "updated_at": "2026-02-12T21:02:49.721456Z",
+    "content": "Update AGENTS membank docs and README with session dedup workflow and command usage.",
+    "status": "in_progress",
+    "othermeta": {},
+    "__type__": "task"
+  },
+  "87141db1-5221-4aca-9017-0fd0b0414adc": {
+    "uid": "87141db1-5221-4aca-9017-0fd0b0414adc",
+    "tags": {
+      "progress": 1.0,
+      "membank": 1.0,
+      "docs": 1.0,
+      "session": 1.0
+    },
+    "created_at": "2026-02-12T21:02:49.988694Z",
+    "updated_at": "2026-02-12T21:02:49.988694Z",
+    "content": "Starting documentation update for session workflow in AGENTS and README to match implemented session up/tear/reset/info behavior and resolution priority.",
+    "status": "in_progress",
+    "__type__": "progress"
+  },
+  "19ef8b04-08d8-4bab-9b2a-e41b835a1419": {
+    "uid": "19ef8b04-08d8-4bab-9b2a-e41b835a1419",
+    "tags": {
+      "progress": 1.0,
+      "membank": 1.0,
+      "docs": 1.0,
+      "session": 1.0
+    },
+    "created_at": "2026-02-12T21:03:42.395415Z",
+    "updated_at": "2026-02-12T21:03:42.395415Z",
+    "content": "Updated AGENTS/membank.md and README.md to document session dedup lifecycle (session up/info/reset/tear), resolution priority, truncation behavior, expiry, and command reference additions.",
+    "status": "done",
+    "__type__": "progress"
   }
 }

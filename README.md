@@ -10,6 +10,8 @@ Traditional memory-bank approaches (a folder of markdown files) break down when 
 
 This tool is designed to be invoked directly by agents via CLI. The agent reads context with `pvrclawk membank focus`, updates status with `pvrclawk membank node status`, and records new knowledge with `pvrclawk membank node add` -- all without needing to parse or generate markdown.
 
+For active usage, membank also supports session-based context deduplication via `pvrclawk membank session up`, so repeated `focus`/`node list` calls avoid re-sending full payload for already-served nodes.
+
 ## Install
 
 Requires Python 3.12+. The goal is to make `pvrclawk` available as a command in the agent's environment. How you do that is up to you:
@@ -54,6 +56,9 @@ pvrclawk membank link add <story-uid> <feature-uid> --tags "auth"
 
 # Retrieve context by tags
 pvrclawk membank focus --tags "auth"
+
+# Start a dedupe session for active agent usage
+pvrclawk membank session up
 ```
 
 ## Concepts
@@ -97,6 +102,8 @@ Nodes are stored in named JSON files under `.pvrclawk/nodes/`, grouped by top ta
 
 Recent node references are tracked in `.pvrclawk/recent_uid.json` (rolling last 10), which is auto-added to `.gitignore` on `membank init`.
 
+Session context state is tracked in `.pvrclawk/session.json` and is also auto-gitignored. With an active session, `focus`, `node list`, and `node list-all` render header-only for already-served nodes. Session resolution order is: `--session <uuid>` override, then `PVRCLAWK_SESSION` env var, then active `session.json`.
+
 ### Mood & rules
 
 - **Mood**: per-tag EMA-smoothed signal. `pvrclawk membank report mood <tag> <value>` adjusts scoring weight.
@@ -124,6 +131,10 @@ Recent node references are tracked in `.pvrclawk/recent_uid.json` (rolling last 
 | `membank rule add "<dsl>"` | Add a scoring rule |
 | `membank rule list` | List scoring rules |
 | `membank config set/get/list` | Manage `config.toml` settings |
+| `membank session up` | Create or reuse active session context, print UUID |
+| `membank session info` | Show active session UUID, age, and served count |
+| `membank session reset` | Clear served UID history for active session |
+| `membank session tear` | End active session and clear `session.json` |
 
 ## Configuration
 
@@ -144,7 +155,7 @@ src/pvrclawk/
   app.py                  # Root Click group
   utils/                  # Universal utilities (json_io, config)
   membank/                # Feature package
-    commands/             # CLI commands (node, link, focus, prune, mood, rules, config)
+    commands/             # CLI commands (node, link, focus, prune, mood, rules, config, session)
     core/                 # Business logic (storage, graph, mood, rules)
     models/               # Pydantic models (nodes, links, index, types)
 ```

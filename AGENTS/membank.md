@@ -22,6 +22,12 @@ Only after this planning update should coding and TDD begin.
 ## Core Commands
 
 ```bash
+# Session lifecycle (context dedup for repeated retrievals)
+pvrclawk membank session up
+pvrclawk membank session info
+pvrclawk membank session reset
+pvrclawk membank session tear
+
 # Query context
 pvrclawk membank focus --tags "architecture"
 pvrclawk membank focus --tags "task"
@@ -36,6 +42,28 @@ pvrclawk membank node get <uid>
 pvrclawk membank node status <uid> in_progress
 pvrclawk membank node status <uid> done
 ```
+
+## Session Context Dedupe
+
+Use session-aware retrieval to reduce repeated context payload during active agent work.
+
+### Resolution Priority
+
+Commands resolve session context in this order:
+
+1. `--session <uuid>` override on `membank` group
+2. `PVRCLAWK_SESSION` environment variable
+3. Active `.pvrclawk/session.json`
+4. No active session (full content output)
+
+### Behavior
+
+- `pvrclawk membank session up` creates/reuses active session state and prints UUID.
+- `focus`, `node list`, and `node list-all` render header-only for already-served nodes in the active session.
+- `node get` remains full detail and is never session-truncated.
+- `pvrclawk membank session reset` clears served history for re-fetching complete context.
+- `pvrclawk membank session tear` clears active session state.
+- Session state expires after 2 days and is treated as absent.
 
 ## Node Type Boundaries
 
@@ -143,12 +171,14 @@ pvrclawk membank prune
 pvrclawk membank config list
 pvrclawk membank config get auto_archive_active
 pvrclawk membank config set auto_archive_active true
+pvrclawk membank session info
 
 # Cleanup workflow (run regularly)
 pvrclawk membank node list-all --top 50
 pvrclawk membank node list progress --top 50
 pvrclawk membank node remove <uid>
 pvrclawk membank node remove-type <node_type> --all
+pvrclawk membank session tear
 ```
 
 ## Policy
@@ -164,6 +194,7 @@ pvrclawk membank node remove-type <node_type> --all
 - Most frequent implementation-side nodes should be `pattern`, `memory`, and `progress`, and they should be linked to relevant work.
 - Prefer chain link operations for multi-node flows to reduce storage IO and keep updates atomic per command.
 - The membank should coexist as a graph for team/project management and developer context, bridging users and agents.
+- Session runtime state lives in `.pvrclawk/session.json` and must remain gitignored.
 - Keep TDD strict: failing test -> minimal fix -> refactor -> full tests.
 - Do not treat user stories as system requirements; stories capture user intent/value first, while technical requirements are refined during implementation planning.
 
