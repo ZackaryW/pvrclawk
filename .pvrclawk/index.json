@@ -14,7 +14,14 @@
     "membank": [
       "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
       "0e02fb61-7c51-4754-87f0-a933761b3ad4",
-      "90e1054a-5df9-49bc-adb7-013d2c9d150b"
+      "90e1054a-5df9-49bc-adb7-013d2c9d150b",
+      "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9",
+      "e312415e-6576-4de2-9bd8-82614f0a232b",
+      "9e5b574f-ff0d-4259-9938-ba7f4775916f",
+      "ef46391b-fc47-4532-8110-6b4186d96b57",
+      "4bf16616-668c-4bd4-b183-1eed340bef31",
+      "7095dba4-2c21-4635-9f4b-379eed0db826",
+      "7ff1613b-ce32-4527-b632-39b1674c2e1f"
     ],
     "graph": [
       "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
@@ -52,15 +59,17 @@
     ],
     "cli": [
       "0e02fb61-7c51-4754-87f0-a933761b3ad4",
-      "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
-      "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d",
       "18bf4b37-f8e2-403b-bf13-b4752e484eaa",
       "473f797f-443f-4762-b352-f9535ce5333c",
       "689392e0-354e-482c-9454-9387ea20c7d6",
       "0fd1150c-c8a2-4ac6-94d5-b50ab4360d1e",
       "bf4aff77-5d8b-43ca-8821-91a8189320dc",
       "0ac879c2-83c7-4809-96d6-7ee2b11e96ba",
-      "06a8a324-5e0c-4aa1-8e6f-fe10901ef486"
+      "06a8a324-5e0c-4aa1-8e6f-fe10901ef486",
+      "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
+      "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d",
+      "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9",
+      "9e5b574f-ff0d-4259-9938-ba7f4775916f"
     ],
     "models": [
       "90e1054a-5df9-49bc-adb7-013d2c9d150b",
@@ -112,9 +121,6 @@
     "status": [
       "907d9bbd-afc4-45e3-93d5-8a45587306de",
       "257d9453-e3e7-4b55-befc-0184ec0ad4d0",
-      "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
-      "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
-      "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
       "2d70fbc7-681b-44d0-9408-bea519648ad8",
       "f06f56bd-36c6-4ef2-8d67-b1f1fac76ed8",
       "473f797f-443f-4762-b352-f9535ce5333c",
@@ -125,34 +131,45 @@
       "0b50da9a-a5b2-48f9-ab21-f1ab3ed36d0b",
       "cace288f-d525-4570-9f59-81931b8a77c0",
       "e7110da5-a490-4d28-8ed0-2eaab891a896",
-      "06a8a324-5e0c-4aa1-8e6f-fe10901ef486"
+      "06a8a324-5e0c-4aa1-8e6f-fe10901ef486",
+      "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
+      "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
+      "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
+      "e312415e-6576-4de2-9bd8-82614f0a232b",
+      "9e5b574f-ff0d-4259-9938-ba7f4775916f",
+      "4bf16616-668c-4bd4-b183-1eed340bef31",
+      "7095dba4-2c21-4635-9f4b-379eed0db826"
     ],
     "done": [
       "907d9bbd-afc4-45e3-93d5-8a45587306de",
-      "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
-      "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
       "2d70fbc7-681b-44d0-9408-bea519648ad8",
       "f06f56bd-36c6-4ef2-8d67-b1f1fac76ed8",
       "473f797f-443f-4762-b352-f9535ce5333c",
       "00c5c39c-9028-402f-87ca-8d544c3cf9a9",
       "bf4aff77-5d8b-43ca-8821-91a8189320dc",
       "cace288f-d525-4570-9f59-81931b8a77c0",
-      "06a8a324-5e0c-4aa1-8e6f-fe10901ef486"
+      "06a8a324-5e0c-4aa1-8e6f-fe10901ef486",
+      "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
+      "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
+      "9e5b574f-ff0d-4259-9938-ba7f4775916f",
+      "7095dba4-2c21-4635-9f4b-379eed0db826"
     ],
     "next": [
       "257d9453-e3e7-4b55-befc-0184ec0ad4d0"
     ],
     "active": [
       "03b23033-3744-4b09-8449-fe41dbf00d61",
-      "271f89cc-b79a-4d95-bd18-b250dab02205",
-      "ed750c47-3892-4194-af52-11b108a31a2d",
       "55f1151a-336a-43a0-8280-197b4387b5c1",
       "80c2687d-0b10-4c6b-8942-c04f399b4921",
       "689392e0-354e-482c-9454-9387ea20c7d6",
       "7cb42329-a6b5-4907-bcd2-12cb937b38c9",
       "bed8d804-b2a6-4475-b91e-ee61e78b9b26",
       "8aa95df4-0b23-4cbc-ad8e-48b98cdd8caa",
-      "a1eb214d-914c-48c6-ab67-44c1dcb0c507"
+      "a1eb214d-914c-48c6-ab67-44c1dcb0c507",
+      "271f89cc-b79a-4d95-bd18-b250dab02205",
+      "ed750c47-3892-4194-af52-11b108a31a2d",
+      "ef46391b-fc47-4532-8110-6b4186d96b57",
+      "7ff1613b-ce32-4527-b632-39b1674c2e1f"
     ],
     "selfhost": [
       "03b23033-3744-4b09-8449-fe41dbf00d61"
@@ -162,27 +179,6 @@
     ],
     "spec": [
       "cc7adad7-95ef-405a-b29d-1a5c9785388c"
-    ],
-    "archive": [
-      "c8f07778-3097-4d52-b95f-f17ad0b88fba"
-    ],
-    "config": [
-      "c8f07778-3097-4d52-b95f-f17ad0b88fba",
-      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
-      "34a10afc-c1d1-4668-8cd6-3c3670c70cdc"
-    ],
-    "utils": [
-      "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
-      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
-      "e4765d6a-af9a-4823-9ac5-496917912b73"
-    ],
-    "refactor": [
-      "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
-      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
-      "e4765d6a-af9a-4823-9ac5-496917912b73"
-    ],
-    "stats": [
-      "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d"
     ],
     "skills": [
       "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
@@ -231,6 +227,11 @@
     "parsers": [
       "e4b51102-1d16-4937-8c5a-1ab1f71ae9e0"
     ],
+    "config": [
+      "34a10afc-c1d1-4668-8cd6-3c3670c70cdc",
+      "c8f07778-3097-4d52-b95f-f17ad0b88fba",
+      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9"
+    ],
     "env": [
       "34a10afc-c1d1-4668-8cd6-3c3670c70cdc"
     ],
@@ -257,7 +258,8 @@
       "63aeb86f-0716-48ab-a22d-b55cc2de7e12",
       "2e36564d-763f-4052-a61c-5d2dde0576ba",
       "0b50da9a-a5b2-48f9-ab21-f1ab3ed36d0b",
-      "e7110da5-a490-4d28-8ed0-2eaab891a896"
+      "e7110da5-a490-4d28-8ed0-2eaab891a896",
+      "e312415e-6576-4de2-9bd8-82614f0a232b"
     ],
     "resolve": [
       "0fd1150c-c8a2-4ac6-94d5-b50ab4360d1e",
@@ -287,6 +289,39 @@
     ],
     "all": [
       "0ac879c2-83c7-4809-96d6-7ee2b11e96ba"
+    ],
+    "archive": [
+      "c8f07778-3097-4d52-b95f-f17ad0b88fba"
+    ],
+    "utils": [
+      "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
+      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
+      "e4765d6a-af9a-4823-9ac5-496917912b73"
+    ],
+    "refactor": [
+      "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
+      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
+      "e4765d6a-af9a-4823-9ac5-496917912b73"
+    ],
+    "stats": [
+      "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d"
+    ],
+    "node": [
+      "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9",
+      "e312415e-6576-4de2-9bd8-82614f0a232b",
+      "9e5b574f-ff0d-4259-9938-ba7f4775916f",
+      "ef46391b-fc47-4532-8110-6b4186d96b57"
+    ],
+    "list": [
+      "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9"
+    ],
+    "policy": [
+      "4bf16616-668c-4bd4-b183-1eed340bef31",
+      "7095dba4-2c21-4635-9f4b-379eed0db826",
+      "7ff1613b-ce32-4527-b632-39b1674c2e1f"
+    ],
+    "agents": [
+      "4bf16616-668c-4bd4-b183-1eed340bef31"
     ]
   },
   "types": {
@@ -309,13 +344,6 @@
       "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88",
       "9cf68d27-d69d-4bcb-a81f-46dd5996610c",
       "6c606b5d-2d9d-4858-b4d6-44620fc5595b",
-      "741c7090-9d94-4132-9324-3b9f277bb03a",
-      "b14144d1-97da-4371-b9ad-a3b7930c62c4",
-      "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
-      "c8f07778-3097-4d52-b95f-f17ad0b88fba",
-      "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
-      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
-      "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d",
       "b7c67f58-fb56-4cd9-99bd-f002a350aa65",
       "e4b51102-1d16-4937-8c5a-1ab1f71ae9e0",
       "34a10afc-c1d1-4668-8cd6-3c3670c70cdc",
@@ -324,7 +352,16 @@
       "3909d01b-0cfe-4f72-81ac-5e9b919d69e9",
       "0fd1150c-c8a2-4ac6-94d5-b50ab4360d1e",
       "9fca2439-7473-474f-8829-530e163cac4c",
-      "0ac879c2-83c7-4809-96d6-7ee2b11e96ba"
+      "0ac879c2-83c7-4809-96d6-7ee2b11e96ba",
+      "741c7090-9d94-4132-9324-3b9f277bb03a",
+      "b14144d1-97da-4371-b9ad-a3b7930c62c4",
+      "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
+      "c8f07778-3097-4d52-b95f-f17ad0b88fba",
+      "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
+      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
+      "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d",
+      "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9",
+      "4bf16616-668c-4bd4-b183-1eed340bef31"
     ],
     "pattern": [
       "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb",
@@ -337,8 +374,6 @@
     "progress": [
       "907d9bbd-afc4-45e3-93d5-8a45587306de",
       "257d9453-e3e7-4b55-befc-0184ec0ad4d0",
-      "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
-      "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
       "2d70fbc7-681b-44d0-9408-bea519648ad8",
       "f06f56bd-36c6-4ef2-8d67-b1f1fac76ed8",
       "473f797f-443f-4762-b352-f9535ce5333c",
@@ -349,24 +384,31 @@
       "0b50da9a-a5b2-48f9-ab21-f1ab3ed36d0b",
       "cace288f-d525-4570-9f59-81931b8a77c0",
       "e7110da5-a490-4d28-8ed0-2eaab891a896",
-      "06a8a324-5e0c-4aa1-8e6f-fe10901ef486"
+      "06a8a324-5e0c-4aa1-8e6f-fe10901ef486",
+      "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
+      "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
+      "e312415e-6576-4de2-9bd8-82614f0a232b",
+      "9e5b574f-ff0d-4259-9938-ba7f4775916f",
+      "7095dba4-2c21-4635-9f4b-379eed0db826"
     ],
     "archive": [
       "03b23033-3744-4b09-8449-fe41dbf00d61",
-      "271f89cc-b79a-4d95-bd18-b250dab02205",
-      "ed750c47-3892-4194-af52-11b108a31a2d",
       "55f1151a-336a-43a0-8280-197b4387b5c1",
       "80c2687d-0b10-4c6b-8942-c04f399b4921",
       "689392e0-354e-482c-9454-9387ea20c7d6",
       "7cb42329-a6b5-4907-bcd2-12cb937b38c9",
       "bed8d804-b2a6-4475-b91e-ee61e78b9b26",
-      "8aa95df4-0b23-4cbc-ad8e-48b98cdd8caa"
+      "8aa95df4-0b23-4cbc-ad8e-48b98cdd8caa",
+      "271f89cc-b79a-4d95-bd18-b250dab02205",
+      "ed750c47-3892-4194-af52-11b108a31a2d",
+      "a1eb214d-914c-48c6-ab67-44c1dcb0c507",
+      "ef46391b-fc47-4532-8110-6b4186d96b57"
     ],
     "memorylink": [
       "cc7adad7-95ef-405a-b29d-1a5c9785388c"
     ],
     "active": [
-      "a1eb214d-914c-48c6-ab67-44c1dcb0c507"
+      "7ff1613b-ce32-4527-b632-39b1674c2e1f"
     ]
   },
   "uid_file": {
@@ -394,6 +436,34 @@
     "257d9453-e3e7-4b55-befc-0184ec0ad4d0": "architecture_membank",
     "03b23033-3744-4b09-8449-fe41dbf00d61": "architecture_membank",
     "cc7adad7-95ef-405a-b29d-1a5c9785388c": "architecture_membank",
+    "2d70fbc7-681b-44d0-9408-bea519648ad8": "skills_status",
+    "55f1151a-336a-43a0-8280-197b4387b5c1": "skills_status",
+    "2191070d-0c62-4eb7-bc7b-de1fe14cf512": "skills_status",
+    "b7c67f58-fb56-4cd9-99bd-f002a350aa65": "skills_status",
+    "e4b51102-1d16-4937-8c5a-1ab1f71ae9e0": "skills_status",
+    "34a10afc-c1d1-4668-8cd6-3c3670c70cdc": "skills_status",
+    "cbc3df8c-bc51-45d0-8bfc-03e5b9531ad7": "skills_status",
+    "18bf4b37-f8e2-403b-bf13-b4752e484eaa": "skills_status",
+    "f06f56bd-36c6-4ef2-8d67-b1f1fac76ed8": "skills_status",
+    "80c2687d-0b10-4c6b-8942-c04f399b4921": "skills_status",
+    "473f797f-443f-4762-b352-f9535ce5333c": "skills_status",
+    "689392e0-354e-482c-9454-9387ea20c7d6": "skills_status",
+    "3909d01b-0cfe-4f72-81ac-5e9b919d69e9": "skills_status",
+    "63aeb86f-0716-48ab-a22d-b55cc2de7e12": "skills_status",
+    "00c5c39c-9028-402f-87ca-8d544c3cf9a9": "skills_status",
+    "7cb42329-a6b5-4907-bcd2-12cb937b38c9": "skills_status",
+    "0fd1150c-c8a2-4ac6-94d5-b50ab4360d1e": "skills_status",
+    "2e36564d-763f-4052-a61c-5d2dde0576ba": "skills_status",
+    "bf4aff77-5d8b-43ca-8821-91a8189320dc": "skills_status",
+    "bed8d804-b2a6-4475-b91e-ee61e78b9b26": "skills_status",
+    "9fca2439-7473-474f-8829-530e163cac4c": "skills_status",
+    "0b50da9a-a5b2-48f9-ab21-f1ab3ed36d0b": "skills_status",
+    "cace288f-d525-4570-9f59-81931b8a77c0": "skills_status",
+    "8aa95df4-0b23-4cbc-ad8e-48b98cdd8caa": "skills_status",
+    "0ac879c2-83c7-4809-96d6-7ee2b11e96ba": "skills_status",
+    "e7110da5-a490-4d28-8ed0-2eaab891a896": "skills_status",
+    "06a8a324-5e0c-4aa1-8e6f-fe10901ef486": "skills_status",
+    "a1eb214d-914c-48c6-ab67-44c1dcb0c507": "skills_status",
     "b7fec042-2ebd-4d9f-bace-9bfb2484ea08": "status_utils",
     "271f89cc-b79a-4d95-bd18-b250dab02205": "status_utils",
     "741c7090-9d94-4132-9324-3b9f277bb03a": "status_utils",
@@ -406,34 +476,13 @@
     "e4765d6a-af9a-4823-9ac5-496917912b73": "status_utils",
     "376f3e09-bc53-4e7b-9315-57e4de9dc80e": "status_utils",
     "ed750c47-3892-4194-af52-11b108a31a2d": "status_utils",
-    "2d70fbc7-681b-44d0-9408-bea519648ad8": "_inbox",
-    "55f1151a-336a-43a0-8280-197b4387b5c1": "_inbox",
-    "2191070d-0c62-4eb7-bc7b-de1fe14cf512": "_inbox",
-    "b7c67f58-fb56-4cd9-99bd-f002a350aa65": "_inbox",
-    "e4b51102-1d16-4937-8c5a-1ab1f71ae9e0": "_inbox",
-    "34a10afc-c1d1-4668-8cd6-3c3670c70cdc": "_inbox",
-    "cbc3df8c-bc51-45d0-8bfc-03e5b9531ad7": "_inbox",
-    "18bf4b37-f8e2-403b-bf13-b4752e484eaa": "_inbox",
-    "f06f56bd-36c6-4ef2-8d67-b1f1fac76ed8": "_inbox",
-    "80c2687d-0b10-4c6b-8942-c04f399b4921": "_inbox",
-    "473f797f-443f-4762-b352-f9535ce5333c": "_inbox",
-    "689392e0-354e-482c-9454-9387ea20c7d6": "_inbox",
-    "3909d01b-0cfe-4f72-81ac-5e9b919d69e9": "_inbox",
-    "63aeb86f-0716-48ab-a22d-b55cc2de7e12": "_inbox",
-    "00c5c39c-9028-402f-87ca-8d544c3cf9a9": "_inbox",
-    "7cb42329-a6b5-4907-bcd2-12cb937b38c9": "_inbox",
-    "0fd1150c-c8a2-4ac6-94d5-b50ab4360d1e": "_inbox",
-    "2e36564d-763f-4052-a61c-5d2dde0576ba": "_inbox",
-    "bf4aff77-5d8b-43ca-8821-91a8189320dc": "_inbox",
-    "bed8d804-b2a6-4475-b91e-ee61e78b9b26": "_inbox",
-    "9fca2439-7473-474f-8829-530e163cac4c": "_inbox",
-    "0b50da9a-a5b2-48f9-ab21-f1ab3ed36d0b": "_inbox",
-    "cace288f-d525-4570-9f59-81931b8a77c0": "_inbox",
-    "8aa95df4-0b23-4cbc-ad8e-48b98cdd8caa": "_inbox",
-    "0ac879c2-83c7-4809-96d6-7ee2b11e96ba": "_inbox",
-    "e7110da5-a490-4d28-8ed0-2eaab891a896": "_inbox",
-    "06a8a324-5e0c-4aa1-8e6f-fe10901ef486": "_inbox",
-    "a1eb214d-914c-48c6-ab67-44c1dcb0c507": "_inbox"
+    "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9": "_inbox",
+    "e312415e-6576-4de2-9bd8-82614f0a232b": "_inbox",
+    "9e5b574f-ff0d-4259-9938-ba7f4775916f": "_inbox",
+    "ef46391b-fc47-4532-8110-6b4186d96b57": "_inbox",
+    "4bf16616-668c-4bd4-b183-1eed340bef31": "_inbox",
+    "7095dba4-2c21-4635-9f4b-379eed0db826": "_inbox",
+    "7ff1613b-ce32-4527-b632-39b1674c2e1f": "_inbox"
   },
   "links_in": {
     "faa6607a-9ffe-4065-bb18-ce178836fd0c": [
@@ -501,6 +550,9 @@
     ],
     "0ac879c2-83c7-4809-96d6-7ee2b11e96ba": [
       "2191070d-0c62-4eb7-bc7b-de1fe14cf512"
+    ],
+    "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9": [
+      "6b1c7b7b-0f4d-4fcd-a76c-6da9e9ec72f6"
     ]
   },
   "clusters": {
@@ -512,6 +564,14 @@
       ],
       "size": 24
     },
+    "skills_status": {
+      "top_tags": [
+        "status",
+        "done",
+        "active"
+      ],
+      "size": 28
+    },
     "status_utils": {
       "top_tags": [
         "status",
@@ -522,7 +582,7 @@
     },
     "_inbox": {
       "top_tags": [],
-      "size": 28
+      "size": 7
     }
   }
 }

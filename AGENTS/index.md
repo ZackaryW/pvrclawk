@@ -32,6 +32,7 @@ Read returned active context and linked nodes before coding.
 
 - Keep tags normalized and consistent.
 - Prefer updating existing status over creating duplicate nodes.
+- Keep status in the `status` field, not as text prefixes inside `content`.
 - Link related story/feature/pattern nodes for better context traversal.
 - Use `skills resolve` when task intent maps to reusable skills.
 - Run tests after changes.

@@ -55,7 +55,7 @@ pvrclawk membank node add feature \
   --status todo
 
 # Progress + Active
-pvrclawk membank node add progress --content "DONE: <change>" --tags "status,done" --status done
+pvrclawk membank node add progress --content "<change summary>" --tags "status,done" --status done
 pvrclawk membank node add active --title "current-focus" --content "<current state>" --tags "active"
 ```
 
@@ -83,5 +83,6 @@ pvrclawk membank config set auto_archive_active true
 - All context belongs in `.pvrclawk/` (no `memory-bank/` folder).
 - Do not bulk import markdown; decompose into typed nodes.
 - Always update membank first for every new task, then start TDD.
+- Do not encode status words in `content` (for example: `IN_PROGRESS:`, `DONE:`). Use the `status` field via `node status` or `--status`.
 - Keep TDD strict: failing test -> minimal fix -> refactor -> full tests.
 
