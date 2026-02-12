@@ -1,0 +1,221 @@
+{
+  "e802cb06-73a2-45ec-bc77-9b1b09cecd07": [
+    {
+      "uid": "3106707d-3080-4369-8211-4bc95509bdfb",
+      "source": "e802cb06-73a2-45ec-bc77-9b1b09cecd07",
+      "target": "faa6607a-9ffe-4065-bb18-ce178836fd0c",
+      "tags": [
+        "architecture",
+        "modularity"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:42.070908Z",
+      "last_accessed": "2026-02-12T05:10:42.070908Z"
+    },
+    {
+      "uid": "65f755c5-285d-419f-a7dd-e393f31b33e0",
+      "source": "e802cb06-73a2-45ec-bc77-9b1b09cecd07",
+      "target": "0e02fb61-7c51-4754-87f0-a933761b3ad4",
+      "tags": [
+        "membank",
+        "cli"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:42.557058Z",
+      "last_accessed": "2026-02-12T05:10:42.557058Z"
+    }
+  ],
+  "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0": [
+    {
+      "uid": "08f1b814-acd3-443d-ad6c-c6ea7c692cab",
+      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "target": "90e1054a-5df9-49bc-adb7-013d2c9d150b",
+      "tags": [
+        "membank",
+        "models"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:43.079336Z",
+      "last_accessed": "2026-02-12T05:10:43.079336Z"
+    },
+    {
+      "uid": "a4118943-426a-4e07-8332-7eebebbe3caa",
+      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "target": "234b8319-1604-4b2d-8041-ef7726b1774c",
+      "tags": [
+        "storage",
+        "cluster"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:43.538025Z",
+      "last_accessed": "2026-02-12T05:10:43.538025Z"
+    },
+    {
+      "uid": "5789403a-f199-4ebd-a906-0bec44245bfa",
+      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "target": "f16430dd-8b58-43ae-931b-2125bf3ed73c",
+      "tags": [
+        "links",
+        "weight"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:43.949287Z",
+      "last_accessed": "2026-02-12T05:10:43.949287Z"
+    },
+    {
+      "uid": "bddfe902-d17b-49e4-b8c9-9c0bff992cc8",
+      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "target": "70a00e68-3cc5-4f5d-b319-6ca09d490b49",
+      "tags": [
+        "focus",
+        "scoring"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:44.379321Z",
+      "last_accessed": "2026-02-12T05:10:44.379321Z"
+    },
+    {
+      "uid": "9f6cbb71-10ea-40f9-8fdb-99c27dfc88c6",
+      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "target": "b9cf5ada-9764-4db8-bcd5-c61c732ca48b",
+      "tags": [
+        "mood"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:44.799359Z",
+      "last_accessed": "2026-02-12T05:10:44.799359Z"
+    },
+    {
+      "uid": "a1751f1e-6c02-45e6-9184-3ef2eaf03cab",
+      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "target": "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88",
+      "tags": [
+        "rules",
+        "dsl"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:45.196774Z",
+      "last_accessed": "2026-02-12T05:10:45.196774Z"
+    },
+    {
+      "uid": "c4ee97b6-c0c1-4aad-aae5-d5ae986a08a5",
+      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "target": "9cf68d27-d69d-4bcb-a81f-46dd5996610c",
+      "tags": [
+        "memorylink",
+        "storage"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:45.592499Z",
+      "last_accessed": "2026-02-12T05:10:45.592499Z"
+    },
+    {
+      "uid": "5807cb63-d988-4ee4-a5b3-62b718f21d2a",
+      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "target": "6c606b5d-2d9d-4858-b4d6-44620fc5595b",
+      "tags": [
+        "prune",
+        "cluster"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:46.022798Z",
+      "last_accessed": "2026-02-12T05:10:46.022798Z"
+    }
+  ],
+  "75c0b3a9-413f-4d25-a9ae-7da5b7a78976": [
+    {
+      "uid": "8830f1fc-d276-4110-b259-eec11318d1f8",
+      "source": "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
+      "target": "70a00e68-3cc5-4f5d-b319-6ca09d490b49",
+      "tags": [
+        "scoring",
+        "frequency"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:46.446565Z",
+      "last_accessed": "2026-02-12T05:10:46.446565Z"
+    },
+    {
+      "uid": "0946e949-f0c1-4701-b935-0dd0c7e95319",
+      "source": "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
+      "target": "f16430dd-8b58-43ae-931b-2125bf3ed73c",
+      "tags": [
+        "scoring",
+        "weight"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:46.854450Z",
+      "last_accessed": "2026-02-12T05:10:46.854450Z"
+    }
+  ],
+  "44352481-241e-4298-81ba-be58b90eceab": [
+    {
+      "uid": "7a606cc4-756c-42c5-a10a-630557eec1e8",
+      "source": "44352481-241e-4298-81ba-be58b90eceab",
+      "target": "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb",
+      "tags": [
+        "architecture",
+        "boundary"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:47.333652Z",
+      "last_accessed": "2026-02-12T05:10:47.333652Z"
+    },
+    {
+      "uid": "20a5babe-17bd-4810-8fc7-c6dfb67098ed",
+      "source": "44352481-241e-4298-81ba-be58b90eceab",
+      "target": "faa6607a-9ffe-4065-bb18-ce178836fd0c",
+      "tags": [
+        "architecture",
+        "boundary"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:47.794152Z",
+      "last_accessed": "2026-02-12T05:10:47.794152Z"
+    }
+  ],
+  "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656": [
+    {
+      "uid": "5ad4bfa3-d292-4ba2-abfe-ff775687c1d2",
+      "source": "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656",
+      "target": "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251",
+      "tags": [
+        "tdd",
+        "testing"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T05:10:48.203679Z",
+      "last_accessed": "2026-02-12T05:10:48.203679Z"
+    }
+  ]
+}

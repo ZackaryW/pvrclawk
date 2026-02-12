@@ -1,0 +1,325 @@
+{
+  "e802cb06-73a2-45ec-bc77-9b1b09cecd07": {
+    "uid": "e802cb06-73a2-45ec-bc77-9b1b09cecd07",
+    "tags": {
+      "architecture": 1.0,
+      "modularity": 1.0
+    },
+    "created_at": "2026-02-12T05:09:14.958491Z",
+    "updated_at": "2026-02-12T05:09:14.958491Z",
+    "role": "Modular agent tool",
+    "benefit": "pvrclawk is a modular agent tool where feature groups are pluggable command categories. Root registers groups, each group owns its internals.",
+    "criteria": [],
+    "status": "todo",
+    "__type__": "story"
+  },
+  "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0": {
+    "uid": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+    "tags": {
+      "membank": 1.0,
+      "graph": 1.0,
+      "v1": 1.0
+    },
+    "created_at": "2026-02-12T05:09:15.340580Z",
+    "updated_at": "2026-02-12T05:09:15.340580Z",
+    "role": "Graph-based membank",
+    "benefit": "V1 feature group providing 8 node types, cluster storage, weighted links, mood tracking, DSL rules, and frequency-relative scoring.",
+    "criteria": [],
+    "status": "todo",
+    "__type__": "story"
+  },
+  "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656": {
+    "uid": "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656",
+    "tags": {
+      "tdd": 1.0,
+      "testing": 1.0
+    },
+    "created_at": "2026-02-12T05:09:15.737061Z",
+    "updated_at": "2026-02-12T05:09:15.737061Z",
+    "role": "Strict TDD workflow",
+    "benefit": "Every feature slice follows red-green-refactor. Unit tests for core logic, integration tests for CLI, e2e for full pipeline. No code before failing test.",
+    "criteria": [],
+    "status": "todo",
+    "__type__": "story"
+  },
+  "44352481-241e-4298-81ba-be58b90eceab": {
+    "uid": "44352481-241e-4298-81ba-be58b90eceab",
+    "tags": {
+      "architecture": 1.0,
+      "boundary": 1.0
+    },
+    "created_at": "2026-02-12T05:09:16.141168Z",
+    "updated_at": "2026-02-12T05:09:16.141168Z",
+    "role": "Feature-scoped package boundary",
+    "benefit": "All membank internals (commands, core, models) live under src/pvrclawk/membank/. Root package is thin: app.py registers groups only. No membank logic at root level.",
+    "criteria": [],
+    "status": "todo",
+    "__type__": "story"
+  },
+  "75c0b3a9-413f-4d25-a9ae-7da5b7a78976": {
+    "uid": "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
+    "tags": {
+      "scoring": 1.0,
+      "decay": 1.0,
+      "frequency": 1.0
+    },
+    "created_at": "2026-02-12T05:09:16.535403Z",
+    "updated_at": "2026-02-12T05:09:16.535403Z",
+    "role": "Frequency-relative scoring",
+    "benefit": "Decay is governed by usage_count/total_frequency, not wall-clock time. Scoring formula: tag_match * weight * decay * freq_decay * mood * rules.",
+    "criteria": [],
+    "status": "todo",
+    "__type__": "story"
+  },
+  "faa6607a-9ffe-4065-bb18-ce178836fd0c": {
+    "uid": "faa6607a-9ffe-4065-bb18-ce178836fd0c",
+    "tags": {
+      "architecture": 1.0,
+      "modularity": 1.0
+    },
+    "created_at": "2026-02-12T05:09:39.634107Z",
+    "updated_at": "2026-02-12T05:09:39.634107Z",
+    "component": "Root app.py registration",
+    "test_scenario": "Given root app.py, when a feature group is added, then it registers via main.add_command and nothing else lives in root",
+    "expected_result": "Root only imports and registers groups",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "0e02fb61-7c51-4754-87f0-a933761b3ad4": {
+    "uid": "0e02fb61-7c51-4754-87f0-a933761b3ad4",
+    "tags": {
+      "membank": 1.0,
+      "cli": 1.0
+    },
+    "created_at": "2026-02-12T05:09:40.029449Z",
+    "updated_at": "2026-02-12T05:09:40.029449Z",
+    "component": "CLI surface: pvrclawk membank",
+    "test_scenario": "Given CLI invocation, when user runs pvrclawk membank --help, then all membank subcommands are listed",
+    "expected_result": "init, config, node, link, focus, prune, report mood, rule",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "90e1054a-5df9-49bc-adb7-013d2c9d150b": {
+    "uid": "90e1054a-5df9-49bc-adb7-013d2c9d150b",
+    "tags": {
+      "membank": 1.0,
+      "models": 1.0
+    },
+    "created_at": "2026-02-12T05:09:40.423586Z",
+    "updated_at": "2026-02-12T05:09:40.423586Z",
+    "component": "8 node types",
+    "test_scenario": "Given node add, when any of 8 types is specified, then correct model is persisted",
+    "expected_result": "memory, memorylink, story, feature, active, archive, pattern, progress",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "234b8319-1604-4b2d-8041-ef7726b1774c": {
+    "uid": "234b8319-1604-4b2d-8041-ef7726b1774c",
+    "tags": {
+      "storage": 1.0,
+      "cluster": 1.0
+    },
+    "created_at": "2026-02-12T05:09:40.830217Z",
+    "updated_at": "2026-02-12T05:09:40.830217Z",
+    "component": "Cluster storage with index",
+    "test_scenario": "Given nodes saved, when index.json is read, then uid_file maps to cluster files and tags/types are indexed",
+    "expected_result": "Nodes go to _inbox.json, prune reorganizes into named clusters",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "f16430dd-8b58-43ae-931b-2125bf3ed73c": {
+    "uid": "f16430dd-8b58-43ae-931b-2125bf3ed73c",
+    "tags": {
+      "links": 1.0,
+      "weight": 1.0
+    },
+    "created_at": "2026-02-12T05:09:41.210939Z",
+    "updated_at": "2026-02-12T05:09:41.210939Z",
+    "component": "Link CRUD with weight adjustment",
+    "test_scenario": "Given link add, when link weight is adjusted by tag combo, then links.json reflects new weight",
+    "expected_result": "link add, link list, link weight commands",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "70a00e68-3cc5-4f5d-b319-6ca09d490b49": {
+    "uid": "70a00e68-3cc5-4f5d-b319-6ca09d490b49",
+    "tags": {
+      "focus": 1.0,
+      "graph": 1.0,
+      "scoring": 1.0
+    },
+    "created_at": "2026-02-12T05:09:41.606445Z",
+    "updated_at": "2026-02-12T05:09:41.606445Z",
+    "component": "Focus retrieval with graph traversal",
+    "test_scenario": "Given focus query with tags, when scored, then returns ranked nodes with 1-hop neighbor expansion",
+    "expected_result": "VectorScorer + GraphEngine retrieve",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "b9cf5ada-9764-4db8-bcd5-c61c732ca48b": {
+    "uid": "b9cf5ada-9764-4db8-bcd5-c61c732ca48b",
+    "tags": {
+      "mood": 1.0
+    },
+    "created_at": "2026-02-12T05:09:41.986861Z",
+    "updated_at": "2026-02-12T05:09:41.986861Z",
+    "component": "Mood tracking with EMA",
+    "test_scenario": "Given report mood tag value, when EMA applied, then mood.json updates with smoothed value",
+    "expected_result": "MoodTracker with configurable smoothing",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88": {
+    "uid": "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88",
+    "tags": {
+      "rules": 1.0,
+      "dsl": 1.0
+    },
+    "created_at": "2026-02-12T05:09:42.373354Z",
+    "updated_at": "2026-02-12T05:09:42.373354Z",
+    "component": "DSL rule engine",
+    "test_scenario": "Given rule add with if/then DSL, when evaluated during scoring, then multiplier adjusts weight",
+    "expected_result": "Parser validates syntax, engine evaluates against tags and mood",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "9cf68d27-d69d-4bcb-a81f-46dd5996610c": {
+    "uid": "9cf68d27-d69d-4bcb-a81f-46dd5996610c",
+    "tags": {
+      "memorylink": 1.0,
+      "storage": 1.0
+    },
+    "created_at": "2026-02-12T05:09:42.767222Z",
+    "updated_at": "2026-02-12T05:09:42.767222Z",
+    "component": "MemoryLink file references",
+    "test_scenario": "Given node add memorylink with title, when created, then .md file is slugified under additional_memory/ and node stores path ref",
+    "expected_result": "Human-readable filenames, not UIDs",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "6c606b5d-2d9d-4858-b4d6-44620fc5595b": {
+    "uid": "6c606b5d-2d9d-4858-b4d6-44620fc5595b",
+    "tags": {
+      "prune": 1.0,
+      "cluster": 1.0
+    },
+    "created_at": "2026-02-12T05:09:43.153433Z",
+    "updated_at": "2026-02-12T05:09:43.153433Z",
+    "component": "Prune rebalance",
+    "test_scenario": "Given inbox nodes, when prune is called, then nodes are moved to named cluster files derived from top tags",
+    "expected_result": "Derives cluster name from tag frequency, rebuilds index",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb": {
+    "uid": "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb",
+    "tags": {
+      "architecture": 1.0,
+      "boundary": 1.0
+    },
+    "created_at": "2026-02-12T05:10:01.142234Z",
+    "updated_at": "2026-02-12T05:10:01.142234Z",
+    "content": "All membank internals under src/pvrclawk/membank/. Root app.py is registration-only. No membank code at root core/ or models/.",
+    "pattern_type": "boundary",
+    "__type__": "pattern"
+  },
+  "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251": {
+    "uid": "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251",
+    "tags": {
+      "tdd": 1.0,
+      "testing": 1.0
+    },
+    "created_at": "2026-02-12T05:10:01.514168Z",
+    "updated_at": "2026-02-12T05:10:01.514168Z",
+    "content": "Red-green-refactor for every slice. Unit tests for core, integration for CLI, e2e for pipeline. No implementation before failing test.",
+    "pattern_type": "tdd",
+    "__type__": "pattern"
+  },
+  "ebe395ff-43dd-4b37-bc77-bd5ad236b35d": {
+    "uid": "ebe395ff-43dd-4b37-bc77-bd5ad236b35d",
+    "tags": {
+      "scoring": 1.0,
+      "decay": 1.0,
+      "frequency": 1.0
+    },
+    "created_at": "2026-02-12T05:10:01.890342Z",
+    "updated_at": "2026-02-12T05:10:01.890342Z",
+    "content": "Decay is frequency-relative: usage_count/total_frequency. Not wall-clock. Score = tag_match * weight * freq_decay * mood * rules.",
+    "pattern_type": "scoring",
+    "__type__": "pattern"
+  },
+  "f8b20d6f-a2a0-4837-8f2b-12fcf51d9e81": {
+    "uid": "f8b20d6f-a2a0-4837-8f2b-12fcf51d9e81",
+    "tags": {
+      "storage": 1.0,
+      "cluster": 1.0
+    },
+    "created_at": "2026-02-12T05:10:02.299203Z",
+    "updated_at": "2026-02-12T05:10:02.299203Z",
+    "content": "Cluster-based JSON files under .pvrclawk/nodes/. Index.json tracks tags, types, uid_file, links_in, clusters. Config in TOML.",
+    "pattern_type": "storage",
+    "__type__": "pattern"
+  },
+  "36299926-6269-424a-b6ba-b7d02c3f2474": {
+    "uid": "36299926-6269-424a-b6ba-b7d02c3f2474",
+    "tags": {
+      "stack": 1.0,
+      "tech": 1.0
+    },
+    "created_at": "2026-02-12T05:10:02.676209Z",
+    "updated_at": "2026-02-12T05:10:02.676209Z",
+    "content": "Python 3.12+, Click CLI, Pydantic models, NetworkX graph, Rich display, pytest testing, uv package management.",
+    "pattern_type": "stack",
+    "__type__": "pattern"
+  },
+  "907d9bbd-afc4-45e3-93d5-8a45587306de": {
+    "uid": "907d9bbd-afc4-45e3-93d5-8a45587306de",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0
+    },
+    "created_at": "2026-02-12T05:10:03.042040Z",
+    "updated_at": "2026-02-12T05:10:03.042040Z",
+    "content": "DONE: Feature-scoped membank boundary applied. Init/config/node/link/prune/focus/mood/rules commands implemented with tests. 45 tests passing.",
+    "status": "todo",
+    "__type__": "progress"
+  },
+  "257d9453-e3e7-4b55-befc-0184ec0ad4d0": {
+    "uid": "257d9453-e3e7-4b55-befc-0184ec0ad4d0",
+    "tags": {
+      "status": 1.0,
+      "next": 1.0
+    },
+    "created_at": "2026-02-12T05:10:03.410804Z",
+    "updated_at": "2026-02-12T05:10:03.410804Z",
+    "content": "NEXT: Harden advanced cluster behavior. Integrate mood and rules into focus scoring path. Expand DSL parser coverage.",
+    "status": "todo",
+    "__type__": "progress"
+  },
+  "03b23033-3744-4b09-8449-fe41dbf00d61": {
+    "uid": "03b23033-3744-4b09-8449-fe41dbf00d61",
+    "tags": {
+      "active": 1.0,
+      "selfhost": 1.0
+    },
+    "created_at": "2026-02-12T05:10:03.774289Z",
+    "updated_at": "2026-02-12T05:10:03.774289Z",
+    "content": "Project bank is now self-hosting. memory-bank/ folder dissolved. All context lives in .pvrclawk/ managed by pvrclawk membank CLI.",
+    "focus_area": "current-focus",
+    "__type__": "active"
+  },
+  "cc7adad7-95ef-405a-b29d-1a5c9785388c": {
+    "uid": "cc7adad7-95ef-405a-b29d-1a5c9785388c",
+    "tags": {
+      "architecture": 1.0,
+      "reference": 1.0,
+      "spec": 1.0
+    },
+    "created_at": "2026-02-12T05:11:33.293959Z",
+    "updated_at": "2026-02-12T05:11:33.293959Z",
+    "title": "Architecture Reference",
+    "summary": "Full architecture spec covering CLI contracts, models, storage, scoring, rules, and mood",
+    "file_path": "additional_memory/architecture-reference.md",
+    "__type__": "memorylink"
+  }
+}

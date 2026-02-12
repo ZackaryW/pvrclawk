@@ -1,0 +1,195 @@
+{
+  "tags": {
+    "architecture": [
+      "e802cb06-73a2-45ec-bc77-9b1b09cecd07",
+      "44352481-241e-4298-81ba-be58b90eceab",
+      "faa6607a-9ffe-4065-bb18-ce178836fd0c",
+      "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb",
+      "cc7adad7-95ef-405a-b29d-1a5c9785388c"
+    ],
+    "modularity": [
+      "e802cb06-73a2-45ec-bc77-9b1b09cecd07",
+      "faa6607a-9ffe-4065-bb18-ce178836fd0c"
+    ],
+    "membank": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "0e02fb61-7c51-4754-87f0-a933761b3ad4",
+      "90e1054a-5df9-49bc-adb7-013d2c9d150b"
+    ],
+    "graph": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "70a00e68-3cc5-4f5d-b319-6ca09d490b49"
+    ],
+    "v1": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0"
+    ],
+    "tdd": [
+      "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656",
+      "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251"
+    ],
+    "testing": [
+      "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656",
+      "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251"
+    ],
+    "boundary": [
+      "44352481-241e-4298-81ba-be58b90eceab",
+      "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb"
+    ],
+    "scoring": [
+      "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
+      "70a00e68-3cc5-4f5d-b319-6ca09d490b49",
+      "ebe395ff-43dd-4b37-bc77-bd5ad236b35d"
+    ],
+    "decay": [
+      "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
+      "ebe395ff-43dd-4b37-bc77-bd5ad236b35d"
+    ],
+    "frequency": [
+      "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
+      "ebe395ff-43dd-4b37-bc77-bd5ad236b35d"
+    ],
+    "cli": [
+      "0e02fb61-7c51-4754-87f0-a933761b3ad4"
+    ],
+    "models": [
+      "90e1054a-5df9-49bc-adb7-013d2c9d150b"
+    ],
+    "storage": [
+      "234b8319-1604-4b2d-8041-ef7726b1774c",
+      "9cf68d27-d69d-4bcb-a81f-46dd5996610c",
+      "f8b20d6f-a2a0-4837-8f2b-12fcf51d9e81"
+    ],
+    "cluster": [
+      "234b8319-1604-4b2d-8041-ef7726b1774c",
+      "6c606b5d-2d9d-4858-b4d6-44620fc5595b",
+      "f8b20d6f-a2a0-4837-8f2b-12fcf51d9e81"
+    ],
+    "links": [
+      "f16430dd-8b58-43ae-931b-2125bf3ed73c"
+    ],
+    "weight": [
+      "f16430dd-8b58-43ae-931b-2125bf3ed73c"
+    ],
+    "focus": [
+      "70a00e68-3cc5-4f5d-b319-6ca09d490b49"
+    ],
+    "mood": [
+      "b9cf5ada-9764-4db8-bcd5-c61c732ca48b"
+    ],
+    "rules": [
+      "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88"
+    ],
+    "dsl": [
+      "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88"
+    ],
+    "memorylink": [
+      "9cf68d27-d69d-4bcb-a81f-46dd5996610c"
+    ],
+    "prune": [
+      "6c606b5d-2d9d-4858-b4d6-44620fc5595b"
+    ],
+    "stack": [
+      "36299926-6269-424a-b6ba-b7d02c3f2474"
+    ],
+    "tech": [
+      "36299926-6269-424a-b6ba-b7d02c3f2474"
+    ],
+    "status": [
+      "907d9bbd-afc4-45e3-93d5-8a45587306de",
+      "257d9453-e3e7-4b55-befc-0184ec0ad4d0"
+    ],
+    "done": [
+      "907d9bbd-afc4-45e3-93d5-8a45587306de"
+    ],
+    "next": [
+      "257d9453-e3e7-4b55-befc-0184ec0ad4d0"
+    ],
+    "active": [
+      "03b23033-3744-4b09-8449-fe41dbf00d61"
+    ],
+    "selfhost": [
+      "03b23033-3744-4b09-8449-fe41dbf00d61"
+    ],
+    "reference": [
+      "cc7adad7-95ef-405a-b29d-1a5c9785388c"
+    ],
+    "spec": [
+      "cc7adad7-95ef-405a-b29d-1a5c9785388c"
+    ]
+  },
+  "types": {
+    "story": [
+      "e802cb06-73a2-45ec-bc77-9b1b09cecd07",
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656",
+      "44352481-241e-4298-81ba-be58b90eceab",
+      "75c0b3a9-413f-4d25-a9ae-7da5b7a78976"
+    ],
+    "feature": [
+      "faa6607a-9ffe-4065-bb18-ce178836fd0c",
+      "0e02fb61-7c51-4754-87f0-a933761b3ad4",
+      "90e1054a-5df9-49bc-adb7-013d2c9d150b",
+      "234b8319-1604-4b2d-8041-ef7726b1774c",
+      "f16430dd-8b58-43ae-931b-2125bf3ed73c",
+      "70a00e68-3cc5-4f5d-b319-6ca09d490b49",
+      "b9cf5ada-9764-4db8-bcd5-c61c732ca48b",
+      "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88",
+      "9cf68d27-d69d-4bcb-a81f-46dd5996610c",
+      "6c606b5d-2d9d-4858-b4d6-44620fc5595b"
+    ],
+    "pattern": [
+      "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb",
+      "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251",
+      "ebe395ff-43dd-4b37-bc77-bd5ad236b35d",
+      "f8b20d6f-a2a0-4837-8f2b-12fcf51d9e81",
+      "36299926-6269-424a-b6ba-b7d02c3f2474"
+    ],
+    "progress": [
+      "907d9bbd-afc4-45e3-93d5-8a45587306de",
+      "257d9453-e3e7-4b55-befc-0184ec0ad4d0"
+    ],
+    "active": [
+      "03b23033-3744-4b09-8449-fe41dbf00d61"
+    ],
+    "memorylink": [
+      "cc7adad7-95ef-405a-b29d-1a5c9785388c"
+    ]
+  },
+  "uid_file": {
+    "e802cb06-73a2-45ec-bc77-9b1b09cecd07": "architecture_membank",
+    "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0": "architecture_membank",
+    "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656": "architecture_membank",
+    "44352481-241e-4298-81ba-be58b90eceab": "architecture_membank",
+    "75c0b3a9-413f-4d25-a9ae-7da5b7a78976": "architecture_membank",
+    "faa6607a-9ffe-4065-bb18-ce178836fd0c": "architecture_membank",
+    "0e02fb61-7c51-4754-87f0-a933761b3ad4": "architecture_membank",
+    "90e1054a-5df9-49bc-adb7-013d2c9d150b": "architecture_membank",
+    "234b8319-1604-4b2d-8041-ef7726b1774c": "architecture_membank",
+    "f16430dd-8b58-43ae-931b-2125bf3ed73c": "architecture_membank",
+    "70a00e68-3cc5-4f5d-b319-6ca09d490b49": "architecture_membank",
+    "b9cf5ada-9764-4db8-bcd5-c61c732ca48b": "architecture_membank",
+    "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88": "architecture_membank",
+    "9cf68d27-d69d-4bcb-a81f-46dd5996610c": "architecture_membank",
+    "6c606b5d-2d9d-4858-b4d6-44620fc5595b": "architecture_membank",
+    "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb": "architecture_membank",
+    "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251": "architecture_membank",
+    "ebe395ff-43dd-4b37-bc77-bd5ad236b35d": "architecture_membank",
+    "f8b20d6f-a2a0-4837-8f2b-12fcf51d9e81": "architecture_membank",
+    "36299926-6269-424a-b6ba-b7d02c3f2474": "architecture_membank",
+    "907d9bbd-afc4-45e3-93d5-8a45587306de": "architecture_membank",
+    "257d9453-e3e7-4b55-befc-0184ec0ad4d0": "architecture_membank",
+    "03b23033-3744-4b09-8449-fe41dbf00d61": "architecture_membank",
+    "cc7adad7-95ef-405a-b29d-1a5c9785388c": "architecture_membank"
+  },
+  "links_in": {},
+  "clusters": {
+    "architecture_membank": {
+      "top_tags": [
+        "architecture",
+        "modularity",
+        "membank"
+      ],
+      "size": 24
+    }
+  }
+}
