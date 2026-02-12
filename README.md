@@ -66,8 +66,10 @@ pvrclawk membank focus --tags "auth"
 | `memorylink` | Reference to a long-form markdown file in `additional_memory/` |
 | `story` | Goal-level outcome with role, benefit, and acceptance criteria |
 | `feature` | Testable slice with component, scenario, and expected result |
-| `active` | Current working context (auto-archives previous on add) |
-| `archive` | Archived context |
+| `task` | Generic actionable work item |
+| `subtask` | Child actionable item under a task |
+| `issue` | Tracked execution issue |
+| `bug` | User-reported defect |
 | `pattern` | Reusable convention or rule |
 | `progress` | Status checkpoint |
 
@@ -87,6 +89,8 @@ where `freq_decay = link.usage_count / total_frequency` (frequency-relative, not
 
 Nodes are stored in named JSON files under `.pvrclawk/nodes/`, grouped by top tags. An `index.json` maps tags and types to node UIDs for fast radiated loading. New nodes land in `_inbox.json` and get merged into clusters on `prune`.
 
+Recent node references are tracked in `.pvrclawk/recent_uid.json` (rolling last 10), which is auto-added to `.gitignore` on `membank init`.
+
 ### Mood & rules
 
 - **Mood**: per-tag EMA-smoothed signal. `pvrclawk membank report mood <tag> <value>` adjusts scoring weight.
@@ -98,11 +102,14 @@ Nodes are stored in named JSON files under `.pvrclawk/nodes/`, grouped by top ta
 |---------|---------|
 | `membank init` | Initialize `.pvrclawk/` directory |
 | `membank node add <type>` | Create a node (`--title`, `--summary`, `--content`, `--tags`, `--status`, `--criteria`) |
-| `membank node get <uid>` | View full detail for a node |
-| `membank node status <uid> <s>` | Update status |
-| `membank node list <type>` | List nodes by type |
-| `membank node list-all` | List all nodes |
+| `membank node get <uid\|prefix> [--last N]` | View full detail using full UID, unique prefix, or recent index |
+| `membank node status <uid\|prefix> <s> \| --last N <s>` | Update status with shorthand or recent index |
+| `membank node remove <uid\|prefix> [--last N]` | Remove one node |
+| `membank node remove-type <type> --all` | Bulk remove nodes by type (explicit confirm) |
+| `membank node list <type> [--top N]` | List nodes by type |
+| `membank node list-all [--top N]` | List all nodes |
 | `membank link add <src> <tgt>` | Create a weighted link |
+| `membank link chain <u1> <u2> ...` | Batch-create adjacent links in one command (`u1->u2`, `u2->u3`, ...) |
 | `membank link list <uid>` | List links from a node |
 | `membank link weight <tags> <delta>` | Adjust link weights by tag match |
 | `membank focus --tags "t1,t2"` | Retrieve scored context |
@@ -118,7 +125,7 @@ Settings live in `.pvrclawk/config.toml`:
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `auto_archive_active` | `true` | Archive existing active nodes when a new one is added |
+| `auto_archive_active` | `true` | Legacy compatibility: archive existing `active` nodes when a new one is added |
 | `prune.auto_threshold` | `20` | Inbox size that triggers auto-prune |
 | `prune.min_cluster` | `3` | Minimum nodes per cluster |
 | `decay.base_rate` | `0.95` | Base decay rate |
