@@ -146,6 +146,35 @@
     "updated_at": "2026-02-12T17:37:02.521914Z",
     "content": "Skills v1 delivered: dual-format skill resolution, user-level skills config, CLI list/resolve, and AGENTS folder docs. Next likely step: add skills show and execution pipeline for dynamic contexts/templating.",
     "focus_area": "current-focus",
+    "__type__": "archive",
+    "archived_from": "current-focus",
+    "reason": "superseded by new active node"
+  },
+  "473f797f-443f-4762-b352-f9535ce5333c": {
+    "uid": "473f797f-443f-4762-b352-f9535ce5333c",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0,
+      "skills": 1.0,
+      "cli": 1.0
+    },
+    "created_at": "2026-02-12T17:42:47.484638Z",
+    "updated_at": "2026-02-12T17:42:47.484638Z",
+    "content": "DONE: Added human-readable skills listing via 'pvrclawk skills list --human'. Full test suite now at 88 passing.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "689392e0-354e-482c-9454-9387ea20c7d6": {
+    "uid": "689392e0-354e-482c-9454-9387ea20c7d6",
+    "tags": {
+      "active": 1.0,
+      "skills": 1.0,
+      "cli": 1.0
+    },
+    "created_at": "2026-02-12T17:42:53.971925Z",
+    "updated_at": "2026-02-12T17:42:53.971925Z",
+    "content": "Membank synced with latest changes. Skills v1 is complete, including --human display for skills list. 88 tests passing. Next optional step: skills show and execution pipeline for dynamic contexts/templating.",
+    "focus_area": "current-focus",
     "__type__": "active"
   }
 }
