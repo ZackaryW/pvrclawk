@@ -1,3 +1,5 @@
+auto_archive_active = true
+
 [prune]
 auto_threshold = 20
 max_cluster_size = 100

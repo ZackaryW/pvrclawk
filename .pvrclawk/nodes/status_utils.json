@@ -1,0 +1,164 @@
+{
+  "b7fec042-2ebd-4d9f-bace-9bfb2484ea08": {
+    "uid": "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0
+    },
+    "created_at": "2026-02-12T05:25:00.643321Z",
+    "updated_at": "2026-02-12T05:25:00.643321Z",
+    "content": "DONE: Added node get, node status, node list-all commands. Fixed focus to score by direct tag match. Shared render across all node output. 53 tests passing.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "271f89cc-b79a-4d95-bd18-b250dab02205": {
+    "uid": "271f89cc-b79a-4d95-bd18-b250dab02205",
+    "tags": {
+      "active": 1.0
+    },
+    "created_at": "2026-02-12T05:25:01.012875Z",
+    "updated_at": "2026-02-12T05:25:01.012875Z",
+    "content": "All inventory, status update, and query commands are implemented. Bank is self-hosting with all stories/features marked done. AGENTS.md has full command reference.",
+    "focus_area": "current-focus",
+    "__type__": "archive",
+    "archived_from": "current-focus",
+    "reason": "superseded by new active node"
+  },
+  "741c7090-9d94-4132-9324-3b9f277bb03a": {
+    "uid": "741c7090-9d94-4132-9324-3b9f277bb03a",
+    "tags": {
+      "focus": 1.0,
+      "scoring": 1.0
+    },
+    "created_at": "2026-02-12T05:37:41.724065Z",
+    "updated_at": "2026-02-12T05:37:41.724065Z",
+    "component": "Zero-score noise filter",
+    "test_scenario": "Given focus query, when no tag match, then zero-score nodes do not appear in results",
+    "expected_result": "Filter defaultdict 0-entries and skip 0-score expansion",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "b14144d1-97da-4371-b9ad-a3b7930c62c4": {
+    "uid": "b14144d1-97da-4371-b9ad-a3b7930c62c4",
+    "tags": {
+      "prune": 1.0,
+      "storage": 1.0
+    },
+    "created_at": "2026-02-12T05:37:42.124503Z",
+    "updated_at": "2026-02-12T05:37:42.124503Z",
+    "component": "links_in rebuild on prune",
+    "test_scenario": "Given prune, when index is rebuilt, then links_in is reconstructed from links.json",
+    "expected_result": "Prune scans links.json to populate links_in map",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d": {
+    "uid": "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
+    "tags": {
+      "cli": 1.0,
+      "status": 1.0
+    },
+    "created_at": "2026-02-12T05:37:42.538889Z",
+    "updated_at": "2026-02-12T05:37:42.538889Z",
+    "component": "Status flag on node add",
+    "test_scenario": "Given node add with --status flag, when story/feature/progress created, then status is set correctly",
+    "expected_result": "Supports todo/in_progress/done/blocked",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "c8f07778-3097-4d52-b95f-f17ad0b88fba": {
+    "uid": "c8f07778-3097-4d52-b95f-f17ad0b88fba",
+    "tags": {
+      "archive": 1.0,
+      "config": 1.0
+    },
+    "created_at": "2026-02-12T05:37:42.954502Z",
+    "updated_at": "2026-02-12T05:37:42.954502Z",
+    "component": "Configurable auto-archive active",
+    "test_scenario": "Given config auto_archive_active=true, when new active node added, then old actives become archive",
+    "expected_result": "Reads config.toml, auto_archive_active boolean, archives old active nodes",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "2e5db313-1c44-493f-b6a3-a6b81cb0bc48": {
+    "uid": "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
+    "tags": {
+      "utils": 1.0,
+      "refactor": 1.0
+    },
+    "created_at": "2026-02-12T05:37:43.356863Z",
+    "updated_at": "2026-02-12T05:37:43.356863Z",
+    "component": "Utils json_io module",
+    "test_scenario": "Given universal json read/write, when used by storage engine, then no duplicate code",
+    "expected_result": "src/pvrclawk/utils/json_io.py with read_json, write_json",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9": {
+    "uid": "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
+    "tags": {
+      "utils": 1.0,
+      "config": 1.0,
+      "refactor": 1.0
+    },
+    "created_at": "2026-02-12T05:37:43.752864Z",
+    "updated_at": "2026-02-12T05:37:43.752864Z",
+    "component": "Utils config module",
+    "test_scenario": "Given config model in utils, when imported by any package, then single source of truth",
+    "expected_result": "Moved AppConfig from membank.models to utils.config, added auto_archive_active",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d": {
+    "uid": "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d",
+    "tags": {
+      "cli": 1.0,
+      "stats": 1.0
+    },
+    "created_at": "2026-02-12T05:37:44.150391Z",
+    "updated_at": "2026-02-12T05:37:44.150391Z",
+    "component": "Node stats command",
+    "test_scenario": "Given node stats, when run, then shows count per type and total links",
+    "expected_result": "Quick summary for context orientation",
+    "status": "todo",
+    "__type__": "feature"
+  },
+  "e4765d6a-af9a-4823-9ac5-496917912b73": {
+    "uid": "e4765d6a-af9a-4823-9ac5-496917912b73",
+    "tags": {
+      "utils": 1.0,
+      "boundary": 1.0,
+      "refactor": 1.0
+    },
+    "created_at": "2026-02-12T05:37:56.538441Z",
+    "updated_at": "2026-02-12T05:37:56.538441Z",
+    "content": "Universal utilities (json_io, config) live in src/pvrclawk/utils/. Feature packages re-export for backwards compat.",
+    "pattern_type": "utils-boundary",
+    "__type__": "pattern"
+  },
+  "376f3e09-bc53-4e7b-9315-57e4de9dc80e": {
+    "uid": "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0
+    },
+    "created_at": "2026-02-12T05:37:56.963121Z",
+    "updated_at": "2026-02-12T05:37:56.963121Z",
+    "content": "DONE: Fixed 6 of 7 evaluation issues. Zero-score filter, links_in rebuild, --status flag, configurable auto-archive, utils/json_io, utils/config. 71 tests passing.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "ed750c47-3892-4194-af52-11b108a31a2d": {
+    "uid": "ed750c47-3892-4194-af52-11b108a31a2d",
+    "tags": {
+      "active": 1.0
+    },
+    "created_at": "2026-02-12T05:37:57.394939Z",
+    "updated_at": "2026-02-12T05:37:57.394939Z",
+    "content": "Evaluation fixes applied. Utils package established with json_io and config. Auto-archive is configurable via config.toml. Remaining: node stats command.",
+    "focus_area": "current-focus",
+    "__type__": "archive",
+    "archived_from": "current-focus",
+    "reason": "superseded by new active node"
+  }
+}

@@ -1,21 +1,8 @@
-from pydantic import BaseModel
+"""Re-export config models from utils for backwards compatibility."""
 
-
-class PruneConfig(BaseModel):
-    auto_threshold: int = 20
-    max_cluster_size: int = 100
-
-
-class DecayConfig(BaseModel):
-    half_life_days: int = 7
-
-
-class MoodConfig(BaseModel):
-    default: float = 0.5
-    smoothing: float = 0.1
-
-
-class AppConfig(BaseModel):
-    prune: PruneConfig = PruneConfig()
-    decay: DecayConfig = DecayConfig()
-    mood: MoodConfig = MoodConfig()
+from pvrclawk.utils.config import (  # noqa: F401
+    AppConfig,
+    DecayConfig,
+    MoodConfig,
+    PruneConfig,
+)

@@ -1,1 +1,25 @@
-{}
+{
+  "2d70fbc7-681b-44d0-9408-bea519648ad8": {
+    "uid": "2d70fbc7-681b-44d0-9408-bea519648ad8",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0
+    },
+    "created_at": "2026-02-12T05:50:05.862151Z",
+    "updated_at": "2026-02-12T05:50:05.862151Z",
+    "content": "DONE: Story --criteria flag, shared render for criteria display, backfilled criteria on all 5 stories, AGENTS.md install-agnostic (no hardcoded uv run), README with full docs. 72 tests passing.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "55f1151a-336a-43a0-8280-197b4387b5c1": {
+    "uid": "55f1151a-336a-43a0-8280-197b4387b5c1",
+    "tags": {
+      "active": 1.0
+    },
+    "created_at": "2026-02-12T05:50:13.726039Z",
+    "updated_at": "2026-02-12T05:50:13.726039Z",
+    "content": "Criteria support added to stories. README and AGENTS.md polished. All v1 features done. Remaining: node stats command (todo). Ready to commit cumulative update.",
+    "focus_area": "current-focus",
+    "__type__": "active"
+  }
+}

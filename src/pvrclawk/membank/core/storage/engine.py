@@ -1,9 +1,8 @@
 from pathlib import Path
-import json
 import re
 
-from pvrclawk.membank.core.config import write_config
-from pvrclawk.membank.models.config import AppConfig
+from pvrclawk.utils.config import AppConfig, load_config, write_config
+from pvrclawk.utils.json_io import read_json, write_json
 from pvrclawk.membank.models.index import ClusterMeta, IndexData
 from pvrclawk.membank.models.link import Link
 from pvrclawk.membank.models.nodes import (
@@ -32,12 +31,10 @@ class StorageEngine:
         self.config_file = self.root / "config.toml"
 
     def _write_json(self, path: Path, data) -> None:
-        path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+        write_json(path, data)
 
     def _read_json(self, path: Path, default):
-        if not path.exists():
-            return default
-        return json.loads(path.read_text(encoding="utf-8"))
+        return read_json(path, default)
 
     def init_db(self) -> None:
         self.root.mkdir(parents=True, exist_ok=True)
@@ -68,6 +65,13 @@ class StorageEngine:
 
     def save_node(self, node, node_type: str) -> str:
         index = self.load_index()
+
+        # Auto-archive existing active nodes if config allows
+        if node_type == "active":
+            config = load_config(self.config_file)
+            if config.auto_archive_active:
+                self._archive_active_nodes(index)
+
         cluster_name = "_inbox"
         cluster_path = self.nodes_dir / f"{cluster_name}.json"
         cluster_data = self._read_json(cluster_path, {})
@@ -85,6 +89,36 @@ class StorageEngine:
         index.clusters[cluster_name].size = len(cluster_data)
         self.save_index(index)
         return node.uid
+
+    def _archive_active_nodes(self, index: IndexData) -> None:
+        """Convert all existing active nodes to archive type."""
+        active_uids = list(index.types.get("active", []))
+        if not active_uids:
+            return
+        # Group by cluster file
+        by_cluster: dict[str, list[str]] = {}
+        for uid in active_uids:
+            cluster = index.uid_file.get(uid)
+            if cluster:
+                by_cluster.setdefault(cluster, []).append(uid)
+        # Rewrite each affected cluster file
+        for cname, uids in by_cluster.items():
+            cluster_path = self.nodes_dir / f"{cname}.json"
+            data = self._read_json(cluster_path, {})
+            for uid in uids:
+                payload = data.get(uid)
+                if not payload:
+                    continue
+                payload["__type__"] = "archive"
+                payload["archived_from"] = payload.get("focus_area", "active")
+                payload["reason"] = "superseded by new active node"
+                data[uid] = payload
+            self._write_json(cluster_path, data)
+        # Update index types
+        for uid in active_uids:
+            if uid in index.types.get("active", []):
+                index.types["active"].remove(uid)
+            add_unique(index.types, "archive", uid)
 
     def load_nodes(self, uids: list[str]):
         index = self.load_index()
@@ -149,6 +183,28 @@ class StorageEngine:
         self._write_json(self.links_file, links)
         return updated
 
+    def load_node(self, uid: str):
+        """Load a single node by UID. Returns None if not found."""
+        results = self.load_nodes([uid])
+        return results[0] if results else None
+
+    def update_node_status(self, uid: str, status: str) -> bool:
+        """Update the status field of a node. Returns True if updated."""
+        index = self.load_index()
+        cluster_name = index.uid_file.get(uid)
+        if not cluster_name:
+            return False
+        cluster_path = self.nodes_dir / f"{cluster_name}.json"
+        data = self._read_json(cluster_path, {})
+        payload = data.get(uid)
+        if not payload:
+            return False
+        if "status" not in payload:
+            return False
+        payload["status"] = status
+        self._write_json(cluster_path, data)
+        return True
+
     def load_nodes_by_type(self, node_type: str):
         index = self.load_index()
         uids = index.types.get(node_type, [])
@@ -192,6 +248,15 @@ class StorageEngine:
                 add_unique(index.types, ntype, uid)
                 for tag in payload.get("tags", {}):
                     add_unique(index.tags, tag, uid)
+
+        # rebuild links_in from links.json
+        raw_links = self._read_json(self.links_file, {})
+        for source, items in raw_links.items():
+            for payload in items:
+                target = payload.get("target", "")
+                if target:
+                    add_unique(index.links_in, target, source)
+
         self.save_index(index)
         return cluster_name
 

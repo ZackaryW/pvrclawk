@@ -35,17 +35,22 @@ class GraphEngine:
                 direct_score = sum(node.tags.get(t, 0.0) for t in overlap)
                 scores[node.uid] += direct_score
 
-        # Phase 2: Link-based scoring (existing logic)
+        # Phase 2: Link-based scoring — only add non-zero scores
         total_frequency = sum(max(l.usage_count, 0) for l in links)
         for link in links:
-            scores[link.target] += self.scorer.score_link(link, query_tags, total_frequency=total_frequency)
+            link_score = self.scorer.score_link(link, query_tags, total_frequency=total_frequency)
+            if link_score > 0:
+                scores[link.target] += link_score
 
-        # Phase 3: Rank and expand 1-hop neighbors
-        ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:limit]
+        # Phase 3: Filter zeros, rank, expand 1-hop neighbors
+        positive = {uid: s for uid, s in scores.items() if s > 0}
+        ranked = sorted(positive.items(), key=lambda x: x[1], reverse=True)[:limit]
         expanded = dict(ranked)
         for uid, score in ranked:
             if uid in g:
                 for neighbor in g.neighbors(uid):
-                    expanded[neighbor] = max(expanded.get(neighbor, 0.0), score * 0.5)
+                    neighbor_score = score * 0.5
+                    if neighbor_score > 0:
+                        expanded[neighbor] = max(expanded.get(neighbor, 0.0), neighbor_score)
 
         return sorted(expanded.items(), key=lambda x: x[1], reverse=True)[:limit]

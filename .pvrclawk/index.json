@@ -33,12 +33,14 @@
     ],
     "boundary": [
       "44352481-241e-4298-81ba-be58b90eceab",
-      "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb"
+      "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb",
+      "e4765d6a-af9a-4823-9ac5-496917912b73"
     ],
     "scoring": [
       "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
       "70a00e68-3cc5-4f5d-b319-6ca09d490b49",
-      "ebe395ff-43dd-4b37-bc77-bd5ad236b35d"
+      "ebe395ff-43dd-4b37-bc77-bd5ad236b35d",
+      "741c7090-9d94-4132-9324-3b9f277bb03a"
     ],
     "decay": [
       "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
@@ -49,7 +51,9 @@
       "ebe395ff-43dd-4b37-bc77-bd5ad236b35d"
     ],
     "cli": [
-      "0e02fb61-7c51-4754-87f0-a933761b3ad4"
+      "0e02fb61-7c51-4754-87f0-a933761b3ad4",
+      "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
+      "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d"
     ],
     "models": [
       "90e1054a-5df9-49bc-adb7-013d2c9d150b"
@@ -57,7 +61,8 @@
     "storage": [
       "234b8319-1604-4b2d-8041-ef7726b1774c",
       "9cf68d27-d69d-4bcb-a81f-46dd5996610c",
-      "f8b20d6f-a2a0-4837-8f2b-12fcf51d9e81"
+      "f8b20d6f-a2a0-4837-8f2b-12fcf51d9e81",
+      "b14144d1-97da-4371-b9ad-a3b7930c62c4"
     ],
     "cluster": [
       "234b8319-1604-4b2d-8041-ef7726b1774c",
@@ -71,7 +76,8 @@
       "f16430dd-8b58-43ae-931b-2125bf3ed73c"
     ],
     "focus": [
-      "70a00e68-3cc5-4f5d-b319-6ca09d490b49"
+      "70a00e68-3cc5-4f5d-b319-6ca09d490b49",
+      "741c7090-9d94-4132-9324-3b9f277bb03a"
     ],
     "mood": [
       "b9cf5ada-9764-4db8-bcd5-c61c732ca48b"
@@ -86,7 +92,8 @@
       "9cf68d27-d69d-4bcb-a81f-46dd5996610c"
     ],
     "prune": [
-      "6c606b5d-2d9d-4858-b4d6-44620fc5595b"
+      "6c606b5d-2d9d-4858-b4d6-44620fc5595b",
+      "b14144d1-97da-4371-b9ad-a3b7930c62c4"
     ],
     "stack": [
       "36299926-6269-424a-b6ba-b7d02c3f2474"
@@ -96,16 +103,26 @@
     ],
     "status": [
       "907d9bbd-afc4-45e3-93d5-8a45587306de",
-      "257d9453-e3e7-4b55-befc-0184ec0ad4d0"
+      "257d9453-e3e7-4b55-befc-0184ec0ad4d0",
+      "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
+      "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
+      "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
+      "2d70fbc7-681b-44d0-9408-bea519648ad8"
     ],
     "done": [
-      "907d9bbd-afc4-45e3-93d5-8a45587306de"
+      "907d9bbd-afc4-45e3-93d5-8a45587306de",
+      "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
+      "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
+      "2d70fbc7-681b-44d0-9408-bea519648ad8"
     ],
     "next": [
       "257d9453-e3e7-4b55-befc-0184ec0ad4d0"
     ],
     "active": [
-      "03b23033-3744-4b09-8449-fe41dbf00d61"
+      "03b23033-3744-4b09-8449-fe41dbf00d61",
+      "271f89cc-b79a-4d95-bd18-b250dab02205",
+      "ed750c47-3892-4194-af52-11b108a31a2d",
+      "55f1151a-336a-43a0-8280-197b4387b5c1"
     ],
     "selfhost": [
       "03b23033-3744-4b09-8449-fe41dbf00d61"
@@ -115,6 +132,26 @@
     ],
     "spec": [
       "cc7adad7-95ef-405a-b29d-1a5c9785388c"
+    ],
+    "archive": [
+      "c8f07778-3097-4d52-b95f-f17ad0b88fba"
+    ],
+    "config": [
+      "c8f07778-3097-4d52-b95f-f17ad0b88fba",
+      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9"
+    ],
+    "utils": [
+      "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
+      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
+      "e4765d6a-af9a-4823-9ac5-496917912b73"
+    ],
+    "refactor": [
+      "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
+      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
+      "e4765d6a-af9a-4823-9ac5-496917912b73"
+    ],
+    "stats": [
+      "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d"
     ]
   },
   "types": {
@@ -135,24 +172,40 @@
       "b9cf5ada-9764-4db8-bcd5-c61c732ca48b",
       "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88",
       "9cf68d27-d69d-4bcb-a81f-46dd5996610c",
-      "6c606b5d-2d9d-4858-b4d6-44620fc5595b"
+      "6c606b5d-2d9d-4858-b4d6-44620fc5595b",
+      "741c7090-9d94-4132-9324-3b9f277bb03a",
+      "b14144d1-97da-4371-b9ad-a3b7930c62c4",
+      "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d",
+      "c8f07778-3097-4d52-b95f-f17ad0b88fba",
+      "2e5db313-1c44-493f-b6a3-a6b81cb0bc48",
+      "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9",
+      "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d"
     ],
     "pattern": [
       "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb",
       "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251",
       "ebe395ff-43dd-4b37-bc77-bd5ad236b35d",
       "f8b20d6f-a2a0-4837-8f2b-12fcf51d9e81",
-      "36299926-6269-424a-b6ba-b7d02c3f2474"
+      "36299926-6269-424a-b6ba-b7d02c3f2474",
+      "e4765d6a-af9a-4823-9ac5-496917912b73"
     ],
     "progress": [
       "907d9bbd-afc4-45e3-93d5-8a45587306de",
-      "257d9453-e3e7-4b55-befc-0184ec0ad4d0"
+      "257d9453-e3e7-4b55-befc-0184ec0ad4d0",
+      "b7fec042-2ebd-4d9f-bace-9bfb2484ea08",
+      "376f3e09-bc53-4e7b-9315-57e4de9dc80e",
+      "2d70fbc7-681b-44d0-9408-bea519648ad8"
     ],
-    "active": [
-      "03b23033-3744-4b09-8449-fe41dbf00d61"
+    "archive": [
+      "03b23033-3744-4b09-8449-fe41dbf00d61",
+      "271f89cc-b79a-4d95-bd18-b250dab02205",
+      "ed750c47-3892-4194-af52-11b108a31a2d"
     ],
     "memorylink": [
       "cc7adad7-95ef-405a-b29d-1a5c9785388c"
+    ],
+    "active": [
+      "55f1151a-336a-43a0-8280-197b4387b5c1"
     ]
   },
   "uid_file": {
@@ -179,17 +232,83 @@
     "907d9bbd-afc4-45e3-93d5-8a45587306de": "architecture_membank",
     "257d9453-e3e7-4b55-befc-0184ec0ad4d0": "architecture_membank",
     "03b23033-3744-4b09-8449-fe41dbf00d61": "architecture_membank",
-    "cc7adad7-95ef-405a-b29d-1a5c9785388c": "architecture_membank"
+    "cc7adad7-95ef-405a-b29d-1a5c9785388c": "architecture_membank",
+    "b7fec042-2ebd-4d9f-bace-9bfb2484ea08": "status_utils",
+    "271f89cc-b79a-4d95-bd18-b250dab02205": "status_utils",
+    "741c7090-9d94-4132-9324-3b9f277bb03a": "status_utils",
+    "b14144d1-97da-4371-b9ad-a3b7930c62c4": "status_utils",
+    "d5c88cdd-de95-4aff-bd1c-b0e12ac3981d": "status_utils",
+    "c8f07778-3097-4d52-b95f-f17ad0b88fba": "status_utils",
+    "2e5db313-1c44-493f-b6a3-a6b81cb0bc48": "status_utils",
+    "b4f76b7c-5e1a-4811-a153-e58c7c4d85d9": "status_utils",
+    "0ecc6fca-9b82-4f00-8d06-8f4e3c0e019d": "status_utils",
+    "e4765d6a-af9a-4823-9ac5-496917912b73": "status_utils",
+    "376f3e09-bc53-4e7b-9315-57e4de9dc80e": "status_utils",
+    "ed750c47-3892-4194-af52-11b108a31a2d": "status_utils",
+    "2d70fbc7-681b-44d0-9408-bea519648ad8": "_inbox",
+    "55f1151a-336a-43a0-8280-197b4387b5c1": "_inbox"
   },
-  "links_in": {},
+  "links_in": {
+    "faa6607a-9ffe-4065-bb18-ce178836fd0c": [
+      "e802cb06-73a2-45ec-bc77-9b1b09cecd07",
+      "44352481-241e-4298-81ba-be58b90eceab"
+    ],
+    "0e02fb61-7c51-4754-87f0-a933761b3ad4": [
+      "e802cb06-73a2-45ec-bc77-9b1b09cecd07"
+    ],
+    "90e1054a-5df9-49bc-adb7-013d2c9d150b": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0"
+    ],
+    "234b8319-1604-4b2d-8041-ef7726b1774c": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0"
+    ],
+    "f16430dd-8b58-43ae-931b-2125bf3ed73c": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "75c0b3a9-413f-4d25-a9ae-7da5b7a78976"
+    ],
+    "70a00e68-3cc5-4f5d-b319-6ca09d490b49": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
+      "75c0b3a9-413f-4d25-a9ae-7da5b7a78976"
+    ],
+    "b9cf5ada-9764-4db8-bcd5-c61c732ca48b": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0"
+    ],
+    "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0"
+    ],
+    "9cf68d27-d69d-4bcb-a81f-46dd5996610c": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0"
+    ],
+    "6c606b5d-2d9d-4858-b4d6-44620fc5595b": [
+      "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0"
+    ],
+    "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb": [
+      "44352481-241e-4298-81ba-be58b90eceab"
+    ],
+    "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251": [
+      "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656"
+    ]
+  },
   "clusters": {
     "architecture_membank": {
       "top_tags": [
-        "architecture",
-        "modularity",
-        "membank"
+        "status",
+        "done",
+        "active"
       ],
       "size": 24
+    },
+    "status_utils": {
+      "top_tags": [
+        "status",
+        "done",
+        "active"
+      ],
+      "size": 12
+    },
+    "_inbox": {
+      "top_tags": [],
+      "size": 2
     }
   }
 }

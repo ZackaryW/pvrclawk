@@ -9,8 +9,12 @@
     "updated_at": "2026-02-12T05:09:14.958491Z",
     "role": "Modular agent tool",
     "benefit": "pvrclawk is a modular agent tool where feature groups are pluggable command categories. Root registers groups, each group owns its internals.",
-    "criteria": [],
-    "status": "todo",
+    "criteria": [
+      "app.py only imports and registers Click groups",
+      "Feature packages are self-contained under src/pvrclawk/<name>/",
+      "Adding a new feature group requires no changes to existing groups"
+    ],
+    "status": "done",
     "__type__": "story"
   },
   "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0": {
@@ -24,8 +28,15 @@
     "updated_at": "2026-02-12T05:09:15.340580Z",
     "role": "Graph-based membank",
     "benefit": "V1 feature group providing 8 node types, cluster storage, weighted links, mood tracking, DSL rules, and frequency-relative scoring.",
-    "criteria": [],
-    "status": "todo",
+    "criteria": [
+      "All 8 node types (memory, memorylink, story, feature, active, archive, pattern, progress) can be created and retrieved",
+      "Nodes stored in named cluster files under .pvrclawk/nodes/",
+      "Links between nodes carry tags, weight, decay, and usage_count",
+      "Focus command retrieves context-relevant nodes using scored links",
+      "Mood tracking and DSL rules modulate scoring",
+      "Prune command rebalances clusters via Louvain community detection"
+    ],
+    "status": "done",
     "__type__": "story"
   },
   "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656": {
@@ -38,8 +49,13 @@
     "updated_at": "2026-02-12T05:09:15.737061Z",
     "role": "Strict TDD workflow",
     "benefit": "Every feature slice follows red-green-refactor. Unit tests for core logic, integration tests for CLI, e2e for full pipeline. No code before failing test.",
-    "criteria": [],
-    "status": "todo",
+    "criteria": [
+      "Every new feature starts with a failing test",
+      "Implementation is minimal code to pass the test",
+      "Refactoring only happens after green",
+      "Unit tests cover models and core logic, integration tests cover CLI commands"
+    ],
+    "status": "done",
     "__type__": "story"
   },
   "44352481-241e-4298-81ba-be58b90eceab": {
@@ -52,8 +68,12 @@
     "updated_at": "2026-02-12T05:09:16.141168Z",
     "role": "Feature-scoped package boundary",
     "benefit": "All membank internals (commands, core, models) live under src/pvrclawk/membank/. Root package is thin: app.py registers groups only. No membank logic at root level.",
-    "criteria": [],
-    "status": "todo",
+    "criteria": [
+      "membank/ contains its own commands/, core/, and models/ subdirectories",
+      "No membank-specific imports in src/pvrclawk/app.py beyond registering the group",
+      "Universal utilities live in src/pvrclawk/utils/, not in membank"
+    ],
+    "status": "done",
     "__type__": "story"
   },
   "75c0b3a9-413f-4d25-a9ae-7da5b7a78976": {
@@ -67,8 +87,13 @@
     "updated_at": "2026-02-12T05:09:16.535403Z",
     "role": "Frequency-relative scoring",
     "benefit": "Decay is governed by usage_count/total_frequency, not wall-clock time. Scoring formula: tag_match * weight * decay * freq_decay * mood * rules.",
-    "criteria": [],
-    "status": "todo",
+    "criteria": [
+      "Link.usage_count tracks how often a link is traversed",
+      "Decay factor is link_usage_count / total_frequency, not datetime-based",
+      "Score formula: tag_match * weight * decay * freq_decay * mood_factor * rule_adjustment",
+      "Zero-score results are filtered out before ranking"
+    ],
+    "status": "done",
     "__type__": "story"
   },
   "faa6607a-9ffe-4065-bb18-ce178836fd0c": {
@@ -82,7 +107,7 @@
     "component": "Root app.py registration",
     "test_scenario": "Given root app.py, when a feature group is added, then it registers via main.add_command and nothing else lives in root",
     "expected_result": "Root only imports and registers groups",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "0e02fb61-7c51-4754-87f0-a933761b3ad4": {
@@ -96,7 +121,7 @@
     "component": "CLI surface: pvrclawk membank",
     "test_scenario": "Given CLI invocation, when user runs pvrclawk membank --help, then all membank subcommands are listed",
     "expected_result": "init, config, node, link, focus, prune, report mood, rule",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "90e1054a-5df9-49bc-adb7-013d2c9d150b": {
@@ -110,7 +135,7 @@
     "component": "8 node types",
     "test_scenario": "Given node add, when any of 8 types is specified, then correct model is persisted",
     "expected_result": "memory, memorylink, story, feature, active, archive, pattern, progress",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "234b8319-1604-4b2d-8041-ef7726b1774c": {
@@ -124,7 +149,7 @@
     "component": "Cluster storage with index",
     "test_scenario": "Given nodes saved, when index.json is read, then uid_file maps to cluster files and tags/types are indexed",
     "expected_result": "Nodes go to _inbox.json, prune reorganizes into named clusters",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "f16430dd-8b58-43ae-931b-2125bf3ed73c": {
@@ -138,7 +163,7 @@
     "component": "Link CRUD with weight adjustment",
     "test_scenario": "Given link add, when link weight is adjusted by tag combo, then links.json reflects new weight",
     "expected_result": "link add, link list, link weight commands",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "70a00e68-3cc5-4f5d-b319-6ca09d490b49": {
@@ -153,7 +178,7 @@
     "component": "Focus retrieval with graph traversal",
     "test_scenario": "Given focus query with tags, when scored, then returns ranked nodes with 1-hop neighbor expansion",
     "expected_result": "VectorScorer + GraphEngine retrieve",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "b9cf5ada-9764-4db8-bcd5-c61c732ca48b": {
@@ -166,7 +191,7 @@
     "component": "Mood tracking with EMA",
     "test_scenario": "Given report mood tag value, when EMA applied, then mood.json updates with smoothed value",
     "expected_result": "MoodTracker with configurable smoothing",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88": {
@@ -180,7 +205,7 @@
     "component": "DSL rule engine",
     "test_scenario": "Given rule add with if/then DSL, when evaluated during scoring, then multiplier adjusts weight",
     "expected_result": "Parser validates syntax, engine evaluates against tags and mood",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "9cf68d27-d69d-4bcb-a81f-46dd5996610c": {
@@ -194,7 +219,7 @@
     "component": "MemoryLink file references",
     "test_scenario": "Given node add memorylink with title, when created, then .md file is slugified under additional_memory/ and node stores path ref",
     "expected_result": "Human-readable filenames, not UIDs",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "6c606b5d-2d9d-4858-b4d6-44620fc5595b": {
@@ -208,7 +233,7 @@
     "component": "Prune rebalance",
     "test_scenario": "Given inbox nodes, when prune is called, then nodes are moved to named cluster files derived from top tags",
     "expected_result": "Derives cluster name from tag frequency, rebuilds index",
-    "status": "todo",
+    "status": "done",
     "__type__": "feature"
   },
   "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb": {
@@ -281,7 +306,7 @@
     "created_at": "2026-02-12T05:10:03.042040Z",
     "updated_at": "2026-02-12T05:10:03.042040Z",
     "content": "DONE: Feature-scoped membank boundary applied. Init/config/node/link/prune/focus/mood/rules commands implemented with tests. 45 tests passing.",
-    "status": "todo",
+    "status": "done",
     "__type__": "progress"
   },
   "257d9453-e3e7-4b55-befc-0184ec0ad4d0": {
@@ -293,7 +318,7 @@
     "created_at": "2026-02-12T05:10:03.410804Z",
     "updated_at": "2026-02-12T05:10:03.410804Z",
     "content": "NEXT: Harden advanced cluster behavior. Integrate mood and rules into focus scoring path. Expand DSL parser coverage.",
-    "status": "todo",
+    "status": "done",
     "__type__": "progress"
   },
   "03b23033-3744-4b09-8449-fe41dbf00d61": {
@@ -306,7 +331,9 @@
     "updated_at": "2026-02-12T05:10:03.774289Z",
     "content": "Project bank is now self-hosting. memory-bank/ folder dissolved. All context lives in .pvrclawk/ managed by pvrclawk membank CLI.",
     "focus_area": "current-focus",
-    "__type__": "active"
+    "__type__": "archive",
+    "archived_from": "current-focus",
+    "reason": "superseded by new active node"
   },
   "cc7adad7-95ef-405a-b29d-1a5c9785388c": {
     "uid": "cc7adad7-95ef-405a-b29d-1a5c9785388c",
