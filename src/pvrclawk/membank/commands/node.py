@@ -38,6 +38,32 @@ def _sort_recent(nodes: list[object]) -> list[object]:
     return sorted(nodes, key=lambda n: getattr(n, "updated_at", "") or "", reverse=True)
 
 
+def _resolve_uid_reference(
+    storage: StorageEngine,
+    uid: str | None,
+    last: int | None,
+    allow_unresolved_uid: bool = False,
+) -> str:
+    if uid and last is not None:
+        raise click.ClickException("Use either UID or --last, not both.")
+    if not uid and last is None:
+        raise click.ClickException("Provide a UID or --last.")
+    if last is not None:
+        resolved = storage.resolve_recent_uid(last)
+        if resolved is None:
+            raise click.ClickException(f"No recent UID found for --last {last}.")
+        return resolved
+    assert uid is not None
+    resolved, reason = storage.resolve_uid_with_reason(uid)
+    if reason == "ambiguous":
+        raise click.ClickException(f"Ambiguous UID prefix: {uid}. Provide a longer prefix or full UID.")
+    if resolved is None:
+        if allow_unresolved_uid:
+            return uid
+        raise click.ClickException(f"Could not resolve UID reference: {uid}")
+    return resolved
+
+
 def register_node(group: click.Group) -> None:
     @group.group("node")
     def node_group() -> None:
@@ -99,29 +125,45 @@ def register_node(group: click.Group) -> None:
         click.echo(uid)
 
     @node_group.command("get")
-    @click.argument("uid")
+    @click.argument("uid", required=False)
+    @click.option("--last", "last_n", type=click.IntRange(min=1, max=10), default=None, help="Use the Nth most recent UID.")
     @click.pass_context
-    def get_node(ctx: click.Context, uid: str) -> None:
+    def get_node(ctx: click.Context, uid: str | None, last_n: int | None) -> None:
         """Show full detail for a single node by UID."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
-        node = storage.load_node(uid)
+        resolved_uid = _resolve_uid_reference(storage, uid, last_n, allow_unresolved_uid=True)
+        node = storage.load_node(resolved_uid)
         if node is None:
-            click.echo(f"Node not found: {uid}")
+            click.echo(f"Node not found: {resolved_uid}")
             return
         click.echo(render_node_detail(node))
 
     @node_group.command("status")
-    @click.argument("uid")
-    @click.argument("new_status", type=click.Choice(["todo", "in_progress", "done", "blocked"]))
+    @click.argument("args", nargs=-1)
+    @click.option("--last", "last_n", type=click.IntRange(min=1, max=10), default=None, help="Use the Nth most recent UID.")
     @click.pass_context
-    def set_status(ctx: click.Context, uid: str, new_status: str) -> None:
+    def set_status(ctx: click.Context, args: tuple[str, ...], last_n: int | None) -> None:
         """Update the status of a story, feature, or progress node."""
+        allowed_statuses = {"todo", "in_progress", "done", "blocked"}
+        uid: str | None = None
+        if last_n is not None:
+            if len(args) != 1:
+                raise click.ClickException("Usage: node status --last N <new_status>")
+            new_status = args[0]
+        else:
+            if len(args) != 2:
+                raise click.ClickException("Usage: node status <uid_or_prefix> <new_status>")
+            uid, new_status = args
+        if new_status not in allowed_statuses:
+            raise click.ClickException(f"Invalid status: {new_status}")
+
         storage = StorageEngine(Path(ctx.obj["root_path"]))
-        ok = storage.update_node_status(uid, new_status)
+        resolved_uid = _resolve_uid_reference(storage, uid, last_n, allow_unresolved_uid=True)
+        ok = storage.update_node_status(resolved_uid, new_status)
         if ok:
             click.echo(f"Status updated to {new_status}")
         else:
-            click.echo(f"Could not update status for {uid} (node not found or no status field)")
+            click.echo(f"Could not update status for {resolved_uid} (node not found or no status field)")
 
     @node_group.command("list")
     @click.argument("node_type")
@@ -147,4 +189,30 @@ def register_node(group: click.Group) -> None:
             nodes = nodes[:top]
         for node in nodes:
             click.echo(render_node(node))
+
+    @node_group.command("remove")
+    @click.argument("uid", required=False)
+    @click.option("--last", "last_n", type=click.IntRange(min=1, max=10), default=None, help="Use the Nth most recent UID.")
+    @click.pass_context
+    def remove_node(ctx: click.Context, uid: str | None, last_n: int | None) -> None:
+        """Remove a single node by UID."""
+        storage = StorageEngine(Path(ctx.obj["root_path"]))
+        resolved_uid = _resolve_uid_reference(storage, uid, last_n, allow_unresolved_uid=True)
+        ok = storage.remove_node(resolved_uid)
+        if ok:
+            click.echo(f"Removed node {resolved_uid}")
+        else:
+            click.echo(f"Node not found: {resolved_uid}")
+
+    @node_group.command("remove-type")
+    @click.argument("node_type")
+    @click.option("-a", "--all", "confirm_all", is_flag=True, help="Required: confirm removing all nodes of this type.")
+    @click.pass_context
+    def remove_nodes_by_type(ctx: click.Context, node_type: str, confirm_all: bool) -> None:
+        """Remove all nodes of a given type."""
+        if not confirm_all:
+            raise click.ClickException("Use --all to confirm bulk removal by type.")
+        storage = StorageEngine(Path(ctx.obj["root_path"]))
+        removed = storage.remove_nodes_by_type(node_type)
+        click.echo(f"Removed {removed} node(s) of type {node_type}")
 

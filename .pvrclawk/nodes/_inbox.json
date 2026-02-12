@@ -21,10 +21,155 @@
       "classification": 1.0
     },
     "created_at": "2026-02-12T18:54:29.829053Z",
-    "updated_at": "2026-02-12T18:54:29.829053Z",
+    "updated_at": "2026-02-12T19:05:14.233576Z",
     "content": "Node semantics corrected: archive history no longer represented as subtask. task/subtask now reserved for actionable work hierarchy; historical state tracked in progress.",
-    "status": "in_progress",
+    "status": "done",
     "othermeta": {},
     "__type__": "task"
+  },
+  "59f2e855-3de4-45d6-8803-66b3c5eebe66": {
+    "uid": "59f2e855-3de4-45d6-8803-66b3c5eebe66",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0,
+      "membank": 1.0,
+      "audit": 1.0
+    },
+    "created_at": "2026-02-12T19:03:58.885026Z",
+    "updated_at": "2026-02-12T19:03:58.885026Z",
+    "content": "Membank migration/status audit complete: archive-history semantics corrected to progress; core story/feature/pattern/progress/memorylink restored in new bank; links rebuilt to parity (25); suite currently at 101 passing tests. Remaining planned work: node stats feature.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "a59518db-d324-4e67-857f-9a98c8d0310f": {
+    "uid": "a59518db-d324-4e67-857f-9a98c8d0310f",
+    "tags": {
+      "membank": 1.0,
+      "node": 1.0,
+      "remove": 1.0,
+      "cli": 1.0
+    },
+    "created_at": "2026-02-12T19:04:50.914797Z",
+    "updated_at": "2026-02-12T19:08:30.335388Z",
+    "component": "Node remove command",
+    "test_scenario": "Given a node UID, when remove is called, then node is deleted and index/link references are cleaned",
+    "expected_result": "Add membank node remove command with safe storage cleanup semantics",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "feature"
+  },
+  "b35c20a5-579f-46cb-98cb-20d5abf22f12": {
+    "uid": "b35c20a5-579f-46cb-98cb-20d5abf22f12",
+    "tags": {
+      "status": 1.0,
+      "in_progress": 1.0,
+      "membank": 1.0,
+      "node": 1.0
+    },
+    "created_at": "2026-02-12T19:04:51.369525Z",
+    "updated_at": "2026-02-12T19:08:29.885960Z",
+    "content": "Implementing node removal capability with TDD: add command, storage delete path, and reference cleanup.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "9d4e8ce6-86f3-43c4-994e-3140809155b9": {
+    "uid": "9d4e8ce6-86f3-43c4-994e-3140809155b9",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0,
+      "membank": 1.0,
+      "audit": 1.0
+    },
+    "created_at": "2026-02-12T19:05:14.626698Z",
+    "updated_at": "2026-02-12T19:05:14.626698Z",
+    "content": "Status audit normalized: stale in-progress entries were closed, semantic reclassification task completed, and current membank state aligned with implemented behavior.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "431f3a5c-c715-4176-83fe-551584f21639": {
+    "uid": "431f3a5c-c715-4176-83fe-551584f21639",
+    "tags": {
+      "status": 1.0,
+      "in_progress": 1.0,
+      "membank": 1.0,
+      "node": 1.0
+    },
+    "created_at": "2026-02-12T19:06:10.123230Z",
+    "updated_at": "2026-02-12T19:08:30.735159Z",
+    "content": "Continuing remove command implementation: add remove by uid and remove by type with safety guard.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "39b05032-dad6-40d2-ba4b-61033fc2212b": {
+    "uid": "39b05032-dad6-40d2-ba4b-61033fc2212b",
+    "tags": {
+      "membank": 1.0,
+      "cleanup": 1.0,
+      "status": 1.0
+    },
+    "created_at": "2026-02-12T19:09:49.105947Z",
+    "updated_at": "2026-02-12T19:10:44.952652Z",
+    "content": "Cleanup pass: remove obsolete/superseded membank entries and codify cleanup workflow in AGENTS instructions.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "64c0e45e-f71f-497c-8008-0fe7823f5b2f": {
+    "uid": "64c0e45e-f71f-497c-8008-0fe7823f5b2f",
+    "tags": {
+      "membank": 1.0,
+      "node": 1.0,
+      "ux": 1.0,
+      "cli": 1.0
+    },
+    "created_at": "2026-02-12T19:11:34.007310Z",
+    "updated_at": "2026-02-12T19:16:12.820401Z",
+    "component": "membank node id shortcuts",
+    "test_scenario": "Allow short UID/prefix refs and --last N using recent IDs index",
+    "expected_result": "Shorthand UID references and --last index",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "feature"
+  },
+  "d28c34f8-a2f3-4cc7-8529-7cf14c33438b": {
+    "uid": "d28c34f8-a2f3-4cc7-8529-7cf14c33438b",
+    "tags": {
+      "membank": 1.0,
+      "node": 1.0,
+      "cli": 1.0,
+      "status": 1.0
+    },
+    "created_at": "2026-02-12T19:11:34.256956Z",
+    "updated_at": "2026-02-12T19:16:12.360618Z",
+    "content": "Implement shorthand UID resolution and --last N recent index with TDD.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "b9eb07bb-c79d-41a5-af8f-9f5f207fb9ea": {
+    "uid": "b9eb07bb-c79d-41a5-af8f-9f5f207fb9ea",
+    "tags": {
+      "membank": 1.0,
+      "node": 1.0,
+      "storage": 1.0,
+      "cli": 1.0
+    },
+    "created_at": "2026-02-12T19:13:58.857432Z",
+    "updated_at": "2026-02-12T19:16:11.957394Z",
+    "content": "Implement recent_uid.json + gitignore exclusion + shorthand collision guard (TDD).",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "cd2b44b9-ceba-4571-8ad1-ecffac52d804": {
+    "uid": "cd2b44b9-ceba-4571-8ad1-ecffac52d804",
+    "tags": {
+      "membank": 1.0,
+      "link": 1.0,
+      "cli": 1.0,
+      "io": 1.0
+    },
+    "created_at": "2026-02-12T19:16:41.924415Z",
+    "updated_at": "2026-02-12T19:17:42.443883Z",
+    "content": "Add stronger linking guidance to AGENTS and implement batched link chain operations to reduce IO.",
+    "status": "done",
+    "__type__": "progress"
   }
 }

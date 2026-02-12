@@ -30,6 +30,7 @@ class StorageEngine:
         self.nodes_dir = self.root / "nodes"
         self.additional_memory_dir = self.root / "additional_memory"
         self.index_file = self.root / "index.json"
+        self.recent_uid_file = self.root / "recent_uid.json"
         self.links_file = self.root / "links.json"
         self.rules_file = self.root / "rules.json"
         self.mood_file = self.root / "mood.json"
@@ -50,6 +51,8 @@ class StorageEngine:
                 self.index_file,
                 {"tags": {}, "types": {}, "uid_file": {}, "links_in": {}, "clusters": {}},
             )
+        if not self.recent_uid_file.exists():
+            self._write_json(self.recent_uid_file, [])
         if not self.links_file.exists():
             self._write_json(self.links_file, {})
         if not self.rules_file.exists():
@@ -61,6 +64,7 @@ class StorageEngine:
             self._write_json(inbox, {})
         if not self.config_file.exists():
             write_config(self.config_file, AppConfig())
+        self._ensure_recent_uid_gitignore()
 
     def load_index(self) -> IndexData:
         return IndexData.model_validate(self._read_json(self.index_file, {}))
@@ -92,6 +96,7 @@ class StorageEngine:
         if cluster_name not in index.clusters:
             index.clusters[cluster_name] = ClusterMeta(top_tags=[], size=0)
         index.clusters[cluster_name].size = len(cluster_data)
+        self._record_recent_uid(node.uid)
         self.save_index(index)
         return node.uid
 
@@ -187,15 +192,23 @@ class StorageEngine:
         return raw
 
     def save_link(self, link: Link) -> str:
-        links = self._read_json(self.links_file, {})
-        links.setdefault(link.source, [])
-        links[link.source].append(link.model_dump(mode="json"))
-        self._write_json(self.links_file, links)
-
-        index = self.load_index()
-        add_unique(index.links_in, link.target, link.source)
-        self.save_index(index)
+        self.save_links([link])
         return link.uid
+
+    def save_links(self, links_to_save: list[Link]) -> int:
+        if not links_to_save:
+            return 0
+        links = self._read_json(self.links_file, {})
+        index = self.load_index()
+
+        for link in links_to_save:
+            links.setdefault(link.source, [])
+            links[link.source].append(link.model_dump(mode="json"))
+            add_unique(index.links_in, link.target, link.source)
+
+        self._write_json(self.links_file, links)
+        self.save_index(index)
+        return len(links_to_save)
 
     def load_links(self, source_uids: list[str]) -> list[Link]:
         links = self._read_json(self.links_file, {})
@@ -223,6 +236,34 @@ class StorageEngine:
         results = self.load_nodes([uid])
         return results[0] if results else None
 
+    def resolve_uid(self, uid_or_prefix: str) -> str | None:
+        """Resolve an exact UID or unique UID prefix."""
+        uid, reason = self.resolve_uid_with_reason(uid_or_prefix)
+        if reason in {"exact", "prefix"}:
+            return uid
+        return None
+
+    def resolve_uid_with_reason(self, uid_or_prefix: str) -> tuple[str | None, str]:
+        """Resolve exact/prefix UID and return reason: exact|prefix|ambiguous|missing."""
+        index = self.load_index()
+        if uid_or_prefix in index.uid_file:
+            return uid_or_prefix, "exact"
+        matches = [uid for uid in index.uid_file if uid.startswith(uid_or_prefix)]
+        if len(matches) == 1:
+            return matches[0], "prefix"
+        if len(matches) > 1:
+            return None, "ambiguous"
+        return None, "missing"
+
+    def resolve_recent_uid(self, last: int) -> str | None:
+        """Resolve UID by recency index (1-based)."""
+        if last < 1:
+            return None
+        recent_uids = self._load_recent_uids()
+        if last > len(recent_uids):
+            return None
+        return recent_uids[last - 1]
+
     def update_node_status(self, uid: str, status: str) -> bool:
         """Update the status field of a node. Returns True if updated."""
         index = self.load_index()
@@ -239,7 +280,76 @@ class StorageEngine:
         payload["status"] = status
         payload["updated_at"] = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         self._write_json(cluster_path, data)
+        self._touch_recent_uid(uid)
         return True
+
+    def remove_node(self, uid: str) -> bool:
+        """Remove a node by UID and clean related index/link references."""
+        index = self.load_index()
+        cluster_name = index.uid_file.get(uid)
+        if not cluster_name:
+            return False
+
+        cluster_path = self.nodes_dir / f"{cluster_name}.json"
+        cluster_data = self._read_json(cluster_path, {})
+        payload = cluster_data.pop(uid, None)
+        if payload is None:
+            return False
+        self._write_json(cluster_path, cluster_data)
+
+        node_type = str(payload.get("__type__", "memory"))
+
+        index.uid_file.pop(uid, None)
+        recent_uids = self._load_recent_uids()
+        if uid in recent_uids:
+            recent_uids.remove(uid)
+            self._save_recent_uids(recent_uids)
+
+        type_uids = index.types.get(node_type, [])
+        if uid in type_uids:
+            type_uids.remove(uid)
+        if not type_uids and node_type in index.types:
+            index.types.pop(node_type, None)
+
+        for tag in payload.get("tags", {}):
+            tagged_uids = index.tags.get(tag, [])
+            if uid in tagged_uids:
+                tagged_uids.remove(uid)
+            if not tagged_uids and tag in index.tags:
+                index.tags.pop(tag, None)
+
+        index.links_in.pop(uid, None)
+        for target_uid, source_uids in list(index.links_in.items()):
+            if uid in source_uids:
+                source_uids.remove(uid)
+            if not source_uids:
+                index.links_in.pop(target_uid, None)
+
+        if cluster_name in index.clusters:
+            index.clusters[cluster_name].size = len(cluster_data)
+
+        links = self._read_json(self.links_file, {})
+        links.pop(uid, None)
+        for source_uid, items in list(links.items()):
+            kept = [item for item in items if item.get("target") != uid]
+            if kept:
+                links[source_uid] = kept
+            else:
+                links.pop(source_uid, None)
+        self._write_json(self.links_file, links)
+
+        self.save_index(index)
+        return True
+
+    def remove_nodes_by_type(self, node_type: str) -> int:
+        """Remove all nodes of a given type."""
+        index = self.load_index()
+        uids = list(index.types.get(node_type, []))
+        removed = 0
+        for uid in uids:
+            if self.remove_node(uid):
+                removed += 1
+        return removed
 
     def load_nodes_by_type(self, node_type: str):
         index = self.load_index()
@@ -294,7 +404,40 @@ class StorageEngine:
                     add_unique(index.links_in, target, source)
 
         self.save_index(index)
+        recent_uids = [uid for uid in self._load_recent_uids() if uid in index.uid_file]
+        self._save_recent_uids(recent_uids)
         return cluster_name
+
+    def _touch_recent_uid(self, uid: str) -> None:
+        index = self.load_index()
+        if uid not in index.uid_file:
+            return
+        self._record_recent_uid(uid)
+
+    def _record_recent_uid(self, uid: str) -> None:
+        recent_uids = self._load_recent_uids()
+        if uid in recent_uids:
+            recent_uids.remove(uid)
+        recent_uids.insert(0, uid)
+        self._save_recent_uids(recent_uids[:10])
+
+    def _load_recent_uids(self) -> list[str]:
+        return list(self._read_json(self.recent_uid_file, []))
+
+    def _save_recent_uids(self, recent_uids: list[str]) -> None:
+        self._write_json(self.recent_uid_file, recent_uids)
+
+    def _ensure_recent_uid_gitignore(self) -> None:
+        gitignore = self.root.parent / ".gitignore"
+        ignore_entry = f"{self.root.name}/recent_uid.json"
+        if not gitignore.exists():
+            gitignore.write_text(f"{ignore_entry}\n", encoding="utf-8")
+            return
+        content = gitignore.read_text(encoding="utf-8")
+        lines = [line.strip() for line in content.splitlines()]
+        if ignore_entry not in lines:
+            suffix = "" if content.endswith("\n") or content == "" else "\n"
+            gitignore.write_text(f"{content}{suffix}{ignore_entry}\n", encoding="utf-8")
 
     def all_nodes(self):
         index = self.load_index()

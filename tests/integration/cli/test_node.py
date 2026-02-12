@@ -1,4 +1,6 @@
 from pvrclawk.app import main
+from pvrclawk.membank.core.storage.engine import StorageEngine
+from pvrclawk.membank.models.nodes import Memory
 
 
 def test_node_add_and_list_memory(runner, tmp_path):
@@ -201,3 +203,115 @@ def test_node_list_all_top_most_recent(runner, tmp_path):
     list_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list-all", "--top", "1"])
     assert list_result.exit_code == 0
     assert "S1" in list_result.output
+
+
+def test_node_remove_by_uid(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    add_result = runner.invoke(
+        main,
+        ["membank", "--path", str(db_path), "node", "add", "story", "--title", "To Remove", "--summary", "temp"],
+    )
+    uid = add_result.output.strip()
+
+    remove_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "remove", uid])
+    assert remove_result.exit_code == 0
+    assert "removed" in remove_result.output.lower()
+
+    get_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "get", uid])
+    assert "not found" in get_result.output.lower()
+
+
+def test_node_remove_type_requires_all_flag(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "S1", "--summary", "b"])
+
+    remove_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "remove-type", "story"])
+    assert remove_result.exit_code != 0
+    assert "--all" in remove_result.output
+
+
+def test_node_remove_type_with_all(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "S1", "--summary", "story"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "S2", "--summary", "story"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "pattern", "--title", "p", "--content", "keep me"])
+
+    remove_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "remove-type", "story", "--all"])
+    assert remove_result.exit_code == 0
+    assert "removed 2" in remove_result.output.lower()
+
+    stories = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list", "story"])
+    patterns = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list", "pattern"])
+    assert "S1" not in stories.output
+    assert "S2" not in stories.output
+    assert "keep me" in patterns.output
+
+
+def test_node_get_with_uid_prefix(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    add_result = runner.invoke(
+        main,
+        ["membank", "--path", str(db_path), "node", "add", "story", "--title", "Prefix Story", "--summary", "short uid"],
+    )
+    uid = add_result.output.strip()
+    get_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "get", uid[:8]])
+    assert get_result.exit_code == 0
+    assert "Prefix Story" in get_result.output
+
+
+def test_node_status_with_last_option(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    first = runner.invoke(
+        main,
+        ["membank", "--path", str(db_path), "node", "add", "story", "--title", "First", "--summary", "one"],
+    )
+    runner.invoke(
+        main,
+        ["membank", "--path", str(db_path), "node", "add", "story", "--title", "Second", "--summary", "two"],
+    )
+    first_uid = first.output.strip()
+
+    status_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "status", "--last", "2", "done"])
+    assert status_result.exit_code == 0
+    assert "done" in status_result.output.lower()
+
+    get_first = runner.invoke(main, ["membank", "--path", str(db_path), "node", "get", first_uid])
+    assert "done" in get_first.output.lower()
+
+
+def test_node_remove_with_last_option(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    first = runner.invoke(
+        main,
+        ["membank", "--path", str(db_path), "node", "add", "story", "--title", "First", "--summary", "one"],
+    )
+    runner.invoke(
+        main,
+        ["membank", "--path", str(db_path), "node", "add", "story", "--title", "Second", "--summary", "two"],
+    )
+    first_uid = first.output.strip()
+
+    remove_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "remove", "--last", "2"])
+    assert remove_result.exit_code == 0
+    assert "removed node" in remove_result.output.lower()
+
+    get_first = runner.invoke(main, ["membank", "--path", str(db_path), "node", "get", first_uid])
+    assert "not found" in get_first.output.lower()
+
+
+def test_node_get_ambiguous_uid_prefix_errors(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    storage = StorageEngine(db_path)
+    storage.save_node(Memory(uid="abcd1111-1111-1111-1111-111111111111", content="x"), "memory")
+    storage.save_node(Memory(uid="abcd2222-2222-2222-2222-222222222222", content="y"), "memory")
+
+    result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "get", "abcd"])
+    assert result.exit_code != 0
+    assert "ambiguous uid prefix" in result.output.lower()

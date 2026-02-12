@@ -45,3 +45,50 @@ def test_link_add_list_weight_flow(runner, tmp_path):
     )
     assert weight.exit_code == 0
     assert "1" in weight.output
+
+
+def test_link_chain_creates_adjacent_links_in_one_command(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    a = runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "memory", "--content", "A"])
+    b = runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "memory", "--content", "B"])
+    c = runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "memory", "--content", "C"])
+    uid_a = a.output.strip()
+    uid_b = b.output.strip()
+    uid_c = c.output.strip()
+
+    chain = runner.invoke(
+        main,
+        [
+            "membank",
+            "--path",
+            str(db_path),
+            "link",
+            "chain",
+            uid_a,
+            uid_b,
+            uid_c,
+            "--tags",
+            "flow,related",
+            "--weight",
+            "0.9",
+        ],
+    )
+    assert chain.exit_code == 0
+    assert "created 2 links" in chain.output.lower()
+
+    list_a = runner.invoke(main, ["membank", "--path", str(db_path), "link", "list", uid_a])
+    list_b = runner.invoke(main, ["membank", "--path", str(db_path), "link", "list", uid_b])
+    assert uid_b in list_a.output
+    assert uid_c in list_b.output
+
+
+def test_link_chain_requires_at_least_two_uids(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    a = runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "memory", "--content", "A"])
+    uid_a = a.output.strip()
+
+    chain = runner.invoke(main, ["membank", "--path", str(db_path), "link", "chain", uid_a])
+    assert chain.exit_code != 0
+    assert "at least two uids" in chain.output.lower()

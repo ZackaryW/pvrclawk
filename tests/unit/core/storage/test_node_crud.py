@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from pvrclawk.membank.core.storage.engine import StorageEngine
+from pvrclawk.membank.models.link import Link
 from pvrclawk.membank.models.nodes import (
     Active,
     Archive,
@@ -188,3 +189,38 @@ def test_task_can_be_promoted_to_bug_or_issue_by_tags(tmp_path: Path):
     by_uid = {n.uid: n for n in loaded}
     assert isinstance(by_uid[bug_uid], Bug)
     assert isinstance(by_uid[issue_uid], Issue)
+
+
+def test_remove_node_cleans_index_and_links(tmp_path: Path):
+    storage = StorageEngine(tmp_path / ".pvrclawk")
+    storage.init_db()
+
+    source = Memory(content="source")
+    target = Memory(content="target")
+    source_uid = storage.save_node(source, "memory")
+    target_uid = storage.save_node(target, "memory")
+    storage.save_link(Link(source=source_uid, target=target_uid, tags=["related"]))
+
+    assert storage.remove_node(target_uid) is True
+    assert storage.load_node(target_uid) is None
+
+    index = storage.load_index()
+    assert target_uid not in index.uid_file
+    assert target_uid not in index.types.get("memory", [])
+    assert target_uid not in index.links_in
+
+    remaining_links = storage.load_links([source_uid])
+    assert len(remaining_links) == 0
+
+
+def test_remove_nodes_by_type(tmp_path: Path):
+    storage = StorageEngine(tmp_path / ".pvrclawk")
+    storage.init_db()
+    storage.save_node(Story(role="S1", benefit="b1"), "story")
+    storage.save_node(Story(role="S2", benefit="b2"), "story")
+    storage.save_node(Pattern(content="keep", pattern_type="arch"), "pattern")
+
+    removed = storage.remove_nodes_by_type("story")
+    assert removed == 2
+    assert len(storage.load_nodes_by_type("story")) == 0
+    assert len(storage.load_nodes_by_type("pattern")) == 1

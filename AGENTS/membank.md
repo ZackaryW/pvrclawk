@@ -13,6 +13,8 @@ pvrclawk membank node list task
 
 # 2) Add/update story + feature nodes for the incoming task
 # 3) Set relevant node status to in_progress
+# 4) Cleanup stale/superseded nodes before implementation
+#    (remove obsolete progress snapshots and deprecated taxonomy artifacts)
 ```
 
 Only after this planning update should coding and TDD begin.
@@ -112,12 +114,26 @@ pvrclawk membank node add subtask --content "<next granular step>" --tags "subta
 ## Links, Mood, Rules
 
 ```bash
+# Single link
 pvrclawk membank link add <source_uid> <target_uid> --tags "tag1,tag2"
+
+# Chain links (low-IO batch): creates A->B, B->C, C->D
+pvrclawk membank link chain <uid_a> <uid_b> <uid_c> <uid_d> --tags "flow,dependency"
+
+# Inspect and tune
 pvrclawk membank link list <uid>
 pvrclawk membank link weight "tag1,tag2" +0.1
 pvrclawk membank report mood <tag> <value>
 pvrclawk membank rule add "if tag == tcp then boost 1.5"
 ```
+
+## Linking Discipline (Required)
+
+- Every new `task`, `subtask`, `bug`, `issue`, `feature`, or `progress` node should be linked to at least one relevant context node (`story`, `pattern`, `memory`, or related execution node).
+- Prefer `link chain` when creating multiple sequential links to reduce IO and keep graph updates compact.
+- Use UID shorthand only when unambiguous; if a prefix collides, provide a longer prefix or full UID.
+- During cleanup, remove stale nodes first, then relink surviving nodes to preserve graph continuity.
+- Treat linking as part of the definition of done for membank updates.
 
 ## Maintenance
 
@@ -126,6 +142,12 @@ pvrclawk membank prune
 pvrclawk membank config list
 pvrclawk membank config get auto_archive_active
 pvrclawk membank config set auto_archive_active true
+
+# Cleanup workflow (run regularly)
+pvrclawk membank node list-all --top 50
+pvrclawk membank node list progress --top 50
+pvrclawk membank node remove <uid>
+pvrclawk membank node remove-type <node_type> --all
 ```
 
 ## Policy
@@ -133,11 +155,13 @@ pvrclawk membank config set auto_archive_active true
 - All context belongs in `.pvrclawk/` (no `memory-bank/` folder).
 - Do not bulk import markdown; decompose into typed nodes.
 - Always update membank first for every new task, then start TDD.
+- Add a cleanup pass before implementation: remove stale/superseded entries and deprecated taxonomy artifacts.
 - Do not encode status words in `content` (for example: `IN_PROGRESS:`, `DONE:`). Use the `status` field via `node status` or `--status`.
 - In team-managed environments, keep `story` and `feature` lean; they are user-to-dev bridge artifacts and often managed via Jira.
 - Use `bug` for user-reported defects; use `issue` for tracked execution issues.
 - Use `task`/`subtask` for generic work only (subtask must be a child actionable item).
 - Most frequent implementation-side nodes should be `pattern`, `memory`, and `progress`, and they should be linked to relevant work.
+- Prefer chain link operations for multi-node flows to reduce storage IO and keep updates atomic per command.
 - The membank should coexist as a graph for team/project management and developer context, bridging users and agents.
 - Keep TDD strict: failing test -> minimal fix -> refactor -> full tests.
 

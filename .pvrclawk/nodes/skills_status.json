@@ -7,134 +7,11 @@
       "policy": 1.0
     },
     "created_at": "2026-02-12T18:41:52.084176Z",
-    "updated_at": "2026-02-12T18:41:52.084176Z",
+    "updated_at": "2026-02-12T19:03:48.146921Z",
     "content": "Agent instructions now explicitly forbid embedding status labels in node content. Status must be tracked via status fields and status commands.",
-    "status": "in_progress",
+    "status": "done",
     "othermeta": {},
     "__type__": "task"
-  },
-  "5ceb85c3-f389-4680-97d2-447989ce664b": {
-    "uid": "5ceb85c3-f389-4680-97d2-447989ce664b",
-    "tags": {
-      "active": 1.0,
-      "membank": 1.0,
-      "node": 1.0
-    },
-    "created_at": "2026-02-12T18:43:08.883797Z",
-    "updated_at": "2026-02-12T18:43:08.883797Z",
-    "content": "membank node list/list-all now support --top with recency ordering. Skills commands remain stable. Full suite green at 97.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "d3f8583c-1d97-435c-8ae1-811b24f21821": {
-    "uid": "d3f8583c-1d97-435c-8ae1-811b24f21821",
-    "tags": {
-      "active": 1.0,
-      "skills": 1.0,
-      "update": 1.0
-    },
-    "created_at": "2026-02-12T18:43:09.285352Z",
-    "updated_at": "2026-02-12T18:43:09.285352Z",
-    "content": "skills update is now explicit via -a/--all and excluded from agent instructions. Skills resolve/list/update suite is stable. Test suite green at 95.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "bb1a0b9f-937b-4ff5-b67b-a5937d0966c4": {
-    "uid": "bb1a0b9f-937b-4ff5-b67b-a5937d0966c4",
-    "tags": {
-      "active": 1.0,
-      "skills": 1.0,
-      "update": 1.0
-    },
-    "created_at": "2026-02-12T18:43:09.766695Z",
-    "updated_at": "2026-02-12T18:43:09.766695Z",
-    "content": "Skills update command migrated with .git-based git pull behavior. Resolve supports default/full/path-only modes. Nested path display fixed. Test suite green at 94.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "992e7a1f-a123-4ac2-80e9-cb5507dcedbf": {
-    "uid": "992e7a1f-a123-4ac2-80e9-cb5507dcedbf",
-    "tags": {
-      "active": 1.0,
-      "skills": 1.0,
-      "resolve": 1.0
-    },
-    "created_at": "2026-02-12T18:43:10.234289Z",
-    "updated_at": "2026-02-12T18:43:10.234289Z",
-    "content": "Resolve command now supports --full and --path-only modes. Nested path display and human list view are complete. Test suite green at 91. use-skill/find removal now has parity for path output.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "2e21517b-0f2f-418f-842f-5f148cbca566": {
-    "uid": "2e21517b-0f2f-418f-842f-5f148cbca566",
-    "tags": {
-      "active": 1.0,
-      "skills": 1.0,
-      "story-driven": 1.0
-    },
-    "created_at": "2026-02-12T18:43:10.651188Z",
-    "updated_at": "2026-02-12T18:43:10.651188Z",
-    "content": "Nested story-driven path display fixed. Skills list/resolve now expose nested names as parent/child (slash-delimited). Test suite green at 89. Next: optional skills show command.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "797df158-dc54-459c-82ae-44f982e5ac04": {
-    "uid": "797df158-dc54-459c-82ae-44f982e5ac04",
-    "tags": {
-      "active": 1.0,
-      "skills": 1.0,
-      "cli": 1.0
-    },
-    "created_at": "2026-02-12T18:43:22.651510Z",
-    "updated_at": "2026-02-12T18:43:22.651510Z",
-    "content": "Membank synced with latest changes. Skills v1 is complete, including --human display for skills list. 88 tests passing. Next optional step: skills show and execution pipeline for dynamic contexts/templating.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "c8122395-7e72-4f8d-8a60-a74c3469e336": {
-    "uid": "c8122395-7e72-4f8d-8a60-a74c3469e336",
-    "tags": {
-      "active": 1.0,
-      "skills": 1.0
-    },
-    "created_at": "2026-02-12T18:43:23.121121Z",
-    "updated_at": "2026-02-12T18:43:23.121121Z",
-    "content": "Skills v1 delivered: dual-format skill resolution, user-level skills config, CLI list/resolve, and AGENTS folder docs. Next likely step: add skills show and execution pipeline for dynamic contexts/templating.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "f6490d28-3440-4dbd-88b4-dafba7f56279": {
-    "uid": "f6490d28-3440-4dbd-88b4-dafba7f56279",
-    "tags": {
-      "active": 1.0
-    },
-    "created_at": "2026-02-12T18:43:23.594910Z",
-    "updated_at": "2026-02-12T18:43:23.594910Z",
-    "content": "Criteria support added to stories. README and AGENTS.md polished. All v1 features done. Remaining: node stats command (todo). Ready to commit cumulative update.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "26c36b2c-0b6e-4bb5-80f8-8a6828871fe2": {
-    "uid": "26c36b2c-0b6e-4bb5-80f8-8a6828871fe2",
-    "tags": {
-      "active": 1.0
-    },
-    "created_at": "2026-02-12T18:43:24.051487Z",
-    "updated_at": "2026-02-12T18:43:24.051487Z",
-    "content": "Evaluation fixes applied. Utils package established with json_io and config. Auto-archive is configurable via config.toml. Remaining: node stats command.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "85f40254-d67b-41da-b7f1-46238e279bb4": {
-    "uid": "85f40254-d67b-41da-b7f1-46238e279bb4",
-    "tags": {
-      "active": 1.0
-    },
-    "created_at": "2026-02-12T18:43:24.463541Z",
-    "updated_at": "2026-02-12T18:43:24.463541Z",
-    "content": "All inventory, status update, and query commands are implemented. Bank is self-hosting with all stories/features marked done. AGENTS.md has full command reference.",
-    "status": "done",
-    "__type__": "progress"
   },
   "34870573-63f7-4f8d-8fd7-3b9dfddd27d2": {
     "uid": "34870573-63f7-4f8d-8fd7-3b9dfddd27d2",
@@ -226,29 +103,6 @@
       "Implementation is minimal code to pass the test",
       "Refactoring only happens after green",
       "Unit tests cover models and core logic, integration tests cover CLI commands"
-    ],
-    "status": "done",
-    "othermeta": {},
-    "__type__": "story"
-  },
-  "c30470fa-6c07-45ad-b8b8-abe2619275df": {
-    "uid": "c30470fa-6c07-45ad-b8b8-abe2619275df",
-    "tags": {
-      "membank": 1.0,
-      "graph": 1.0,
-      "v1": 1.0
-    },
-    "created_at": "2026-02-12T18:44:08.420084Z",
-    "updated_at": "2026-02-12T18:44:08.420084Z",
-    "role": "Graph-based membank",
-    "benefit": "V1 feature group providing 8 node types, cluster storage, weighted links, mood tracking, DSL rules, and frequency-relative scoring.",
-    "criteria": [
-      "All 8 node types (memory, memorylink, story, feature, active, archive, pattern, progress) can be created and retrieved",
-      "Nodes stored in named cluster files under .pvrclawk/nodes/",
-      "Links between nodes carry tags, weight, decay, and usage_count",
-      "Focus command retrieves context-relevant nodes using scored links",
-      "Mood tracking and DSL rules modulate scoring",
-      "Prune command rebalances clusters via Louvain community detection"
     ],
     "status": "done",
     "othermeta": {},
@@ -668,21 +522,6 @@
     "othermeta": {},
     "__type__": "feature"
   },
-  "3725429f-1672-4ec6-bf6b-4db9ed5e30ed": {
-    "uid": "3725429f-1672-4ec6-bf6b-4db9ed5e30ed",
-    "tags": {
-      "membank": 1.0,
-      "models": 1.0
-    },
-    "created_at": "2026-02-12T18:45:21.659287Z",
-    "updated_at": "2026-02-12T18:45:21.659287Z",
-    "component": "8 node types",
-    "test_scenario": "Given node add, when any of 8 types is specified, then correct model is persisted",
-    "expected_result": "memory, memorylink, story, feature, active, archive, pattern, progress",
-    "status": "done",
-    "othermeta": {},
-    "__type__": "feature"
-  },
   "9319a748-e25b-4531-8e9f-a1e06fa45564": {
     "uid": "9319a748-e25b-4531-8e9f-a1e06fa45564",
     "tags": {
@@ -839,9 +678,9 @@
       "node": 1.0
     },
     "created_at": "2026-02-12T18:46:16.906888Z",
-    "updated_at": "2026-02-12T18:46:16.906888Z",
+    "updated_at": "2026-02-12T19:03:47.733202Z",
     "content": "Add --top option to membank node list and list-all, sorted by most recent node update timestamp.",
-    "status": "in_progress",
+    "status": "done",
     "__type__": "progress"
   },
   "30cb856b-361b-44e2-bd27-4803ed36b34e": {
@@ -868,9 +707,9 @@
       "update": 1.0
     },
     "created_at": "2026-02-12T18:46:17.800633Z",
-    "updated_at": "2026-02-12T18:46:17.800633Z",
+    "updated_at": "2026-02-12T19:03:47.303344Z",
     "content": "Add required -a/--all option to skills update and remove update command from AGENTS instructions.",
-    "status": "in_progress",
+    "status": "done",
     "__type__": "progress"
   },
   "3852eb31-216e-4406-a6ef-08ad09cc7285": {
@@ -897,9 +736,9 @@
       "update": 1.0
     },
     "created_at": "2026-02-12T18:46:18.603153Z",
-    "updated_at": "2026-02-12T18:46:18.603153Z",
+    "updated_at": "2026-02-12T19:03:46.833643Z",
     "content": "Migrating skill repo update behavior to native pvrclawk skills update command using .git detection and git pull.",
-    "status": "in_progress",
+    "status": "done",
     "__type__": "progress"
   },
   "72ee10d6-0922-4c29-bfb1-65a7e19b4b4b": {
@@ -926,9 +765,9 @@
       "resolve": 1.0
     },
     "created_at": "2026-02-12T18:46:19.414689Z",
-    "updated_at": "2026-02-12T18:46:19.414689Z",
+    "updated_at": "2026-02-12T19:03:46.396374Z",
     "content": "Add skills resolve options for full detail output and path-only output. Starting with failing tests.",
-    "status": "in_progress",
+    "status": "done",
     "__type__": "progress"
   },
   "56ead100-209d-480a-a921-5233e573559e": {
@@ -955,9 +794,9 @@
       "story-driven": 1.0
     },
     "created_at": "2026-02-12T18:46:31.702505Z",
-    "updated_at": "2026-02-12T18:46:31.702505Z",
+    "updated_at": "2026-02-12T19:03:45.996327Z",
     "content": "Fix nested story-driven skill display to include full parent path using '/' delimiter. Starting with failing tests.",
-    "status": "in_progress",
+    "status": "done",
     "__type__": "progress"
   },
   "f45c5821-c258-43c3-b0d8-e5835c701b1d": {
