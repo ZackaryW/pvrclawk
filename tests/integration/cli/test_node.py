@@ -165,3 +165,27 @@ def test_story_with_criteria(runner, tmp_path):
     # Criteria should appear in list output
     list_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list", "story"])
     assert "Login form validates email" in list_result.output
+
+
+def test_node_list_top_most_recent(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "Old Story", "--summary", "old"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "New Story", "--summary", "new"])
+
+    list_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list", "story", "--top", "1"])
+    assert list_result.exit_code == 0
+    assert "New Story" in list_result.output
+    assert "Old Story" not in list_result.output
+
+
+def test_node_list_all_top_most_recent(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "S1", "--summary", "first"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "pattern", "--title", "p2", "--content", "newest rule"])
+
+    list_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list-all", "--top", "1"])
+    assert list_result.exit_code == 0
+    assert "newest rule" in list_result.output
+    assert "S1" not in list_result.output

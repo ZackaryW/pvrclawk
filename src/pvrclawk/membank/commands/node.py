@@ -32,6 +32,10 @@ def _parse_tags(raw: str) -> dict[str, float]:
     return tags
 
 
+def _sort_recent(nodes: list[object]) -> list[object]:
+    return sorted(nodes, key=lambda n: getattr(n, "updated_at", "") or "", reverse=True)
+
+
 def register_node(group: click.Group) -> None:
     @group.group("node")
     def node_group() -> None:
@@ -113,20 +117,26 @@ def register_node(group: click.Group) -> None:
 
     @node_group.command("list")
     @click.argument("node_type")
+    @click.option("--top", type=click.IntRange(min=1), default=None, help="Show only the N most recent nodes.")
     @click.pass_context
-    def list_nodes(ctx: click.Context, node_type: str) -> None:
+    def list_nodes(ctx: click.Context, node_type: str, top: int | None) -> None:
         """List all nodes of a given type."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
-        nodes = storage.load_nodes_by_type(node_type)
+        nodes = _sort_recent(storage.load_nodes_by_type(node_type))
+        if top is not None:
+            nodes = nodes[:top]
         for node in nodes:
             click.echo(render_node(node))
 
     @node_group.command("list-all")
+    @click.option("--top", type=click.IntRange(min=1), default=None, help="Show only the N most recent nodes.")
     @click.pass_context
-    def list_all_nodes(ctx: click.Context) -> None:
+    def list_all_nodes(ctx: click.Context, top: int | None) -> None:
         """List all nodes across all types."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
-        nodes = storage.all_nodes()
+        nodes = _sort_recent(storage.all_nodes())
+        if top is not None:
+            nodes = nodes[:top]
         for node in nodes:
             click.echo(render_node(node))
 
