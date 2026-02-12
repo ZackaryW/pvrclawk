@@ -72,11 +72,19 @@ def register_node(group: click.Group) -> None:
     @node_group.command("add")
     @click.argument("node_type")
     @click.option("--content", default="")
-    @click.option("--title", default="")
-    @click.option("--summary", default="")
+    @click.option(
+        "--title",
+        default="",
+        help="Primary label field. For story nodes, use persona phrasing (for example: 'As a manager').",
+    )
+    @click.option(
+        "--summary",
+        default="",
+        help="Summary field. For story nodes, use goal+value phrasing (for example: 'I want ... so that ...').",
+    )
     @click.option("--tags", default="")
     @click.option("--status", "initial_status", default="todo", type=click.Choice(["todo", "in_progress", "done", "blocked"]))
-    @click.option("--criteria", multiple=True, help="Acceptance criteria (repeatable)")
+    @click.option("--criteria", multiple=True, help="Acceptance criteria / confirmation checks (repeatable).")
     @click.pass_context
     def add_node(
         ctx: click.Context,

@@ -25,7 +25,13 @@
       "d28c34f8-a2f3-4cc7-8529-7cf14c33438b",
       "b9eb07bb-c79d-41a5-af8f-9f5f207fb9ea",
       "cd2b44b9-ceba-4571-8ad1-ecffac52d804",
-      "06cf144c-e70c-4dbc-96bf-99467b0afaf4"
+      "06cf144c-e70c-4dbc-96bf-99467b0afaf4",
+      "b461d598-c23a-4591-a766-5db53c891854",
+      "27b1e7df-b018-42c4-b177-a34a84e51b33",
+      "c399e345-ce74-4c54-a453-f5a3e311ce11",
+      "8e73b34c-2524-426d-a67e-a06955f5377f",
+      "8eaf68e7-1186-4418-b870-2f9211030532",
+      "bad805fe-b14f-40bf-9eee-decb6da42854"
     ],
     "policy": [
       "c8654b69-01d2-44d2-be63-3b26e6f3c051",
@@ -371,7 +377,37 @@
       "cd2b44b9-ceba-4571-8ad1-ecffac52d804"
     ],
     "docs": [
-      "06cf144c-e70c-4dbc-96bf-99467b0afaf4"
+      "06cf144c-e70c-4dbc-96bf-99467b0afaf4",
+      "8eaf68e7-1186-4418-b870-2f9211030532",
+      "bad805fe-b14f-40bf-9eee-decb6da42854"
+    ],
+    "path-resolution": [
+      "b461d598-c23a-4591-a766-5db53c891854",
+      "27b1e7df-b018-42c4-b177-a34a84e51b33",
+      "c399e345-ce74-4c54-a453-f5a3e311ce11"
+    ],
+    "init": [
+      "b461d598-c23a-4591-a766-5db53c891854",
+      "27b1e7df-b018-42c4-b177-a34a84e51b33",
+      "c399e345-ce74-4c54-a453-f5a3e311ce11"
+    ],
+    "bugfix": [
+      "b461d598-c23a-4591-a766-5db53c891854",
+      "27b1e7df-b018-42c4-b177-a34a84e51b33",
+      "c399e345-ce74-4c54-a453-f5a3e311ce11"
+    ],
+    "stories": [
+      "8e73b34c-2524-426d-a67e-a06955f5377f",
+      "8eaf68e7-1186-4418-b870-2f9211030532",
+      "bad805fe-b14f-40bf-9eee-decb6da42854"
+    ],
+    "instructions": [
+      "8e73b34c-2524-426d-a67e-a06955f5377f",
+      "8eaf68e7-1186-4418-b870-2f9211030532",
+      "bad805fe-b14f-40bf-9eee-decb6da42854"
+    ],
+    "agile": [
+      "8e73b34c-2524-426d-a67e-a06955f5377f"
     ]
   },
   "types": {
@@ -408,14 +444,18 @@
       "d28c34f8-a2f3-4cc7-8529-7cf14c33438b",
       "b9eb07bb-c79d-41a5-af8f-9f5f207fb9ea",
       "cd2b44b9-ceba-4571-8ad1-ecffac52d804",
-      "06cf144c-e70c-4dbc-96bf-99467b0afaf4"
+      "06cf144c-e70c-4dbc-96bf-99467b0afaf4",
+      "c399e345-ce74-4c54-a453-f5a3e311ce11",
+      "bad805fe-b14f-40bf-9eee-decb6da42854"
     ],
     "story": [
       "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
       "12d41aed-8ac7-4085-970f-a6e2754c513c",
       "604cf5ac-0e09-46b0-a4b8-c410ffc7708e",
       "ec69eb3c-dabc-4c2f-bc28-89da4cff5be8",
-      "9e00eddc-55dd-4544-bce1-db46d8b16a3d"
+      "9e00eddc-55dd-4544-bce1-db46d8b16a3d",
+      "b461d598-c23a-4591-a766-5db53c891854",
+      "8e73b34c-2524-426d-a67e-a06955f5377f"
     ],
     "feature": [
       "c00daa7c-1600-44b5-a045-53dafc4b7f46",
@@ -447,7 +487,9 @@
       "bb21fcce-64c8-4edb-99da-795f2c557930",
       "3064c3eb-bfc4-4c09-a799-4ba5da5fe8d5",
       "a59518db-d324-4e67-857f-9a98c8d0310f",
-      "64c0e45e-f71f-497c-8008-0fe7823f5b2f"
+      "64c0e45e-f71f-497c-8008-0fe7823f5b2f",
+      "27b1e7df-b018-42c4-b177-a34a84e51b33",
+      "8eaf68e7-1186-4418-b870-2f9211030532"
     ],
     "pattern": [
       "30e0cb5b-fab3-4e52-9db5-390400da35dd",
@@ -536,7 +578,13 @@
     "d28c34f8-a2f3-4cc7-8529-7cf14c33438b": "_inbox",
     "b9eb07bb-c79d-41a5-af8f-9f5f207fb9ea": "_inbox",
     "cd2b44b9-ceba-4571-8ad1-ecffac52d804": "_inbox",
-    "06cf144c-e70c-4dbc-96bf-99467b0afaf4": "_inbox"
+    "06cf144c-e70c-4dbc-96bf-99467b0afaf4": "_inbox",
+    "b461d598-c23a-4591-a766-5db53c891854": "_inbox",
+    "27b1e7df-b018-42c4-b177-a34a84e51b33": "_inbox",
+    "c399e345-ce74-4c54-a453-f5a3e311ce11": "_inbox",
+    "8e73b34c-2524-426d-a67e-a06955f5377f": "_inbox",
+    "8eaf68e7-1186-4418-b870-2f9211030532": "_inbox",
+    "bad805fe-b14f-40bf-9eee-decb6da42854": "_inbox"
   },
   "links_in": {
     "bb21fcce-64c8-4edb-99da-795f2c557930": [
@@ -584,6 +632,18 @@
     ],
     "28bc4b90-5b63-4c18-a412-0fd1e98bd3f4": [
       "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96"
+    ],
+    "b461d598-c23a-4591-a766-5db53c891854": [
+      "27b1e7df-b018-42c4-b177-a34a84e51b33"
+    ],
+    "27b1e7df-b018-42c4-b177-a34a84e51b33": [
+      "c399e345-ce74-4c54-a453-f5a3e311ce11"
+    ],
+    "8e73b34c-2524-426d-a67e-a06955f5377f": [
+      "8eaf68e7-1186-4418-b870-2f9211030532"
+    ],
+    "8eaf68e7-1186-4418-b870-2f9211030532": [
+      "bad805fe-b14f-40bf-9eee-decb6da42854"
     ]
   },
   "clusters": {
@@ -597,7 +657,7 @@
     },
     "_inbox": {
       "top_tags": [],
-      "size": 13
+      "size": 19
     }
   }
 }

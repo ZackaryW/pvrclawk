@@ -75,11 +75,24 @@ pvrclawk membank node list memorylink --top 20
 
 ## Node Creation
 
+### Story Authoring Standard (Agile User Stories)
+
+- A `story` is an end-user outcome, not a technical requirement or implementation task.
+- Use concise, non-technical language centered on user value.
+- Recommended shape:
+  - `title` (`--title`): persona phrase (the "As a ..." part)
+  - `summary` (`--summary`): goal + benefit (the "I want ... so that ..." part)
+  - `criteria` (`--criteria`): confirmation checks that define done
+- Apply the 3 C's explicitly:
+  - Card: concise story statement
+  - Conversation: implementation details happen later with the team
+  - Confirmation: acceptance criteria are testable and concrete
+
 ```bash
 # Story
 pvrclawk membank node add story \
-  --title "<role>" \
-  --summary "<benefit>" \
+  --title "As a <persona>" \
+  --summary "I want <goal> so that <benefit>" \
   --criteria "<criterion 1>" \
   --criteria "<criterion 2>" \
   --tags "tag1,tag2" \
@@ -152,4 +165,5 @@ pvrclawk membank node remove-type <node_type> --all
 - Prefer chain link operations for multi-node flows to reduce storage IO and keep updates atomic per command.
 - The membank should coexist as a graph for team/project management and developer context, bridging users and agents.
 - Keep TDD strict: failing test -> minimal fix -> refactor -> full tests.
+- Do not treat user stories as system requirements; stories capture user intent/value first, while technical requirements are refined during implementation planning.
 

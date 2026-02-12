@@ -184,5 +184,109 @@
     "content": "Remove migration section from AGENTS membank instruction.",
     "status": "done",
     "__type__": "progress"
+  },
+  "b461d598-c23a-4591-a766-5db53c891854": {
+    "uid": "b461d598-c23a-4591-a766-5db53c891854",
+    "tags": {
+      "membank": 1.0,
+      "path-resolution": 1.0,
+      "init": 1.0,
+      "bugfix": 1.0
+    },
+    "created_at": "2026-02-12T19:37:04.677163Z",
+    "updated_at": "2026-02-12T19:41:22.148405Z",
+    "role": "Developer",
+    "benefit": "Membank path resolution should safely create state under .pvrclawk even when target directories already contain unrelated source files.",
+    "criteria": [
+      "When target directory exists with non-membank content, init does not fail due to structure mismatch.",
+      "Membank storage is created under <target>/.pvrclawk consistently.",
+      "Existing non-membank files are left untouched."
+    ],
+    "status": "done",
+    "othermeta": {},
+    "__type__": "story"
+  },
+  "27b1e7df-b018-42c4-b177-a34a84e51b33": {
+    "uid": "27b1e7df-b018-42c4-b177-a34a84e51b33",
+    "tags": {
+      "membank": 1.0,
+      "path-resolution": 1.0,
+      "init": 1.0,
+      "bugfix": 1.0
+    },
+    "created_at": "2026-02-12T19:37:11.496740Z",
+    "updated_at": "2026-02-12T19:41:22.407916Z",
+    "component": "Membank init target subpath resolution",
+    "test_scenario": "Given an existing directory with arbitrary content, when membank storage is resolved, then it uses the .pvrclawk subpath instead of treating the root as membank storage.",
+    "expected_result": "Expected result: membank init/create paths always resolve to <target>/.pvrclawk when the root does not already match membank layout, preventing failures in source trees.",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "feature"
+  },
+  "c399e345-ce74-4c54-a453-f5a3e311ce11": {
+    "uid": "c399e345-ce74-4c54-a453-f5a3e311ce11",
+    "tags": {
+      "membank": 1.0,
+      "path-resolution": 1.0,
+      "init": 1.0,
+      "bugfix": 1.0
+    },
+    "created_at": "2026-02-12T19:41:28.084931Z",
+    "updated_at": "2026-02-12T19:41:28.084931Z",
+    "content": "Fixed membank path resolution so non-membank --path targets resolve to a .pvrclawk subdirectory; added integration regressions for init and follow-up node commands against populated source directories.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "8e73b34c-2524-426d-a67e-a06955f5377f": {
+    "uid": "8e73b34c-2524-426d-a67e-a06955f5377f",
+    "tags": {
+      "membank": 1.0,
+      "stories": 1.0,
+      "instructions": 1.0,
+      "agile": 1.0
+    },
+    "created_at": "2026-02-12T19:42:20.310412Z",
+    "updated_at": "2026-02-12T19:43:34.616348Z",
+    "role": "As an agent maintaining membank context",
+    "benefit": "I want story nodes to be written in user-story format so node creation stays user-centered and consistently actionable.",
+    "criteria": [
+      "Story guidance defines persona + goal + benefit structure and distinguishes stories from requirements/tasks.",
+      "Story node examples and templates use non-technical, value-oriented language.",
+      "Agents preserve acceptance criteria as confirmation of done."
+    ],
+    "status": "done",
+    "othermeta": {},
+    "__type__": "story"
+  },
+  "8eaf68e7-1186-4418-b870-2f9211030532": {
+    "uid": "8eaf68e7-1186-4418-b870-2f9211030532",
+    "tags": {
+      "membank": 1.0,
+      "stories": 1.0,
+      "instructions": 1.0,
+      "docs": 1.0
+    },
+    "created_at": "2026-02-12T19:42:26.319490Z",
+    "updated_at": "2026-02-12T19:43:34.883317Z",
+    "component": "Story node authoring guidance",
+    "test_scenario": "Given membank node creation instructions, when creating story nodes, then guidance enforces user-story semantics with persona, intent, value, and acceptance confirmation.",
+    "expected_result": "Expected result: docs/instructions explicitly define stories as end-user outcomes (not technical requirements), include template and 3Cs framing, and map existing story command fields to user-story elements.",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "feature"
+  },
+  "bad805fe-b14f-40bf-9eee-decb6da42854": {
+    "uid": "bad805fe-b14f-40bf-9eee-decb6da42854",
+    "tags": {
+      "membank": 1.0,
+      "stories": 1.0,
+      "instructions": 1.0,
+      "docs": 1.0
+    },
+    "created_at": "2026-02-12T19:43:40.013903Z",
+    "updated_at": "2026-02-12T19:43:40.013903Z",
+    "content": "Updated membank instructions to enforce Agile user-story semantics for story nodes (persona + goal + benefit + confirmation criteria), refreshed README examples, and clarified node add CLI help text for story fields.",
+    "status": "done",
+    "__type__": "progress"
   }
 }

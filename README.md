@@ -36,10 +36,10 @@ pvrclawk membank init
 
 # Add a story with acceptance criteria
 pvrclawk membank node add story \
-  --title "Auth flow" \
-  --summary "Users can log in securely" \
-  --criteria "Login form validates email" \
-  --criteria "JWT token issued on success" \
+  --title "As a returning user" \
+  --summary "I want to sign in quickly so that I can resume my work without friction" \
+  --criteria "Given valid credentials, sign-in succeeds and opens the dashboard" \
+  --criteria "Given invalid credentials, a clear error message is shown" \
   --tags "auth,security"
 
 # Add a feature under that story
@@ -64,7 +64,7 @@ pvrclawk membank focus --tags "auth"
 |------|---------|
 | `memory` | Free-form text with tags |
 | `memorylink` | Reference to a long-form markdown file in `additional_memory/` |
-| `story` | Goal-level outcome with role, benefit, and acceptance criteria |
+| `story` | User-centered outcome (persona + goal + value) with confirmation criteria |
 | `feature` | Testable slice with component, scenario, and expected result |
 | `task` | Generic actionable work item |
 | `subtask` | Child actionable item under a task |
@@ -74,6 +74,12 @@ pvrclawk membank focus --tags "auth"
 | `progress` | Status checkpoint |
 
 Stories, features, and progress nodes carry a **status**: `todo` | `in_progress` | `done` | `blocked`.
+
+For `story` nodes, prefer this template:
+
+`As a <persona>, I want <goal> so that <benefit>.`
+
+Treat this as intent/value framing (Card + Conversation), and keep `--criteria` as Confirmation of done.
 
 ### Weighted links
 

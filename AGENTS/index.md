@@ -33,6 +33,7 @@ Read returned active context and linked nodes before coding.
 - Keep tags normalized and consistent.
 - Prefer updating existing status over creating duplicate nodes.
 - Keep status in the `status` field, not as text prefixes inside `content`.
+- Write `story` nodes as user stories (persona + goal + benefit), not technical requirements.
 - Prefer `pattern`, `memory`, and `progress` for implementation context; keep `story`/`feature` lean in team-managed workflows.
 - Keep node boundaries strict: story/feature (user-dev bridge), bug (user-reported defect), issue/task/subtask (execution), progress/pattern (dev context), memory/memorylink (generic context).
 - Link related story/feature/pattern nodes for better context traversal.
