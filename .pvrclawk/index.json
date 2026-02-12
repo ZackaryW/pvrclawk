@@ -24,7 +24,8 @@
       "64c0e45e-f71f-497c-8008-0fe7823f5b2f",
       "d28c34f8-a2f3-4cc7-8529-7cf14c33438b",
       "b9eb07bb-c79d-41a5-af8f-9f5f207fb9ea",
-      "cd2b44b9-ceba-4571-8ad1-ecffac52d804"
+      "cd2b44b9-ceba-4571-8ad1-ecffac52d804",
+      "06cf144c-e70c-4dbc-96bf-99467b0afaf4"
     ],
     "policy": [
       "c8654b69-01d2-44d2-be63-3b26e6f3c051",
@@ -188,7 +189,8 @@
       "d28c34f8-a2f3-4cc7-8529-7cf14c33438b"
     ],
     "agents": [
-      "c00daa7c-1600-44b5-a045-53dafc4b7f46"
+      "c00daa7c-1600-44b5-a045-53dafc4b7f46",
+      "06cf144c-e70c-4dbc-96bf-99467b0afaf4"
     ],
     "list": [
       "5b2970d1-2e83-44bb-ab82-6b97893c18ae"
@@ -367,6 +369,9 @@
     ],
     "io": [
       "cd2b44b9-ceba-4571-8ad1-ecffac52d804"
+    ],
+    "docs": [
+      "06cf144c-e70c-4dbc-96bf-99467b0afaf4"
     ]
   },
   "types": {
@@ -402,7 +407,8 @@
       "39b05032-dad6-40d2-ba4b-61033fc2212b",
       "d28c34f8-a2f3-4cc7-8529-7cf14c33438b",
       "b9eb07bb-c79d-41a5-af8f-9f5f207fb9ea",
-      "cd2b44b9-ceba-4571-8ad1-ecffac52d804"
+      "cd2b44b9-ceba-4571-8ad1-ecffac52d804",
+      "06cf144c-e70c-4dbc-96bf-99467b0afaf4"
     ],
     "story": [
       "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
@@ -529,7 +535,8 @@
     "64c0e45e-f71f-497c-8008-0fe7823f5b2f": "_inbox",
     "d28c34f8-a2f3-4cc7-8529-7cf14c33438b": "_inbox",
     "b9eb07bb-c79d-41a5-af8f-9f5f207fb9ea": "_inbox",
-    "cd2b44b9-ceba-4571-8ad1-ecffac52d804": "_inbox"
+    "cd2b44b9-ceba-4571-8ad1-ecffac52d804": "_inbox",
+    "06cf144c-e70c-4dbc-96bf-99467b0afaf4": "_inbox"
   },
   "links_in": {
     "bb21fcce-64c8-4edb-99da-795f2c557930": [
@@ -590,7 +597,7 @@
     },
     "_inbox": {
       "top_tags": [],
-      "size": 12
+      "size": 13
     }
   }
 }

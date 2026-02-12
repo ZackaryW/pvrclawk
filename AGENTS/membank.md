@@ -19,18 +19,6 @@ pvrclawk membank node list task
 
 Only after this planning update should coding and TDD begin.
 
-## Manual Migration Rule
-
-Migration is agent-driven and entry-by-entry. Do not run bulk/script migration.
-
-1. Inspect old nodes (`node list`, `node get`).
-2. Recreate target node with the new type/shape.
-3. Preserve tags/status/intent.
-4. Link the migrated node to related nodes.
-5. Mark old node status/type as superseded only after validation.
-
-Use this one-by-one process for taxonomy shifts (for example: `active/archive` to `task/subtask`).
-
 ## Core Commands
 
 ```bash
