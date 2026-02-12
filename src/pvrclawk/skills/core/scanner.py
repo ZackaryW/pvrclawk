@@ -47,9 +47,10 @@ def scan_skills(repos: list[Path]) -> list[SkillInfo]:
             story_file = folder / "skill.json"
             if story_file.exists():
                 parsed = parse_story_driven_skill(folder)
+                story_name = folder.relative_to(skills_root).as_posix()
                 results.append(
                     SkillInfo(
-                        name=folder.name,
+                        name=story_name,
                         path=folder.resolve(),
                         format="story-driven",
                         description=parsed.goal,

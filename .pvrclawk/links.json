@@ -288,6 +288,36 @@
       "usage_count": 1,
       "created_at": "2026-02-12T17:30:19.310330Z",
       "last_accessed": "2026-02-12T17:30:19.310330Z"
+    },
+    {
+      "uid": "37edf2c4-d1a7-40b3-aaa3-705d9112bc6a",
+      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+      "target": "3909d01b-0cfe-4f72-81ac-5e9b919d69e9",
+      "tags": [
+        "skills",
+        "nesting",
+        "display"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T17:45:23.191724Z",
+      "last_accessed": "2026-02-12T17:45:23.191724Z"
+    },
+    {
+      "uid": "7ff0797b-80bc-41f0-b316-1396ea4dc1c8",
+      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+      "target": "0fd1150c-c8a2-4ac6-94d5-b50ab4360d1e",
+      "tags": [
+        "skills",
+        "resolve",
+        "output"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T17:52:07.613284Z",
+      "last_accessed": "2026-02-12T17:52:07.613284Z"
     }
   ]
 }

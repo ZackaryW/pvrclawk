@@ -175,6 +175,126 @@
     "updated_at": "2026-02-12T17:42:53.971925Z",
     "content": "Membank synced with latest changes. Skills v1 is complete, including --human display for skills list. 88 tests passing. Next optional step: skills show and execution pipeline for dynamic contexts/templating.",
     "focus_area": "current-focus",
+    "__type__": "archive",
+    "archived_from": "current-focus",
+    "reason": "superseded by new active node"
+  },
+  "3909d01b-0cfe-4f72-81ac-5e9b919d69e9": {
+    "uid": "3909d01b-0cfe-4f72-81ac-5e9b919d69e9",
+    "tags": {
+      "skills": 1.0,
+      "story-driven": 1.0,
+      "nesting": 1.0,
+      "display": 1.0
+    },
+    "created_at": "2026-02-12T17:45:16.391256Z",
+    "updated_at": "2026-02-12T17:45:16.391256Z",
+    "component": "Nested story-driven path display",
+    "test_scenario": "Given nested story-driven skills, when listed or resolved, then name shows full parent path with '/' delimiter",
+    "expected_result": "Display nested skill as parent/child path instead of leaf-only name",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "63aeb86f-0716-48ab-a22d-b55cc2de7e12": {
+    "uid": "63aeb86f-0716-48ab-a22d-b55cc2de7e12",
+    "tags": {
+      "status": 1.0,
+      "in_progress": 1.0,
+      "skills": 1.0,
+      "story-driven": 1.0
+    },
+    "created_at": "2026-02-12T17:45:16.524785Z",
+    "updated_at": "2026-02-12T17:45:16.524785Z",
+    "content": "IN_PROGRESS: Fix nested story-driven skill display to include full parent path using '/' delimiter. Starting with failing tests.",
+    "status": "in_progress",
+    "__type__": "progress"
+  },
+  "00c5c39c-9028-402f-87ca-8d544c3cf9a9": {
+    "uid": "00c5c39c-9028-402f-87ca-8d544c3cf9a9",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0,
+      "skills": 1.0,
+      "story-driven": 1.0,
+      "nesting": 1.0
+    },
+    "created_at": "2026-02-12T17:46:22.495361Z",
+    "updated_at": "2026-02-12T17:46:22.495361Z",
+    "content": "DONE: Story-driven nested skills now display full parent path with '/' delimiter (e.g., use-skill/find). Added TDD coverage for scanner and human list output. 89 tests passing.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "7cb42329-a6b5-4907-bcd2-12cb937b38c9": {
+    "uid": "7cb42329-a6b5-4907-bcd2-12cb937b38c9",
+    "tags": {
+      "active": 1.0,
+      "skills": 1.0,
+      "story-driven": 1.0
+    },
+    "created_at": "2026-02-12T17:46:22.942355Z",
+    "updated_at": "2026-02-12T17:46:22.942355Z",
+    "content": "Nested story-driven path display fixed. Skills list/resolve now expose nested names as parent/child (slash-delimited). Test suite green at 89. Next: optional skills show command.",
+    "focus_area": "current-focus",
+    "__type__": "archive",
+    "archived_from": "current-focus",
+    "reason": "superseded by new active node"
+  },
+  "0fd1150c-c8a2-4ac6-94d5-b50ab4360d1e": {
+    "uid": "0fd1150c-c8a2-4ac6-94d5-b50ab4360d1e",
+    "tags": {
+      "skills": 1.0,
+      "resolve": 1.0,
+      "cli": 1.0,
+      "output": 1.0
+    },
+    "created_at": "2026-02-12T17:52:00.009172Z",
+    "updated_at": "2026-02-12T17:52:00.009172Z",
+    "component": "Resolve output modes",
+    "test_scenario": "Given skills resolve, when options are passed, then output supports full detail view or path-only view",
+    "expected_result": "Add --full and --path-only options to skills resolve command",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "2e36564d-763f-4052-a61c-5d2dde0576ba": {
+    "uid": "2e36564d-763f-4052-a61c-5d2dde0576ba",
+    "tags": {
+      "status": 1.0,
+      "in_progress": 1.0,
+      "skills": 1.0,
+      "resolve": 1.0
+    },
+    "created_at": "2026-02-12T17:52:01.827704Z",
+    "updated_at": "2026-02-12T17:52:01.827704Z",
+    "content": "IN_PROGRESS: Add skills resolve options for full detail output and path-only output. Starting with failing tests.",
+    "status": "in_progress",
+    "__type__": "progress"
+  },
+  "bf4aff77-5d8b-43ca-8821-91a8189320dc": {
+    "uid": "bf4aff77-5d8b-43ca-8821-91a8189320dc",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0,
+      "skills": 1.0,
+      "resolve": 1.0,
+      "cli": 1.0
+    },
+    "created_at": "2026-02-12T17:53:03.630191Z",
+    "updated_at": "2026-02-12T17:53:03.630191Z",
+    "content": "DONE: Added skills resolve output modes: --full (includes path) and --path-only (path-only output). Added integration tests and kept default output unchanged. 91 tests passing.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "bed8d804-b2a6-4475-b91e-ee61e78b9b26": {
+    "uid": "bed8d804-b2a6-4475-b91e-ee61e78b9b26",
+    "tags": {
+      "active": 1.0,
+      "skills": 1.0,
+      "resolve": 1.0
+    },
+    "created_at": "2026-02-12T17:53:04.065599Z",
+    "updated_at": "2026-02-12T17:53:04.065599Z",
+    "content": "Resolve command now supports --full and --path-only modes. Nested path display and human list view are complete. Test suite green at 91. use-skill/find removal now has parity for path output.",
+    "focus_area": "current-focus",
     "__type__": "active"
   }
 }

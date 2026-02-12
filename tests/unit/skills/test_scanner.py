@@ -48,3 +48,37 @@ def test_scan_skills_detects_standard_and_story_driven(tmp_path: Path):
     assert by_name["use-skill"].format == "story-driven"
     assert "Resolve and use skills" in by_name["use-skill"].description
 
+
+def test_scan_skills_story_driven_nested_uses_parent_delimited_name(tmp_path: Path):
+    repo = tmp_path / "repo"
+    parent = repo / "skills" / "use-skill"
+    nested = parent / "find"
+    parent.mkdir(parents=True)
+    nested.mkdir(parents=True)
+
+    (parent / "skill.json").write_text(
+        json.dumps(
+            {
+                "goal": "Parent skill",
+                "acceptance_criteria": ["Parent criteria"],
+                "features": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (nested / "skill.json").write_text(
+        json.dumps(
+            {
+                "goal": "Nested resolver",
+                "acceptance_criteria": ["Nested criteria"],
+                "features": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    infos = scan_skills([repo])
+    by_name = {i.name: i for i in infos}
+    assert "use-skill/find" in by_name
+    assert by_name["use-skill/find"].format == "story-driven"
+
