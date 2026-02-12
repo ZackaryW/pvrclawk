@@ -8,15 +8,16 @@ from pvrclawk.membank.models.config import AppConfig
 
 
 def register_mood(group: click.Group) -> None:
-    @group.group("report")
+    @group.group("report", help="Submit observations that influence mood-aware scoring.")
     def report_group() -> None:
-        """Report commands."""
+        """Submit observations that influence mood-aware scoring."""
 
-    @report_group.command("mood")
+    @report_group.command("mood", help="Report a mood value for a tag.")
     @click.argument("tag")
     @click.argument("value", type=float)
     @click.pass_context
     def mood_command(ctx: click.Context, tag: str, value: float) -> None:
+        """Report a mood value for a tag."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
         storage.init_db()
         tracker = MoodTracker(storage.mood_file, AppConfig())

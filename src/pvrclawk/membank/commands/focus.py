@@ -10,11 +10,12 @@ from pvrclawk.membank.models.config import AppConfig
 
 
 def register_focus(group: click.Group) -> None:
-    @group.command("focus")
-    @click.option("--tags", required=True, help="Comma separated query tags")
-    @click.option("--limit", default=5, type=int)
+    @group.command("focus", help="Retrieve ranked nodes relevant to query tags.")
+    @click.option("--tags", required=True, help="Comma-separated query tags.")
+    @click.option("--limit", default=5, type=int, help="Maximum number of ranked nodes to return.")
     @click.pass_context
     def focus_command(ctx: click.Context, tags: str, limit: int) -> None:
+        """Retrieve ranked nodes relevant to query tags."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
         nodes = storage.all_nodes()
         links = storage.all_links()

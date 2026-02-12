@@ -65,13 +65,13 @@ def _resolve_uid_reference(
 
 
 def register_node(group: click.Group) -> None:
-    @group.group("node")
+    @group.group("node", help="Create, inspect, list, and remove membank nodes.")
     def node_group() -> None:
-        """Node commands."""
+        """Create, inspect, list, and remove membank nodes."""
 
-    @node_group.command("add")
+    @node_group.command("add", help="Create a node for the given node type.")
     @click.argument("node_type")
-    @click.option("--content", default="")
+    @click.option("--content", default="", help="Node content/body text.")
     @click.option(
         "--title",
         default="",
@@ -82,8 +82,14 @@ def register_node(group: click.Group) -> None:
         default="",
         help="Summary field. For story nodes, use goal+value phrasing (for example: 'I want ... so that ...').",
     )
-    @click.option("--tags", default="")
-    @click.option("--status", "initial_status", default="todo", type=click.Choice(["todo", "in_progress", "done", "blocked"]))
+    @click.option("--tags", default="", help="Comma-separated tags. Optional weights use tag:value syntax.")
+    @click.option(
+        "--status",
+        "initial_status",
+        default="todo",
+        type=click.Choice(["todo", "in_progress", "done", "blocked"]),
+        help="Initial status for node types that support status.",
+    )
     @click.option("--criteria", multiple=True, help="Acceptance criteria / confirmation checks (repeatable).")
     @click.pass_context
     def add_node(
@@ -96,6 +102,7 @@ def register_node(group: click.Group) -> None:
         initial_status: str,
         criteria: tuple[str, ...],
     ) -> None:
+        """Create a node for the given node type."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
         storage.init_db()
         parsed_tags = _parse_tags(tags)
@@ -132,7 +139,7 @@ def register_node(group: click.Group) -> None:
         uid = storage.save_node(node, node_type)
         click.echo(uid)
 
-    @node_group.command("get")
+    @node_group.command("get", help="Show full details for a node by UID or --last index.")
     @click.argument("uid", required=False)
     @click.option("--last", "last_n", type=click.IntRange(min=1, max=10), default=None, help="Use the Nth most recent UID.")
     @click.pass_context
@@ -146,12 +153,12 @@ def register_node(group: click.Group) -> None:
             return
         click.echo(render_node_detail(node))
 
-    @node_group.command("status")
+    @node_group.command("status", help="Update the status of a node that supports status.")
     @click.argument("args", nargs=-1)
     @click.option("--last", "last_n", type=click.IntRange(min=1, max=10), default=None, help="Use the Nth most recent UID.")
     @click.pass_context
     def set_status(ctx: click.Context, args: tuple[str, ...], last_n: int | None) -> None:
-        """Update the status of a story, feature, or progress node."""
+        """Update the status of a node that supports status."""
         allowed_statuses = {"todo", "in_progress", "done", "blocked"}
         uid: str | None = None
         if last_n is not None:
@@ -173,7 +180,7 @@ def register_node(group: click.Group) -> None:
         else:
             click.echo(f"Could not update status for {resolved_uid} (node not found or no status field)")
 
-    @node_group.command("list")
+    @node_group.command("list", help="List nodes for a specific node type.")
     @click.argument("node_type")
     @click.option("--top", type=click.IntRange(min=1), default=None, help="Show only the N most recent nodes.")
     @click.pass_context
@@ -186,7 +193,7 @@ def register_node(group: click.Group) -> None:
         for node in nodes:
             click.echo(render_node(node))
 
-    @node_group.command("list-all")
+    @node_group.command("list-all", help="List nodes across all node types.")
     @click.option("--top", type=click.IntRange(min=1), default=None, help="Show only the N most recent nodes.")
     @click.pass_context
     def list_all_nodes(ctx: click.Context, top: int | None) -> None:
@@ -198,7 +205,7 @@ def register_node(group: click.Group) -> None:
         for node in nodes:
             click.echo(render_node(node))
 
-    @node_group.command("remove")
+    @node_group.command("remove", help="Remove one node by UID or --last index.")
     @click.argument("uid", required=False)
     @click.option("--last", "last_n", type=click.IntRange(min=1, max=10), default=None, help="Use the Nth most recent UID.")
     @click.pass_context
@@ -212,12 +219,12 @@ def register_node(group: click.Group) -> None:
         else:
             click.echo(f"Node not found: {resolved_uid}")
 
-    @node_group.command("remove-type")
+    @node_group.command("remove-type", help="Remove all nodes of one type (requires --all).")
     @click.argument("node_type")
     @click.option("-a", "--all", "confirm_all", is_flag=True, help="Required: confirm removing all nodes of this type.")
     @click.pass_context
     def remove_nodes_by_type(ctx: click.Context, node_type: str, confirm_all: bool) -> None:
-        """Remove all nodes of a given type."""
+        """Remove all nodes of one type (requires --all)."""
         if not confirm_all:
             raise click.ClickException("Use --all to confirm bulk removal by type.")
         storage = StorageEngine(Path(ctx.obj["root_path"]))

@@ -7,9 +7,10 @@ from pvrclawk.skills.core.scanner import collect_skill_repos, scan_skills
 
 
 def register_list(group: click.Group) -> None:
-    @group.command("list")
+    @group.command("list", help="List discovered skills across configured repositories.")
     @click.option("--human", is_flag=True, help="Render a human-readable table view.")
     def list_skills(human: bool) -> None:
+        """List discovered skills across configured repositories."""
         cfg = load_skills_config()
         repos = collect_skill_repos(cfg)
         infos = scan_skills(repos)

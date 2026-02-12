@@ -4,9 +4,9 @@ from pvrclawk.membank import membank_group
 from pvrclawk.skills import skills_group
 
 
-@click.group()
+@click.group(help="pvrclawk CLI entrypoint.")
 def main() -> None:
-    """pvrclawk root command."""
+    """pvrclawk CLI entrypoint."""
 
 
 main.add_command(membank_group, name="membank")

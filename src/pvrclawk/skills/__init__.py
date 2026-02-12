@@ -1,9 +1,9 @@
 import click
 
 
-@click.group()
+@click.group(help="Discover, resolve, and update agent skills.")
 def skills_group() -> None:
-    """Skills commands."""
+    """Discover, resolve, and update agent skills."""
 
 
 from pvrclawk.skills.commands.list import register_list  # noqa: E402

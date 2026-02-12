@@ -1,0 +1,15 @@
+{
+  "82bc65d0-f5e7-42f5-8b92-b1be8bda9187": {
+    "uid": "82bc65d0-f5e7-42f5-8b92-b1be8bda9187",
+    "tags": {
+      "progress": 1.0,
+      "cli": 1.0,
+      "help": 1.0
+    },
+    "created_at": "2026-02-12T20:39:58.038083Z",
+    "updated_at": "2026-02-12T20:39:58.038083Z",
+    "content": "Added explicit help text for root/groups/commands and added CLI integration tests covering help output for root, membank, nested groups, and skills.",
+    "status": "done",
+    "__type__": "progress"
+  }
+}

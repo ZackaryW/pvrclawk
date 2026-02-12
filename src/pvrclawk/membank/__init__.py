@@ -28,11 +28,11 @@ def _resolve_storage_root(root_path: str) -> Path:
     return path / ".pvrclawk"
 
 
-@click.group()
-@click.option("--path", "root_path", default=".pvrclawk", help="Storage root path.")
+@click.group(help="Manage the graph-based membank.")
+@click.option("--path", "root_path", default=".pvrclawk", help="Path to membank storage (or project root that contains .pvrclawk).")
 @click.pass_context
 def membank_group(ctx: click.Context, root_path: str) -> None:
-    """Membank commands."""
+    """Manage the graph-based membank."""
     ctx.ensure_object(dict)
     ctx.obj["root_path"] = str(_resolve_storage_root(root_path))
 
