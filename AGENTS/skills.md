@@ -39,6 +39,10 @@ pvrclawk skills list
 # Resolve by keyword(s) against folder name + description/goal
 pvrclawk skills resolve browser testing
 pvrclawk skills resolve memory bank
+
+# Resolve output modes
+pvrclawk skills resolve --full memory
+pvrclawk skills resolve --path-only memory
 ```
 
 ## Matching Rules
