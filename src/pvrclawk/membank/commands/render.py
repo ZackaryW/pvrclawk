@@ -1,14 +1,16 @@
 """Shared node rendering for CLI output."""
 
 from pvrclawk.membank.models.nodes import (
-    Active,
-    Archive,
+    Bug,
     Feature,
+    Issue,
     Memory,
     MemoryLink,
     Pattern,
     Progress,
     Story,
+    SubTask,
+    Task,
 )
 
 
@@ -33,11 +35,18 @@ def render_node(node, score: float | None = None) -> str:
     if isinstance(node, Feature):
         status = f" [{node.status.value}]" if hasattr(node, "status") else ""
         return f"{header}{status}\n  {node.component}: {node.test_scenario}\n  expect: {node.expected_result}"
-    if isinstance(node, Active):
-        area = f" [{node.focus_area}]" if node.focus_area else ""
-        return f"{header}{area}\n  {node.content}"
-    if isinstance(node, Archive):
-        return f"{header}\n  {node.content}"
+    if isinstance(node, Task):
+        status = f" [{node.status.value}]" if hasattr(node, "status") else ""
+        return f"{header}{status}\n  {node.content}"
+    if isinstance(node, SubTask):
+        status = f" [{node.status.value}]" if hasattr(node, "status") else ""
+        return f"{header}{status}\n  {node.content}"
+    if isinstance(node, Issue):
+        status = f" [{node.status.value}]" if hasattr(node, "status") else ""
+        return f"{header}{status}\n  {node.content}"
+    if isinstance(node, Bug):
+        status = f" [{node.status.value}]" if hasattr(node, "status") else ""
+        return f"{header}{status}\n  {node.content}"
     if isinstance(node, Pattern):
         ptype = f" [{node.pattern_type}]" if node.pattern_type else ""
         return f"{header}{ptype}\n  {node.content}"
@@ -67,18 +76,35 @@ def render_node_detail(node) -> str:
             for c in node.criteria:
                 lines.append(f"  - {c}")
         lines.append(f"status: {node.status.value}")
+        if node.othermeta:
+            lines.append(f"othermeta: {node.othermeta}")
     elif isinstance(node, Feature):
         lines.append(f"component: {node.component}")
         lines.append(f"scenario: {node.test_scenario}")
         lines.append(f"expected: {node.expected_result}")
         lines.append(f"status: {node.status.value}")
-    elif isinstance(node, Active):
-        lines.append(f"focus_area: {node.focus_area}")
+        if node.othermeta:
+            lines.append(f"othermeta: {node.othermeta}")
+    elif isinstance(node, Task):
         lines.append(f"content: {node.content}")
-    elif isinstance(node, Archive):
-        lines.append(f"archived_from: {node.archived_from}")
-        lines.append(f"reason: {node.reason}")
+        lines.append(f"status: {node.status.value}")
+        if node.othermeta:
+            lines.append(f"othermeta: {node.othermeta}")
+    elif isinstance(node, SubTask):
         lines.append(f"content: {node.content}")
+        lines.append(f"status: {node.status.value}")
+        if node.othermeta:
+            lines.append(f"othermeta: {node.othermeta}")
+    elif isinstance(node, Issue):
+        lines.append(f"content: {node.content}")
+        lines.append(f"status: {node.status.value}")
+        if node.othermeta:
+            lines.append(f"othermeta: {node.othermeta}")
+    elif isinstance(node, Bug):
+        lines.append(f"content: {node.content}")
+        lines.append(f"status: {node.status.value}")
+        if node.othermeta:
+            lines.append(f"othermeta: {node.othermeta}")
     elif isinstance(node, Pattern):
         lines.append(f"pattern_type: {node.pattern_type}")
         lines.append(f"content: {node.content}")

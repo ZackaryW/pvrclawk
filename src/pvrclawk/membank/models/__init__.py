@@ -5,12 +5,16 @@ from pvrclawk.membank.models.link import Link
 from pvrclawk.membank.models.nodes import (
     Active,
     Archive,
+    Bug,
     Feature,
+    Issue,
     Memory,
     MemoryLink,
     Pattern,
     Progress,
     Story,
+    SubTask,
+    Task,
 )
 from pvrclawk.membank.models.types import NodeType, Status
 
@@ -19,9 +23,11 @@ __all__ = [
     "AppConfig",
     "Archive",
     "BaseNode",
+    "Bug",
     "ClusterMeta",
     "Feature",
     "IndexData",
+    "Issue",
     "Link",
     "Memory",
     "MemoryLink",
@@ -30,4 +36,6 @@ __all__ = [
     "Progress",
     "Status",
     "Story",
+    "SubTask",
+    "Task",
 ]

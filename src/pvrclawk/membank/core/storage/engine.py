@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+from datetime import datetime, timezone
 
 from pvrclawk.utils.config import AppConfig, load_config, write_config
 from pvrclawk.utils.json_io import read_json, write_json
@@ -8,12 +9,16 @@ from pvrclawk.membank.models.link import Link
 from pvrclawk.membank.models.nodes import (
     Active,
     Archive,
+    Bug,
     Feature,
+    Issue,
     Memory,
     MemoryLink,
     Pattern,
     Progress,
+    SubTask,
     Story,
+    Task,
 )
 from pvrclawk.membank.core.storage.index import add_unique
 from pvrclawk.membank.core.storage.cluster import derive_cluster_name
@@ -134,8 +139,12 @@ class StorageEngine:
             "memorylink": MemoryLink,
             "story": Story,
             "feature": Feature,
-            "active": Active,
-            "archive": Archive,
+            "active": Task,
+            "archive": SubTask,
+            "task": Task,
+            "subtask": SubTask,
+            "issue": Issue,
+            "bug": Bug,
             "pattern": Pattern,
             "progress": Progress,
         }
@@ -146,10 +155,36 @@ class StorageEngine:
                 payload = data.get(uid)
                 if not payload:
                     continue
-                node_type = payload.pop("__type__", "memory")
+                node_type = self._normalized_node_type(payload)
+                payload = dict(payload)
+                payload.pop("__type__", None)
                 cls = cls_map.get(node_type, Memory)
                 out.append(cls.model_validate(payload))
         return out
+
+    def _normalized_node_type(self, payload: dict) -> str:
+        raw = str(payload.get("__type__", "memory"))
+        if raw == "active":
+            raw = "task"
+        elif raw == "archive":
+            raw = "subtask"
+
+        tags = {str(k).lower() for k in payload.get("tags", {}).keys()}
+        blob_parts = [
+            str(payload.get("content", "")),
+            str(payload.get("title", "")),
+            str(payload.get("summary", "")),
+            str(payload.get("focus_area", "")),
+            str(payload.get("archived_from", "")),
+        ]
+        blob = " ".join(blob_parts).lower()
+
+        if raw in {"task", "subtask"}:
+            if "bug" in tags or " bug" in f" {blob}":
+                return "bug"
+            if "issue" in tags or "jira" in tags or "proj-" in blob:
+                return "issue"
+        return raw
 
     def save_link(self, link: Link) -> str:
         links = self._read_json(self.links_file, {})
@@ -202,6 +237,7 @@ class StorageEngine:
         if "status" not in payload:
             return False
         payload["status"] = status
+        payload["updated_at"] = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         self._write_json(cluster_path, data)
         return True
 

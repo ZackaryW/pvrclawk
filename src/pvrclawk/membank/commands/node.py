@@ -5,14 +5,16 @@ import click
 from pvrclawk.membank.commands.render import render_node, render_node_detail
 from pvrclawk.membank.core.storage.engine import StorageEngine
 from pvrclawk.membank.models.nodes import (
-    Active,
-    Archive,
+    Bug,
     Feature,
+    Issue,
     Memory,
     MemoryLink,
     Pattern,
     Progress,
     Story,
+    SubTask,
+    Task,
 )
 
 
@@ -74,10 +76,16 @@ def register_node(group: click.Group) -> None:
             node = Story(role=title, benefit=summary or content, criteria=list(criteria), status=initial_status)
         elif node_type == "feature":
             node = Feature(component=title or "component", test_scenario=summary or "scenario", expected_result=content or "result", status=initial_status)
-        elif node_type == "active":
-            node = Active(content=content, focus_area=title)
-        elif node_type == "archive":
-            node = Archive(content=content, archived_from=title, reason=summary)
+        elif node_type == "task":
+            node = Task(content=content or summary or title, status=initial_status)
+        elif node_type == "subtask":
+            node = SubTask(content=content or summary or title, status=initial_status)
+        elif node_type == "issue":
+            node = Issue(content=content or summary or title, status=initial_status)
+        elif node_type == "bug":
+            node = Bug(content=content or summary or title, status=initial_status)
+        elif node_type in {"active", "archive"}:
+            raise click.ClickException(f"'{node_type}' is deprecated. Use 'task' or 'subtask' instead.")
         elif node_type == "pattern":
             node = Pattern(content=content, pattern_type=title)
         elif node_type == "progress":

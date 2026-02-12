@@ -19,6 +19,7 @@ class Story(BaseNode):
     benefit: str
     criteria: list[str] = Field(default_factory=list)
     status: Status = Status.TODO
+    othermeta: dict[str, object] = Field(default_factory=dict)
 
 
 class Feature(BaseNode):
@@ -26,17 +27,31 @@ class Feature(BaseNode):
     test_scenario: str
     expected_result: str
     status: Status = Status.TODO
+    othermeta: dict[str, object] = Field(default_factory=dict)
 
 
-class Active(BaseNode):
+class Task(BaseNode):
     content: str
-    focus_area: str = ""
+    status: Status = Status.TODO
+    othermeta: dict[str, object] = Field(default_factory=dict)
 
 
-class Archive(BaseNode):
+class SubTask(BaseNode):
     content: str
-    archived_from: str = ""
-    reason: str = ""
+    status: Status = Status.TODO
+    othermeta: dict[str, object] = Field(default_factory=dict)
+
+
+class Issue(BaseNode):
+    content: str
+    status: Status = Status.TODO
+    othermeta: dict[str, object] = Field(default_factory=dict)
+
+
+class Bug(BaseNode):
+    content: str
+    status: Status = Status.TODO
+    othermeta: dict[str, object] = Field(default_factory=dict)
 
 
 class Pattern(BaseNode):
@@ -47,3 +62,12 @@ class Pattern(BaseNode):
 class Progress(BaseNode):
     content: str
     status: Status = Status.TODO
+
+
+# Backward compatibility aliases during migration rollout.
+class Active(Task):
+    pass
+
+
+class Archive(SubTask):
+    pass

@@ -121,22 +121,31 @@ def test_node_add_status_default_is_todo(runner, tmp_path):
     assert "todo" in get_result.output.lower()
 
 
-def test_adding_active_archives_previous(runner, tmp_path):
+def test_add_task_and_subtask_with_status(runner, tmp_path):
     db_path = tmp_path / ".pvrclawk"
     runner.invoke(main, ["membank", "--path", str(db_path), "init"])
-    # Add first active
-    r1 = runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "active", "--title", "old-focus", "--content", "old context"])
-    uid1 = r1.output.strip()
-    # Add second active -- should archive the first
-    r2 = runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "active", "--title", "new-focus", "--content", "new context"])
-    assert r2.exit_code == 0
-    # Old active should now be an archive
-    archives = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list", "archive"])
-    assert "old context" in archives.output
-    # New active should be the only active
-    actives = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list", "active"])
-    assert "new context" in actives.output
-    assert "old context" not in actives.output
+    task_result = runner.invoke(
+        main,
+        ["membank", "--path", str(db_path), "node", "add", "task", "--content", "implement api", "--status", "in_progress"],
+    )
+    subtask_result = runner.invoke(
+        main,
+        ["membank", "--path", str(db_path), "node", "add", "subtask", "--content", "write tests", "--status", "todo"],
+    )
+    assert task_result.exit_code == 0
+    assert subtask_result.exit_code == 0
+    tasks = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list", "task"])
+    subtasks = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list", "subtask"])
+    assert "implement api" in tasks.output
+    assert "write tests" in subtasks.output
+
+
+def test_add_active_is_deprecated(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "active", "--content", "legacy"])
+    assert result.exit_code != 0
+    assert "deprecated" in result.output.lower()
 
 
 def test_story_with_criteria(runner, tmp_path):
@@ -171,7 +180,9 @@ def test_node_list_top_most_recent(runner, tmp_path):
     db_path = tmp_path / ".pvrclawk"
     runner.invoke(main, ["membank", "--path", str(db_path), "init"])
     runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "Old Story", "--summary", "old"])
-    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "New Story", "--summary", "new"])
+    new_add = runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "New Story", "--summary", "new"])
+    new_uid = new_add.output.strip()
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "status", new_uid, "in_progress"])
 
     list_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list", "story", "--top", "1"])
     assert list_result.exit_code == 0
@@ -182,10 +193,11 @@ def test_node_list_top_most_recent(runner, tmp_path):
 def test_node_list_all_top_most_recent(runner, tmp_path):
     db_path = tmp_path / ".pvrclawk"
     runner.invoke(main, ["membank", "--path", str(db_path), "init"])
-    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "S1", "--summary", "first"])
-    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "pattern", "--title", "p2", "--content", "newest rule"])
+    story_add = runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "S1", "--summary", "first"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "pattern", "--title", "p2", "--content", "older rule"])
+    story_uid = story_add.output.strip()
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "status", story_uid, "in_progress"])
 
     list_result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "list-all", "--top", "1"])
     assert list_result.exit_code == 0
-    assert "newest rule" in list_result.output
-    assert "S1" not in list_result.output
+    assert "S1" in list_result.output

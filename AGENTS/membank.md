@@ -6,9 +6,10 @@ Before implementation or tests, update the membank plan context first.
 
 ```bash
 # 1) Review current context
-pvrclawk membank focus --tags "active"
+pvrclawk membank focus --tags "task"
 pvrclawk membank node list story
 pvrclawk membank node list feature
+pvrclawk membank node list task
 
 # 2) Add/update story + feature nodes for the incoming task
 # 3) Set relevant node status to in_progress
@@ -16,12 +17,24 @@ pvrclawk membank node list feature
 
 Only after this planning update should coding and TDD begin.
 
+## Manual Migration Rule
+
+Migration is agent-driven and entry-by-entry. Do not run bulk/script migration.
+
+1. Inspect old nodes (`node list`, `node get`).
+2. Recreate target node with the new type/shape.
+3. Preserve tags/status/intent.
+4. Link the migrated node to related nodes.
+5. Mark old node status/type as superseded only after validation.
+
+Use this one-by-one process for taxonomy shifts (for example: `active/archive` to `task/subtask`).
+
 ## Core Commands
 
 ```bash
 # Query context
 pvrclawk membank focus --tags "architecture"
-pvrclawk membank focus --tags "active"
+pvrclawk membank focus --tags "task"
 
 # Inspect nodes
 pvrclawk membank node list-all
@@ -32,6 +45,42 @@ pvrclawk membank node get <uid>
 # Update status
 pvrclawk membank node status <uid> in_progress
 pvrclawk membank node status <uid> done
+```
+
+## Node Type Boundaries
+
+Use node types with strict intent boundaries:
+
+- `story`: user-facing outcome mapping to developer requirements bridge
+- `feature`: user-to-dev requirement slice (testable implementation bridge)
+- `bug`: user-reported defect that developers fix
+- `issue`: tracked issue item for development/project execution
+- `task`: generic actionable work item
+- `subtask`: child actionable item of a task
+- `progress`: developer-specific implementation progress/log
+- `pattern`: code implementation pattern/convention
+- `memory` / `memorylink`: developer-generic context that does not fit other types
+
+Keep these boundaries explicit when creating nodes.
+
+## Query Playbook (Everything Must Be Queryable)
+
+```bash
+# Planning bridge (user -> dev)
+pvrclawk membank node list story --top 20
+pvrclawk membank node list feature --top 20
+
+# Execution tracking
+pvrclawk membank node list issue --top 20
+pvrclawk membank node list bug --top 20
+pvrclawk membank node list task --top 20
+pvrclawk membank node list subtask --top 20
+
+# Developer context
+pvrclawk membank node list progress --top 20
+pvrclawk membank node list pattern --top 20
+pvrclawk membank node list memory --top 20
+pvrclawk membank node list memorylink --top 20
 ```
 
 ## Node Creation
@@ -54,9 +103,10 @@ pvrclawk membank node add feature \
   --tags "tag1,tag2" \
   --status todo
 
-# Progress + Active
+# Progress + Task/Subtask
 pvrclawk membank node add progress --content "<change summary>" --tags "status,done" --status done
-pvrclawk membank node add active --title "current-focus" --content "<current state>" --tags "active"
+pvrclawk membank node add task --content "<current state>" --tags "task" --status in_progress
+pvrclawk membank node add subtask --content "<next granular step>" --tags "subtask" --status todo
 ```
 
 ## Links, Mood, Rules
@@ -84,5 +134,10 @@ pvrclawk membank config set auto_archive_active true
 - Do not bulk import markdown; decompose into typed nodes.
 - Always update membank first for every new task, then start TDD.
 - Do not encode status words in `content` (for example: `IN_PROGRESS:`, `DONE:`). Use the `status` field via `node status` or `--status`.
+- In team-managed environments, keep `story` and `feature` lean; they are user-to-dev bridge artifacts and often managed via Jira.
+- Use `bug` for user-reported defects; use `issue` for tracked execution issues.
+- Use `task`/`subtask` for generic work only (subtask must be a child actionable item).
+- Most frequent implementation-side nodes should be `pattern`, `memory`, and `progress`, and they should be linked to relevant work.
+- The membank should coexist as a graph for team/project management and developer context, bridging users and agents.
 - Keep TDD strict: failing test -> minimal fix -> refactor -> full tests.
 

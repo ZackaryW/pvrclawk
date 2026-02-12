@@ -1,12 +1,14 @@
 from pvrclawk.membank.models.nodes import (
-    Active,
-    Archive,
+    Bug,
     Feature,
+    Issue,
     Memory,
     MemoryLink,
     Pattern,
     Progress,
     Story,
+    SubTask,
+    Task,
 )
 
 
@@ -21,9 +23,27 @@ def test_memorylink_node():
 
 
 def test_other_node_types():
-    assert Story(role="dev", benefit="ship").role == "dev"
-    assert Feature(component="x", test_scenario="Given", expected_result="Then").component == "x"
-    assert Active(content="a", focus_area="b").focus_area == "b"
-    assert Archive(content="a", archived_from="active").archived_from == "active"
+    story = Story(role="dev", benefit="ship")
+    feature = Feature(component="x", test_scenario="Given", expected_result="Then")
+    assert story.role == "dev"
+    assert feature.component == "x"
+    assert story.othermeta == {}
+    assert feature.othermeta == {}
     assert Pattern(content="a", pattern_type="arch").pattern_type == "arch"
     assert Progress(content="a").content == "a"
+
+
+def test_jira_aligned_node_types_have_status_and_othermeta():
+    issue = Issue(content="sync jira issue")
+    bug = Bug(content="fix bug")
+    task = Task(content="implement endpoint")
+    subtask = SubTask(content="write tests")
+
+    assert issue.status.value == "todo"
+    assert bug.status.value == "todo"
+    assert task.status.value == "todo"
+    assert subtask.status.value == "todo"
+    assert issue.othermeta == {}
+    assert bug.othermeta == {}
+    assert task.othermeta == {}
+    assert subtask.othermeta == {}

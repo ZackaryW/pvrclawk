@@ -4,12 +4,16 @@ from pvrclawk.membank.core.storage.engine import StorageEngine
 from pvrclawk.membank.models.nodes import (
     Active,
     Archive,
+    Bug,
     Feature,
+    Issue,
     Memory,
     MemoryLink,
     Pattern,
     Progress,
     Story,
+    SubTask,
+    Task,
 )
 
 
@@ -150,3 +154,37 @@ def test_auto_archive_disabled_via_config(tmp_path: Path):
     assert len(actives) == 2
     archives = storage.load_nodes_by_type("archive")
     assert len(archives) == 0
+
+
+def test_legacy_active_archive_are_loaded_as_task_types(tmp_path: Path):
+    storage = StorageEngine(tmp_path / ".pvrclawk")
+    storage.init_db()
+
+    active = Active(content="active payload", focus_area="focus")
+    archive = Archive(content="archive payload", archived_from="active", reason="done")
+    uid_active = storage.save_node(active, "active")
+    uid_archive = storage.save_node(archive, "archive")
+
+    loaded = storage.load_nodes([uid_active, uid_archive])
+    loaded_by_uid = {n.uid: n for n in loaded}
+
+    assert isinstance(loaded_by_uid[uid_active], Task)
+    assert isinstance(loaded_by_uid[uid_archive], SubTask)
+
+
+def test_task_can_be_promoted_to_bug_or_issue_by_tags(tmp_path: Path):
+    storage = StorageEngine(tmp_path / ".pvrclawk")
+    storage.init_db()
+
+    t_bug = Task(content="fix login bug")
+    t_bug.add_tag("bug", 1.0)
+    bug_uid = storage.save_node(t_bug, "task")
+
+    t_issue = Task(content="investigate JIRA PROJ-123")
+    t_issue.add_tag("issue", 1.0)
+    issue_uid = storage.save_node(t_issue, "task")
+
+    loaded = storage.load_nodes([bug_uid, issue_uid])
+    by_uid = {n.uid: n for n in loaded}
+    assert isinstance(by_uid[bug_uid], Bug)
+    assert isinstance(by_uid[issue_uid], Issue)

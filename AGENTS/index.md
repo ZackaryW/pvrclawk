@@ -13,8 +13,8 @@
 
 | Phrase | Action |
 |---|---|
-| `update membank` | Record completed work as progress, update status, refresh active |
-| `check context` | Run `pvrclawk membank focus --tags "active"` |
+| `update membank` | Record completed work as progress, update status, refresh task/subtask context |
+| `check context` | Run `pvrclawk membank focus --tags "task"` |
 | `what's left` | List story/feature nodes and inspect non-done status |
 | `resolve skill` | Run `pvrclawk skills resolve <keywords...>` |
 | `list skills` | Run `pvrclawk skills list` |
@@ -23,7 +23,7 @@
 ## Session Bootstrap
 
 ```bash
-pvrclawk membank focus --tags "active"
+pvrclawk membank focus --tags "task"
 ```
 
 Read returned active context and linked nodes before coding.
@@ -33,6 +33,8 @@ Read returned active context and linked nodes before coding.
 - Keep tags normalized and consistent.
 - Prefer updating existing status over creating duplicate nodes.
 - Keep status in the `status` field, not as text prefixes inside `content`.
+- Prefer `pattern`, `memory`, and `progress` for implementation context; keep `story`/`feature` lean in team-managed workflows.
+- Keep node boundaries strict: story/feature (user-dev bridge), bug (user-reported defect), issue/task/subtask (execution), progress/pattern (dev context), memory/memorylink (generic context).
 - Link related story/feature/pattern nodes for better context traversal.
 - Use `skills resolve` when task intent maps to reusable skills.
 - Run tests after changes.

@@ -1,105 +1,30 @@
 {
-  "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9": {
-    "uid": "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9",
-    "tags": {
-      "membank": 1.0,
-      "node": 1.0,
-      "cli": 1.0,
-      "list": 1.0
-    },
-    "created_at": "2026-02-12T18:09:10.033251Z",
-    "updated_at": "2026-02-12T18:09:10.033251Z",
-    "component": "Node list top filter",
-    "test_scenario": "Given node list and node list-all, when --top N is provided, then results return only top N most recently updated nodes",
-    "expected_result": "Add --top option to list and list-all with recency sorting",
-    "status": "done",
-    "__type__": "feature"
-  },
-  "e312415e-6576-4de2-9bd8-82614f0a232b": {
-    "uid": "e312415e-6576-4de2-9bd8-82614f0a232b",
+  "ab22676e-e918-4fdd-b75c-8922c98275ed": {
+    "uid": "ab22676e-e918-4fdd-b75c-8922c98275ed",
     "tags": {
       "status": 1.0,
-      "in_progress": 1.0,
+      "done": 1.0,
       "membank": 1.0,
-      "node": 1.0
+      "classification": 1.0
     },
-    "created_at": "2026-02-12T18:09:10.274058Z",
-    "updated_at": "2026-02-12T18:09:10.274058Z",
-    "content": "IN_PROGRESS: Add --top option to membank node list and list-all, sorted by most recent node update timestamp.",
+    "created_at": "2026-02-12T18:54:21.667277Z",
+    "updated_at": "2026-02-12T18:54:21.667277Z",
+    "content": "Reclassified archive-derived subtask entries by semantics: historical summaries now tracked as progress (done). Subtask is reserved for child actionable items only.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "3dcb431e-0753-4ccc-863e-19c976fec144": {
+    "uid": "3dcb431e-0753-4ccc-863e-19c976fec144",
+    "tags": {
+      "task": 1.0,
+      "membank": 1.0,
+      "classification": 1.0
+    },
+    "created_at": "2026-02-12T18:54:29.829053Z",
+    "updated_at": "2026-02-12T18:54:29.829053Z",
+    "content": "Node semantics corrected: archive history no longer represented as subtask. task/subtask now reserved for actionable work hierarchy; historical state tracked in progress.",
     "status": "in_progress",
-    "__type__": "progress"
-  },
-  "9e5b574f-ff0d-4259-9938-ba7f4775916f": {
-    "uid": "9e5b574f-ff0d-4259-9938-ba7f4775916f",
-    "tags": {
-      "status": 1.0,
-      "done": 1.0,
-      "membank": 1.0,
-      "node": 1.0,
-      "cli": 1.0
-    },
-    "created_at": "2026-02-12T18:10:26.317002Z",
-    "updated_at": "2026-02-12T18:10:26.317002Z",
-    "content": "DONE: Added --top option to membank node list and node list-all. Results are now sorted by most recent updated_at and limited to top N when provided. Added integration tests. 97 tests passing.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "ef46391b-fc47-4532-8110-6b4186d96b57": {
-    "uid": "ef46391b-fc47-4532-8110-6b4186d96b57",
-    "tags": {
-      "active": 1.0,
-      "membank": 1.0,
-      "node": 1.0
-    },
-    "created_at": "2026-02-12T18:10:26.883856Z",
-    "updated_at": "2026-02-12T18:10:26.883856Z",
-    "content": "membank node list/list-all now support --top with recency ordering. Skills commands remain stable. Full suite green at 97.",
-    "focus_area": "current-focus",
-    "__type__": "archive",
-    "archived_from": "current-focus",
-    "reason": "superseded by new active node"
-  },
-  "4bf16616-668c-4bd4-b183-1eed340bef31": {
-    "uid": "4bf16616-668c-4bd4-b183-1eed340bef31",
-    "tags": {
-      "membank": 1.0,
-      "policy": 1.0,
-      "status": 1.0,
-      "agents": 1.0
-    },
-    "created_at": "2026-02-12T18:11:22.277046Z",
-    "updated_at": "2026-02-12T18:11:22.277046Z",
-    "component": "Status semantics in membank entries",
-    "test_scenario": "Given story/feature/progress workflows, when updating progress, then status must be represented in the status field rather than prefixed in content text",
-    "expected_result": "Update AGENTS instructions to ban content prefixes like IN_PROGRESS:/DONE: and require node status updates",
-    "status": "done",
-    "__type__": "feature"
-  },
-  "7095dba4-2c21-4635-9f4b-379eed0db826": {
-    "uid": "7095dba4-2c21-4635-9f4b-379eed0db826",
-    "tags": {
-      "status": 1.0,
-      "done": 1.0,
-      "membank": 1.0,
-      "policy": 1.0
-    },
-    "created_at": "2026-02-12T18:11:47.988832Z",
-    "updated_at": "2026-02-12T18:11:47.988832Z",
-    "content": "Updated AGENTS instructions to require status tracking via status fields only, and removed DONE/IN_PROGRESS content-prefix examples.",
-    "status": "done",
-    "__type__": "progress"
-  },
-  "7ff1613b-ce32-4527-b632-39b1674c2e1f": {
-    "uid": "7ff1613b-ce32-4527-b632-39b1674c2e1f",
-    "tags": {
-      "active": 1.0,
-      "membank": 1.0,
-      "policy": 1.0
-    },
-    "created_at": "2026-02-12T18:11:48.407414Z",
-    "updated_at": "2026-02-12T18:11:48.407414Z",
-    "content": "Agent instructions now explicitly forbid embedding status labels in node content. Status must be tracked via status fields and status commands.",
-    "focus_area": "current-focus",
-    "__type__": "active"
+    "othermeta": {},
+    "__type__": "task"
   }
 }

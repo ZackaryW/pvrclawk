@@ -1,0 +1,12 @@
+auto_archive_active = true
+
+[prune]
+auto_threshold = 20
+max_cluster_size = 100
+
+[decay]
+half_life_days = 7
+
+[mood]
+default = 0.5
+smoothing = 0.1

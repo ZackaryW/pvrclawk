@@ -1,9 +1,9 @@
 {
-  "e802cb06-73a2-45ec-bc77-9b1b09cecd07": [
+  "9e00eddc-55dd-4544-bce1-db46d8b16a3d": [
     {
-      "uid": "3106707d-3080-4369-8211-4bc95509bdfb",
-      "source": "e802cb06-73a2-45ec-bc77-9b1b09cecd07",
-      "target": "faa6607a-9ffe-4065-bb18-ce178836fd0c",
+      "uid": "5f9ab1b2-601a-46aa-8451-b09a98fa981c",
+      "source": "9e00eddc-55dd-4544-bce1-db46d8b16a3d",
+      "target": "bb21fcce-64c8-4edb-99da-795f2c557930",
       "tags": [
         "architecture",
         "modularity"
@@ -11,13 +11,13 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:42.070908Z",
-      "last_accessed": "2026-02-12T05:10:42.070908Z"
+      "created_at": "2026-02-12T18:49:09.704285Z",
+      "last_accessed": "2026-02-12T18:49:09.704285Z"
     },
     {
-      "uid": "65f755c5-285d-419f-a7dd-e393f31b33e0",
-      "source": "e802cb06-73a2-45ec-bc77-9b1b09cecd07",
-      "target": "0e02fb61-7c51-4754-87f0-a933761b3ad4",
+      "uid": "6fa46618-f91f-49f5-9cdb-640416e53a76",
+      "source": "9e00eddc-55dd-4544-bce1-db46d8b16a3d",
+      "target": "9319a748-e25b-4531-8e9f-a1e06fa45564",
       "tags": [
         "membank",
         "cli"
@@ -25,15 +25,15 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:42.557058Z",
-      "last_accessed": "2026-02-12T05:10:42.557058Z"
+      "created_at": "2026-02-12T18:49:10.088009Z",
+      "last_accessed": "2026-02-12T18:49:10.088009Z"
     }
   ],
-  "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0": [
+  "c30470fa-6c07-45ad-b8b8-abe2619275df": [
     {
-      "uid": "08f1b814-acd3-443d-ad6c-c6ea7c692cab",
-      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
-      "target": "90e1054a-5df9-49bc-adb7-013d2c9d150b",
+      "uid": "401a93e1-14c4-49d8-b446-43a821bbc257",
+      "source": "c30470fa-6c07-45ad-b8b8-abe2619275df",
+      "target": "3725429f-1672-4ec6-bf6b-4db9ed5e30ed",
       "tags": [
         "membank",
         "models"
@@ -41,13 +41,13 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:43.079336Z",
-      "last_accessed": "2026-02-12T05:10:43.079336Z"
+      "created_at": "2026-02-12T18:49:10.538638Z",
+      "last_accessed": "2026-02-12T18:49:10.538638Z"
     },
     {
-      "uid": "a4118943-426a-4e07-8332-7eebebbe3caa",
-      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
-      "target": "234b8319-1604-4b2d-8041-ef7726b1774c",
+      "uid": "69946eaa-670a-406c-a2ce-b886e2a6bf31",
+      "source": "c30470fa-6c07-45ad-b8b8-abe2619275df",
+      "target": "71c24841-acc6-4c93-b7e6-38771517abba",
       "tags": [
         "storage",
         "cluster"
@@ -55,13 +55,13 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:43.538025Z",
-      "last_accessed": "2026-02-12T05:10:43.538025Z"
+      "created_at": "2026-02-12T18:49:11.003675Z",
+      "last_accessed": "2026-02-12T18:49:11.003675Z"
     },
     {
-      "uid": "5789403a-f199-4ebd-a906-0bec44245bfa",
-      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
-      "target": "f16430dd-8b58-43ae-931b-2125bf3ed73c",
+      "uid": "58a66c48-7b60-4d93-8e65-fd8611d8d36c",
+      "source": "c30470fa-6c07-45ad-b8b8-abe2619275df",
+      "target": "9a5fb02b-e9b0-4e2f-a56c-1449f85bd800",
       "tags": [
         "links",
         "weight"
@@ -69,13 +69,13 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:43.949287Z",
-      "last_accessed": "2026-02-12T05:10:43.949287Z"
+      "created_at": "2026-02-12T18:49:11.433055Z",
+      "last_accessed": "2026-02-12T18:49:11.433055Z"
     },
     {
-      "uid": "bddfe902-d17b-49e4-b8c9-9c0bff992cc8",
-      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
-      "target": "70a00e68-3cc5-4f5d-b319-6ca09d490b49",
+      "uid": "844796d5-9f10-4a2b-89be-27b34b8514ca",
+      "source": "c30470fa-6c07-45ad-b8b8-abe2619275df",
+      "target": "47871da6-3b6a-429e-926f-45b9a6510c0c",
       "tags": [
         "focus",
         "scoring"
@@ -83,26 +83,26 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:44.379321Z",
-      "last_accessed": "2026-02-12T05:10:44.379321Z"
+      "created_at": "2026-02-12T18:49:11.820030Z",
+      "last_accessed": "2026-02-12T18:49:11.820030Z"
     },
     {
-      "uid": "9f6cbb71-10ea-40f9-8fdb-99c27dfc88c6",
-      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
-      "target": "b9cf5ada-9764-4db8-bcd5-c61c732ca48b",
+      "uid": "b592abb1-b862-4821-a1df-f8aea8380751",
+      "source": "c30470fa-6c07-45ad-b8b8-abe2619275df",
+      "target": "abdcd52a-afed-42fa-9e06-75fd72a8ad9f",
       "tags": [
         "mood"
       ],
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:44.799359Z",
-      "last_accessed": "2026-02-12T05:10:44.799359Z"
+      "created_at": "2026-02-12T18:49:12.221109Z",
+      "last_accessed": "2026-02-12T18:49:12.221109Z"
     },
     {
-      "uid": "a1751f1e-6c02-45e6-9184-3ef2eaf03cab",
-      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
-      "target": "df7eb2f7-391d-42ec-8a4f-e6d76ed21b88",
+      "uid": "d896ae33-70da-47ad-8bf9-42dd9ff8646b",
+      "source": "c30470fa-6c07-45ad-b8b8-abe2619275df",
+      "target": "00bc92bc-2ed5-4b96-a2bb-92f0ab7b3989",
       "tags": [
         "rules",
         "dsl"
@@ -110,13 +110,13 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:45.196774Z",
-      "last_accessed": "2026-02-12T05:10:45.196774Z"
+      "created_at": "2026-02-12T18:49:12.620986Z",
+      "last_accessed": "2026-02-12T18:49:12.620986Z"
     },
     {
-      "uid": "c4ee97b6-c0c1-4aad-aae5-d5ae986a08a5",
-      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
-      "target": "9cf68d27-d69d-4bcb-a81f-46dd5996610c",
+      "uid": "fd5be93c-a51a-4d31-937a-87f531650aed",
+      "source": "c30470fa-6c07-45ad-b8b8-abe2619275df",
+      "target": "4ef41d5d-180f-42dc-bec8-ea1e25f59e49",
       "tags": [
         "memorylink",
         "storage"
@@ -124,13 +124,13 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:45.592499Z",
-      "last_accessed": "2026-02-12T05:10:45.592499Z"
+      "created_at": "2026-02-12T18:49:13.020381Z",
+      "last_accessed": "2026-02-12T18:49:13.020381Z"
     },
     {
-      "uid": "5807cb63-d988-4ee4-a5b3-62b718f21d2a",
-      "source": "6b1c7b7b-5e80-47bb-8539-f3439b51f6a0",
-      "target": "6c606b5d-2d9d-4858-b4d6-44620fc5595b",
+      "uid": "806c819d-dac5-498d-8f3a-789a17e81cd9",
+      "source": "c30470fa-6c07-45ad-b8b8-abe2619275df",
+      "target": "2b6107e3-94c2-42c0-bdce-73153827d261",
       "tags": [
         "prune",
         "cluster"
@@ -138,223 +138,13 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T05:10:46.022798Z",
-      "last_accessed": "2026-02-12T05:10:46.022798Z"
-    }
-  ],
-  "75c0b3a9-413f-4d25-a9ae-7da5b7a78976": [
-    {
-      "uid": "8830f1fc-d276-4110-b259-eec11318d1f8",
-      "source": "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
-      "target": "70a00e68-3cc5-4f5d-b319-6ca09d490b49",
-      "tags": [
-        "scoring",
-        "frequency"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T05:10:46.446565Z",
-      "last_accessed": "2026-02-12T05:10:46.446565Z"
+      "created_at": "2026-02-12T18:49:13.403345Z",
+      "last_accessed": "2026-02-12T18:49:13.403345Z"
     },
     {
-      "uid": "0946e949-f0c1-4701-b935-0dd0c7e95319",
-      "source": "75c0b3a9-413f-4d25-a9ae-7da5b7a78976",
-      "target": "f16430dd-8b58-43ae-931b-2125bf3ed73c",
-      "tags": [
-        "scoring",
-        "weight"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T05:10:46.854450Z",
-      "last_accessed": "2026-02-12T05:10:46.854450Z"
-    }
-  ],
-  "44352481-241e-4298-81ba-be58b90eceab": [
-    {
-      "uid": "7a606cc4-756c-42c5-a10a-630557eec1e8",
-      "source": "44352481-241e-4298-81ba-be58b90eceab",
-      "target": "dc5f8e57-081e-4c15-9d7d-dcc2970e3ceb",
-      "tags": [
-        "architecture",
-        "boundary"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T05:10:47.333652Z",
-      "last_accessed": "2026-02-12T05:10:47.333652Z"
-    },
-    {
-      "uid": "20a5babe-17bd-4810-8fc7-c6dfb67098ed",
-      "source": "44352481-241e-4298-81ba-be58b90eceab",
-      "target": "faa6607a-9ffe-4065-bb18-ce178836fd0c",
-      "tags": [
-        "architecture",
-        "boundary"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T05:10:47.794152Z",
-      "last_accessed": "2026-02-12T05:10:47.794152Z"
-    }
-  ],
-  "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656": [
-    {
-      "uid": "5ad4bfa3-d292-4ba2-abfe-ff775687c1d2",
-      "source": "0b71bfb3-f04d-4b80-bfc4-4e8e964c5656",
-      "target": "afc53f28-7d2b-4f69-b46e-4b4dbd7c6251",
-      "tags": [
-        "tdd",
-        "testing"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T05:10:48.203679Z",
-      "last_accessed": "2026-02-12T05:10:48.203679Z"
-    }
-  ],
-  "2191070d-0c62-4eb7-bc7b-de1fe14cf512": [
-    {
-      "uid": "b438a486-1ab4-44e8-98a8-304f9c0c234a",
-      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
-      "target": "b7c67f58-fb56-4cd9-99bd-f002a350aa65",
-      "tags": [
-        "skills",
-        "models"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T17:30:17.679658Z",
-      "last_accessed": "2026-02-12T17:30:17.679658Z"
-    },
-    {
-      "uid": "716b05d2-e08f-4b31-87b8-145bf0fd4ee7",
-      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
-      "target": "e4b51102-1d16-4937-8c5a-1ab1f71ae9e0",
-      "tags": [
-        "skills",
-        "parsers"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T17:30:18.063748Z",
-      "last_accessed": "2026-02-12T17:30:18.063748Z"
-    },
-    {
-      "uid": "f411653d-08f2-4960-a8b5-013b8e5ccd7c",
-      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
-      "target": "34a10afc-c1d1-4668-8cd6-3c3670c70cdc",
-      "tags": [
-        "skills",
-        "config"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T17:30:18.513522Z",
-      "last_accessed": "2026-02-12T17:30:18.513522Z"
-    },
-    {
-      "uid": "a889a36f-5846-473b-9ebb-954c97d7f878",
-      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
-      "target": "cbc3df8c-bc51-45d0-8bfc-03e5b9531ad7",
-      "tags": [
-        "skills",
-        "resolver"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T17:30:18.942994Z",
-      "last_accessed": "2026-02-12T17:30:18.942994Z"
-    },
-    {
-      "uid": "48c1841e-c0c6-4110-8e1f-293577b2eba0",
-      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
-      "target": "18bf4b37-f8e2-403b-bf13-b4752e484eaa",
-      "tags": [
-        "skills",
-        "cli"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T17:30:19.310330Z",
-      "last_accessed": "2026-02-12T17:30:19.310330Z"
-    },
-    {
-      "uid": "37edf2c4-d1a7-40b3-aaa3-705d9112bc6a",
-      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
-      "target": "3909d01b-0cfe-4f72-81ac-5e9b919d69e9",
-      "tags": [
-        "skills",
-        "nesting",
-        "display"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T17:45:23.191724Z",
-      "last_accessed": "2026-02-12T17:45:23.191724Z"
-    },
-    {
-      "uid": "7ff0797b-80bc-41f0-b316-1396ea4dc1c8",
-      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
-      "target": "0fd1150c-c8a2-4ac6-94d5-b50ab4360d1e",
-      "tags": [
-        "skills",
-        "resolve",
-        "output"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T17:52:07.613284Z",
-      "last_accessed": "2026-02-12T17:52:07.613284Z"
-    },
-    {
-      "uid": "5ebbf521-dd38-4f1f-8f22-238f41c3bd73",
-      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
-      "target": "9fca2439-7473-474f-8829-530e163cac4c",
-      "tags": [
-        "skills",
-        "update",
-        "migration"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T18:03:52.722830Z",
-      "last_accessed": "2026-02-12T18:03:52.722830Z"
-    },
-    {
-      "uid": "1a6f454e-d419-4b90-883b-ed5163106bfc",
-      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
-      "target": "0ac879c2-83c7-4809-96d6-7ee2b11e96ba",
-      "tags": [
-        "skills",
-        "update",
-        "cli"
-      ],
-      "weight": 1.0,
-      "decay": 1.0,
-      "usage_count": 1,
-      "created_at": "2026-02-12T18:05:58.447486Z",
-      "last_accessed": "2026-02-12T18:05:58.447486Z"
-    }
-  ],
-  "6b1c7b7b-0f4d-4fcd-a76c-6da9e9ec72f6": [
-    {
-      "uid": "1ff926ce-696a-4aec-bd0f-31044879cf42",
-      "source": "6b1c7b7b-0f4d-4fcd-a76c-6da9e9ec72f6",
-      "target": "3ff2edfc-eb20-47b9-8c0b-7fd2a387f7d9",
+      "uid": "a2d444ef-4cce-4e63-98c8-2e9e662de580",
+      "source": "c30470fa-6c07-45ad-b8b8-abe2619275df",
+      "target": "5b2970d1-2e83-44bb-ab82-6b97893c18ae",
       "tags": [
         "membank",
         "node",
@@ -363,8 +153,216 @@
       "weight": 1.0,
       "decay": 1.0,
       "usage_count": 1,
-      "created_at": "2026-02-12T18:09:19.242646Z",
-      "last_accessed": "2026-02-12T18:09:19.242646Z"
+      "created_at": "2026-02-12T18:49:19.419196Z",
+      "last_accessed": "2026-02-12T18:49:19.419196Z"
+    }
+  ],
+  "12d41aed-8ac7-4085-970f-a6e2754c513c": [
+    {
+      "uid": "7f84e3a2-b05a-406d-a1ea-1344c18a8364",
+      "source": "12d41aed-8ac7-4085-970f-a6e2754c513c",
+      "target": "47871da6-3b6a-429e-926f-45b9a6510c0c",
+      "tags": [
+        "scoring",
+        "frequency"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:13.789522Z",
+      "last_accessed": "2026-02-12T18:49:13.789522Z"
+    },
+    {
+      "uid": "42e4c834-0ada-4496-b8fa-275a1cc17676",
+      "source": "12d41aed-8ac7-4085-970f-a6e2754c513c",
+      "target": "9a5fb02b-e9b0-4e2f-a56c-1449f85bd800",
+      "tags": [
+        "scoring",
+        "weight"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:14.187700Z",
+      "last_accessed": "2026-02-12T18:49:14.187700Z"
+    }
+  ],
+  "604cf5ac-0e09-46b0-a4b8-c410ffc7708e": [
+    {
+      "uid": "450cdb3e-2b40-466a-ad3b-b998d07f7f69",
+      "source": "604cf5ac-0e09-46b0-a4b8-c410ffc7708e",
+      "target": "49eb05e8-acd9-4f2a-b68b-ff6135613022",
+      "tags": [
+        "architecture",
+        "boundary"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:14.586694Z",
+      "last_accessed": "2026-02-12T18:49:14.586694Z"
+    },
+    {
+      "uid": "5d186a35-222b-4b9b-b8a2-90d5a10b36d8",
+      "source": "604cf5ac-0e09-46b0-a4b8-c410ffc7708e",
+      "target": "bb21fcce-64c8-4edb-99da-795f2c557930",
+      "tags": [
+        "architecture",
+        "boundary"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:14.971474Z",
+      "last_accessed": "2026-02-12T18:49:14.971474Z"
+    }
+  ],
+  "ec69eb3c-dabc-4c2f-bc28-89da4cff5be8": [
+    {
+      "uid": "cda0a036-9fb0-44a3-b455-6dc56c010e49",
+      "source": "ec69eb3c-dabc-4c2f-bc28-89da4cff5be8",
+      "target": "ea9963b9-9ed9-4fca-9e41-74cfee1e2553",
+      "tags": [
+        "tdd",
+        "testing"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:15.371261Z",
+      "last_accessed": "2026-02-12T18:49:15.371261Z"
+    }
+  ],
+  "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96": [
+    {
+      "uid": "9e31bc79-4b06-404c-b5af-6255be1f89f0",
+      "source": "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
+      "target": "c89919bc-5dd3-4e2e-bb12-6d62541123d1",
+      "tags": [
+        "skills",
+        "models"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:15.765582Z",
+      "last_accessed": "2026-02-12T18:49:15.765582Z"
+    },
+    {
+      "uid": "1396145c-470b-4c49-bac4-42784e360a6c",
+      "source": "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
+      "target": "8e944ec1-dc48-4112-b7fb-a6b5f20b816c",
+      "tags": [
+        "skills",
+        "parsers"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:16.172201Z",
+      "last_accessed": "2026-02-12T18:49:16.172201Z"
+    },
+    {
+      "uid": "2b3afdef-d42a-417a-a9dc-7f61f1970f6e",
+      "source": "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
+      "target": "33f6e477-1dc0-46ed-af09-53a373dc098b",
+      "tags": [
+        "skills",
+        "config"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:16.588541Z",
+      "last_accessed": "2026-02-12T18:49:16.588541Z"
+    },
+    {
+      "uid": "ac741f0e-da96-4458-9807-05a41d6c61ad",
+      "source": "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
+      "target": "c337723d-f080-464d-af41-e50413b71274",
+      "tags": [
+        "skills",
+        "resolver"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:17.006082Z",
+      "last_accessed": "2026-02-12T18:49:17.006082Z"
+    },
+    {
+      "uid": "c24e8e10-2817-4a11-8c95-7e40fd26c1e8",
+      "source": "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
+      "target": "3d855ef5-58af-4f7e-b2a1-c4978ba2e8aa",
+      "tags": [
+        "skills",
+        "cli"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:17.421873Z",
+      "last_accessed": "2026-02-12T18:49:17.421873Z"
+    },
+    {
+      "uid": "56e5386b-1433-4e32-b70a-4edbea7d71a7",
+      "source": "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
+      "target": "d5cafe4e-d0a4-43f9-9298-641aaaacb368",
+      "tags": [
+        "skills",
+        "nesting",
+        "display"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:17.839089Z",
+      "last_accessed": "2026-02-12T18:49:17.839089Z"
+    },
+    {
+      "uid": "11f69356-f7f4-478e-88cf-4192e0ac34aa",
+      "source": "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
+      "target": "ef5db090-05e1-4114-899c-632ed0b3cd25",
+      "tags": [
+        "skills",
+        "resolve",
+        "output"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:18.238672Z",
+      "last_accessed": "2026-02-12T18:49:18.238672Z"
+    },
+    {
+      "uid": "d26f42c9-a5cc-4278-911e-3b9351f0b2da",
+      "source": "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
+      "target": "16456b40-fd3b-48cb-b2c7-828e2287f998",
+      "tags": [
+        "skills",
+        "update",
+        "migration"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:18.618857Z",
+      "last_accessed": "2026-02-12T18:49:18.618857Z"
+    },
+    {
+      "uid": "4ad9dfbf-8663-477d-879c-1be75372dce8",
+      "source": "9ea44bb3-6aef-4bd9-b8a7-bebd5860da96",
+      "target": "28bc4b90-5b63-4c18-a412-0fd1e98bd3f4",
+      "tags": [
+        "skills",
+        "update",
+        "cli"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:49:19.017785Z",
+      "last_accessed": "2026-02-12T18:49:19.017785Z"
     }
   ]
 }
