@@ -21,9 +21,9 @@
       "session": 1.0
     },
     "created_at": "2026-02-12T21:02:49.721456Z",
-    "updated_at": "2026-02-12T21:02:49.721456Z",
+    "updated_at": "2026-02-12T21:03:48.406058Z",
     "content": "Update AGENTS membank docs and README with session dedup workflow and command usage.",
-    "status": "in_progress",
+    "status": "done",
     "othermeta": {},
     "__type__": "task"
   },
