@@ -318,6 +318,36 @@
       "usage_count": 1,
       "created_at": "2026-02-12T17:52:07.613284Z",
       "last_accessed": "2026-02-12T17:52:07.613284Z"
+    },
+    {
+      "uid": "5ebbf521-dd38-4f1f-8f22-238f41c3bd73",
+      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+      "target": "9fca2439-7473-474f-8829-530e163cac4c",
+      "tags": [
+        "skills",
+        "update",
+        "migration"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:03:52.722830Z",
+      "last_accessed": "2026-02-12T18:03:52.722830Z"
+    },
+    {
+      "uid": "1a6f454e-d419-4b90-883b-ed5163106bfc",
+      "source": "2191070d-0c62-4eb7-bc7b-de1fe14cf512",
+      "target": "0ac879c2-83c7-4809-96d6-7ee2b11e96ba",
+      "tags": [
+        "skills",
+        "update",
+        "cli"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-12T18:05:58.447486Z",
+      "last_accessed": "2026-02-12T18:05:58.447486Z"
     }
   ]
 }

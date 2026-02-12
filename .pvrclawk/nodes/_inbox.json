@@ -295,6 +295,126 @@
     "updated_at": "2026-02-12T17:53:04.065599Z",
     "content": "Resolve command now supports --full and --path-only modes. Nested path display and human list view are complete. Test suite green at 91. use-skill/find removal now has parity for path output.",
     "focus_area": "current-focus",
+    "__type__": "archive",
+    "archived_from": "current-focus",
+    "reason": "superseded by new active node"
+  },
+  "9fca2439-7473-474f-8829-530e163cac4c": {
+    "uid": "9fca2439-7473-474f-8829-530e163cac4c",
+    "tags": {
+      "skills": 1.0,
+      "update": 1.0,
+      "git": 1.0,
+      "migration": 1.0
+    },
+    "created_at": "2026-02-12T18:03:43.724522Z",
+    "updated_at": "2026-02-12T18:03:43.724522Z",
+    "component": "Skills update command migration",
+    "test_scenario": "Given configured skill repos, when skills update runs, then each repo with .git performs git pull and non-git repos are skipped",
+    "expected_result": "Migrate use-skill/update behavior into pvrclawk skills update",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "0b50da9a-a5b2-48f9-ab21-f1ab3ed36d0b": {
+    "uid": "0b50da9a-a5b2-48f9-ab21-f1ab3ed36d0b",
+    "tags": {
+      "status": 1.0,
+      "in_progress": 1.0,
+      "skills": 1.0,
+      "update": 1.0
+    },
+    "created_at": "2026-02-12T18:03:43.872403Z",
+    "updated_at": "2026-02-12T18:03:43.872403Z",
+    "content": "IN_PROGRESS: Migrating skill repo update behavior to native pvrclawk skills update command using .git detection and git pull.",
+    "status": "in_progress",
+    "__type__": "progress"
+  },
+  "cace288f-d525-4570-9f59-81931b8a77c0": {
+    "uid": "cace288f-d525-4570-9f59-81931b8a77c0",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0,
+      "skills": 1.0,
+      "update": 1.0,
+      "git": 1.0
+    },
+    "created_at": "2026-02-12T18:05:21.890302Z",
+    "updated_at": "2026-02-12T18:05:21.890302Z",
+    "content": "DONE: Migrated use-skill/update behavior to native 'pvrclawk skills update'. Command checks for .git and runs git pull only for git repos; non-git repos are skipped. Added unit/integration tests. 94 tests passing.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "8aa95df4-0b23-4cbc-ad8e-48b98cdd8caa": {
+    "uid": "8aa95df4-0b23-4cbc-ad8e-48b98cdd8caa",
+    "tags": {
+      "active": 1.0,
+      "skills": 1.0,
+      "update": 1.0
+    },
+    "created_at": "2026-02-12T18:05:22.322606Z",
+    "updated_at": "2026-02-12T18:05:22.322606Z",
+    "content": "Skills update command migrated with .git-based git pull behavior. Resolve supports default/full/path-only modes. Nested path display fixed. Test suite green at 94.",
+    "focus_area": "current-focus",
+    "__type__": "archive",
+    "archived_from": "current-focus",
+    "reason": "superseded by new active node"
+  },
+  "0ac879c2-83c7-4809-96d6-7ee2b11e96ba": {
+    "uid": "0ac879c2-83c7-4809-96d6-7ee2b11e96ba",
+    "tags": {
+      "skills": 1.0,
+      "update": 1.0,
+      "cli": 1.0,
+      "all": 1.0
+    },
+    "created_at": "2026-02-12T18:05:51.506474Z",
+    "updated_at": "2026-02-12T18:05:51.506474Z",
+    "component": "Update all flag",
+    "test_scenario": "Given skills update command, when -a/--all is passed, then all configured repos are processed; without it command should prompt explicit intent",
+    "expected_result": "Add -a/--all option and require it for bulk update",
+    "status": "done",
+    "__type__": "feature"
+  },
+  "e7110da5-a490-4d28-8ed0-2eaab891a896": {
+    "uid": "e7110da5-a490-4d28-8ed0-2eaab891a896",
+    "tags": {
+      "status": 1.0,
+      "in_progress": 1.0,
+      "skills": 1.0,
+      "update": 1.0
+    },
+    "created_at": "2026-02-12T18:05:51.773404Z",
+    "updated_at": "2026-02-12T18:05:51.773404Z",
+    "content": "IN_PROGRESS: Add required -a/--all option to skills update and remove update command from AGENTS instructions.",
+    "status": "in_progress",
+    "__type__": "progress"
+  },
+  "06a8a324-5e0c-4aa1-8e6f-fe10901ef486": {
+    "uid": "06a8a324-5e0c-4aa1-8e6f-fe10901ef486",
+    "tags": {
+      "status": 1.0,
+      "done": 1.0,
+      "skills": 1.0,
+      "update": 1.0,
+      "cli": 1.0
+    },
+    "created_at": "2026-02-12T18:06:50.006864Z",
+    "updated_at": "2026-02-12T18:06:50.006864Z",
+    "content": "DONE: skills update now requires -a/--all for bulk updates. Without flag, command returns usage guidance. AGENTS skills instruction no longer includes update command (user-level operation). 95 tests passing.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "a1eb214d-914c-48c6-ab67-44c1dcb0c507": {
+    "uid": "a1eb214d-914c-48c6-ab67-44c1dcb0c507",
+    "tags": {
+      "active": 1.0,
+      "skills": 1.0,
+      "update": 1.0
+    },
+    "created_at": "2026-02-12T18:06:50.542859Z",
+    "updated_at": "2026-02-12T18:06:50.542859Z",
+    "content": "skills update is now explicit via -a/--all and excluded from agent instructions. Skills resolve/list/update suite is stable. Test suite green at 95.",
+    "focus_area": "current-focus",
     "__type__": "active"
   }
 }
