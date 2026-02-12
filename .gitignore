@@ -180,3 +180,4 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 .pvrclawk/recent_uid.json
+.pvrclawk/session.json

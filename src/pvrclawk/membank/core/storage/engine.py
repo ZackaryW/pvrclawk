@@ -1,6 +1,6 @@
 from pathlib import Path
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from pvrclawk.utils.config import AppConfig, load_config, write_config
 from pvrclawk.utils.json_io import read_json, write_json
@@ -20,6 +20,7 @@ from pvrclawk.membank.models.nodes import (
     Story,
     Task,
 )
+from pvrclawk.membank.models.session import Session
 from pvrclawk.membank.core.storage.index import add_unique
 from pvrclawk.membank.core.storage.cluster import derive_cluster_name
 
@@ -34,6 +35,7 @@ class StorageEngine:
         self.links_file = self.root / "links.json"
         self.rules_file = self.root / "rules.json"
         self.mood_file = self.root / "mood.json"
+        self.session_file = self.root / "session.json"
         self.config_file = self.root / "config.toml"
 
     def _write_json(self, path: Path, data) -> None:
@@ -64,7 +66,62 @@ class StorageEngine:
             self._write_json(inbox, {})
         if not self.config_file.exists():
             write_config(self.config_file, AppConfig())
-        self._ensure_recent_uid_gitignore()
+        self._ensure_runtime_state_gitignore()
+
+    def load_session(self) -> Session | None:
+        if not self.session_file.exists():
+            return None
+        payload = self._read_json(self.session_file, {})
+        if not isinstance(payload, dict) or not payload:
+            return None
+        try:
+            return Session.model_validate(payload)
+        except Exception:
+            return None
+
+    def save_session(self, session: Session) -> None:
+        self._write_json(self.session_file, session.model_dump(mode="json"))
+
+    def clear_session(self) -> bool:
+        if not self.session_file.exists():
+            return False
+        self.session_file.unlink()
+        return True
+
+    def is_session_expired(self, session: Session, max_age_days: int = 2) -> bool:
+        return datetime.now(timezone.utc) - session.created_at > timedelta(days=max_age_days)
+
+    def load_active_session(self, max_age_days: int = 2) -> Session | None:
+        session = self.load_session()
+        if session is None:
+            return None
+        if self.is_session_expired(session, max_age_days=max_age_days):
+            self.clear_session()
+            return None
+        return session
+
+    def activate_session(self, session_id: str | None = None) -> Session:
+        existing = self.load_active_session()
+        if existing is not None and (session_id is None or existing.session_id == session_id):
+            return existing
+        session = Session(session_id=session_id) if session_id else Session()
+        self.save_session(session)
+        return session
+
+    def reset_session(self, session_id: str | None = None) -> Session:
+        session = self.activate_session(session_id=session_id)
+        session.served_uids = []
+        self.save_session(session)
+        return session
+
+    def record_session_served(self, session: Session, uids: list[str]) -> Session:
+        seen = set(session.served_uids)
+        for uid in uids:
+            if uid not in seen:
+                session.served_uids.append(uid)
+                seen.add(uid)
+        self.save_session(session)
+        return session
 
     def load_index(self) -> IndexData:
         return IndexData.model_validate(self._read_json(self.index_file, {}))
@@ -427,17 +484,22 @@ class StorageEngine:
     def _save_recent_uids(self, recent_uids: list[str]) -> None:
         self._write_json(self.recent_uid_file, recent_uids)
 
-    def _ensure_recent_uid_gitignore(self) -> None:
+    def _ensure_runtime_state_gitignore(self) -> None:
         gitignore = self.root.parent / ".gitignore"
-        ignore_entry = f"{self.root.name}/recent_uid.json"
+        ignore_entries = [
+            f"{self.root.name}/recent_uid.json",
+            f"{self.root.name}/session.json",
+        ]
         if not gitignore.exists():
-            gitignore.write_text(f"{ignore_entry}\n", encoding="utf-8")
+            gitignore.write_text("".join(f"{entry}\n" for entry in ignore_entries), encoding="utf-8")
             return
         content = gitignore.read_text(encoding="utf-8")
         lines = [line.strip() for line in content.splitlines()]
-        if ignore_entry not in lines:
+        missing = [entry for entry in ignore_entries if entry not in lines]
+        if missing:
             suffix = "" if content.endswith("\n") or content == "" else "\n"
-            gitignore.write_text(f"{content}{suffix}{ignore_entry}\n", encoding="utf-8")
+            additions = "".join(f"{entry}\n" for entry in missing)
+            gitignore.write_text(f"{content}{suffix}{additions}", encoding="utf-8")
 
     def all_nodes(self):
         index = self.load_index()

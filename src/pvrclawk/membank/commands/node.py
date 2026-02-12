@@ -16,6 +16,7 @@ from pvrclawk.membank.models.nodes import (
     SubTask,
     Task,
 )
+from pvrclawk.membank.models.session import Session
 
 
 def _parse_tags(raw: str) -> dict[str, float]:
@@ -187,11 +188,21 @@ def register_node(group: click.Group) -> None:
     def list_nodes(ctx: click.Context, node_type: str, top: int | None) -> None:
         """List all nodes of a given type."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
+        active_session = ctx.obj.get("session")
+        active_session = active_session if isinstance(active_session, Session) else None
+        served_uids = set(active_session.served_uids) if active_session is not None else set()
+        newly_served: list[str] = []
         nodes = _sort_recent(storage.load_nodes_by_type(node_type))
         if top is not None:
             nodes = nodes[:top]
         for node in nodes:
-            click.echo(render_node(node))
+            already_served = node.uid in served_uids
+            click.echo(render_node(node, truncated=already_served))
+            if active_session is not None and not already_served:
+                newly_served.append(node.uid)
+                served_uids.add(node.uid)
+        if active_session is not None and newly_served:
+            storage.record_session_served(active_session, newly_served)
 
     @node_group.command("list-all", help="List nodes across all node types.")
     @click.option("--top", type=click.IntRange(min=1), default=None, help="Show only the N most recent nodes.")
@@ -199,11 +210,21 @@ def register_node(group: click.Group) -> None:
     def list_all_nodes(ctx: click.Context, top: int | None) -> None:
         """List all nodes across all types."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
+        active_session = ctx.obj.get("session")
+        active_session = active_session if isinstance(active_session, Session) else None
+        served_uids = set(active_session.served_uids) if active_session is not None else set()
+        newly_served: list[str] = []
         nodes = _sort_recent(storage.all_nodes())
         if top is not None:
             nodes = nodes[:top]
         for node in nodes:
-            click.echo(render_node(node))
+            already_served = node.uid in served_uids
+            click.echo(render_node(node, truncated=already_served))
+            if active_session is not None and not already_served:
+                newly_served.append(node.uid)
+                served_uids.add(node.uid)
+        if active_session is not None and newly_served:
+            storage.record_session_served(active_session, newly_served)
 
     @node_group.command("remove", help="Remove one node by UID or --last index.")
     @click.argument("uid", required=False)

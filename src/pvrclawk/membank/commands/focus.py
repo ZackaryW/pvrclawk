@@ -7,6 +7,7 @@ from pvrclawk.membank.core.graph.engine import GraphEngine
 from pvrclawk.membank.core.graph.scorer import VectorScorer
 from pvrclawk.membank.core.storage.engine import StorageEngine
 from pvrclawk.membank.models.config import AppConfig
+from pvrclawk.membank.models.session import Session
 
 
 def register_focus(group: click.Group) -> None:
@@ -17,6 +18,10 @@ def register_focus(group: click.Group) -> None:
     def focus_command(ctx: click.Context, tags: str, limit: int) -> None:
         """Retrieve ranked nodes relevant to query tags."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
+        active_session = ctx.obj.get("session")
+        active_session = active_session if isinstance(active_session, Session) else None
+        served_uids = set(active_session.served_uids) if active_session is not None else set()
+        newly_served: list[str] = []
         nodes = storage.all_nodes()
         links = storage.all_links()
         engine = GraphEngine(VectorScorer(AppConfig()))
@@ -27,4 +32,11 @@ def register_focus(group: click.Group) -> None:
         for uid, score in ranked:
             node = node_by_uid.get(uid)
             if node is not None:
-                click.echo(render_node(node, score=score))
+                already_served = uid in served_uids
+                click.echo(render_node(node, score=score, truncated=already_served))
+                if active_session is not None and not already_served:
+                    newly_served.append(uid)
+                    served_uids.add(uid)
+
+        if active_session is not None and newly_served:
+            storage.record_session_served(active_session, newly_served)

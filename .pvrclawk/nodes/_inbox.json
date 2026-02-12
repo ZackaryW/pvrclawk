@@ -1,1 +1,15 @@
-{}
+{
+  "c03dc739-bf26-4695-a914-f6b1812f433f": {
+    "uid": "c03dc739-bf26-4695-a914-f6b1812f433f",
+    "tags": {
+      "progress": 1.0,
+      "membank": 1.0,
+      "session": 1.0
+    },
+    "created_at": "2026-02-12T21:01:19.341789Z",
+    "updated_at": "2026-02-12T21:01:19.341789Z",
+    "content": "Implemented session context dedup for membank: added session model/storage lifecycle, session up/tear/reset/info commands, --session/env/session.json resolution, focus/list header-only truncation for served nodes, and integration tests for lifecycle/expiry/override behavior.",
+    "status": "done",
+    "__type__": "progress"
+  }
+}

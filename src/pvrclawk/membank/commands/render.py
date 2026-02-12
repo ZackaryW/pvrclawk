@@ -14,13 +14,16 @@ from pvrclawk.membank.models.nodes import (
 )
 
 
-def render_node(node, score: float | None = None) -> str:
+def render_node(node, score: float | None = None, truncated: bool = False) -> str:
     tag_str = ",".join(node.tags.keys()) if node.tags else ""
     ntype = node.__class__.__name__
     if score is not None:
         header = f"[{score:.3f}] ({ntype}) {tag_str}"
     else:
         header = f"({ntype}) [{node.uid[:8]}] {tag_str}"
+
+    if truncated:
+        return header
 
     if isinstance(node, Memory):
         return f"{header}\n  {node.content}"

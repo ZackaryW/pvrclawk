@@ -16,6 +16,7 @@ from pvrclawk.membank.models.nodes import (
     SubTask,
     Task,
 )
+from pvrclawk.membank.models.session import Session
 from pvrclawk.membank.models.types import NodeType, Status
 
 __all__ = [
@@ -34,6 +35,7 @@ __all__ = [
     "NodeType",
     "Pattern",
     "Progress",
+    "Session",
     "Status",
     "Story",
     "SubTask",

@@ -1,0 +1,53 @@
+{
+  "ba278e88-6bb0-4c07-9028-0ee54fc36d59": {
+    "uid": "ba278e88-6bb0-4c07-9028-0ee54fc36d59",
+    "tags": {
+      "membank": 1.0,
+      "session": 1.0,
+      "context": 1.0,
+      "story": 1.0
+    },
+    "created_at": "2026-02-12T20:58:02.095428Z",
+    "updated_at": "2026-02-12T21:01:26.202296Z",
+    "role": "As an active membank user",
+    "benefit": "I want session-aware context deduplication so repeated focus/list calls do not resend identical full content to the agent.",
+    "criteria": [
+      "session up creates an active session context.",
+      "focus and node list/list-all output header-only for already served nodes in active session.",
+      "session context expires after 2 days and session.json is gitignored."
+    ],
+    "status": "done",
+    "othermeta": {},
+    "__type__": "story"
+  },
+  "0b7841dd-dbfe-4874-9827-9535e2f64c8a": {
+    "uid": "0b7841dd-dbfe-4874-9827-9535e2f64c8a",
+    "tags": {
+      "membank": 1.0,
+      "session": 1.0,
+      "feature": 1.0
+    },
+    "created_at": "2026-02-12T20:58:02.339895Z",
+    "updated_at": "2026-02-12T21:01:26.476966Z",
+    "component": "Membank session context dedup",
+    "test_scenario": "Given an active session, when focus/list commands return already-served nodes, then render header-only while allowing explicit node get for full details.",
+    "expected_result": "Expected result: session up/tear/reset/info lifecycle and session resolution priority flag > env > session.json with 2-day expiration.",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "feature"
+  },
+  "185f3732-93c5-48c9-8ddd-45c643379a4d": {
+    "uid": "185f3732-93c5-48c9-8ddd-45c643379a4d",
+    "tags": {
+      "task": 1.0,
+      "membank": 1.0,
+      "session": 1.0
+    },
+    "created_at": "2026-02-12T20:58:02.625497Z",
+    "updated_at": "2026-02-12T21:01:26.783152Z",
+    "content": "Implement session model, storage, command lifecycle, and focus/list dedup rendering with tests.",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "task"
+  }
+}
