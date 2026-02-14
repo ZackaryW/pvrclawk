@@ -150,5 +150,69 @@
     "content": "Updated AGENTS/membank.md with federation mode guidance, read-only scope, git-boundary defaults, scoring semantics, practical workflow, and config usage notes aligned with CLI behavior.",
     "status": "done",
     "__type__": "progress"
+  },
+  "9b232d39-a29e-4f38-9739-e6aa308d9002": {
+    "uid": "9b232d39-a29e-4f38-9739-e6aa308d9002",
+    "tags": {
+      "membank": 1.0,
+      "session": 1.0,
+      "story": 1.0
+    },
+    "created_at": "2026-02-14T03:31:39.068113Z",
+    "updated_at": "2026-02-14T03:46:07.199753Z",
+    "role": "As an agent user",
+    "benefit": "I want multiple membank sessions tracked concurrently so that context dedup remains isolated by workflow",
+    "criteria": [
+      "Multiple session IDs coexist with separate served history",
+      "--session and env overrides resolve active session",
+      "Missing referenced sessions auto-create and activate"
+    ],
+    "status": "done",
+    "othermeta": {},
+    "__type__": "story"
+  },
+  "7b1ec081-61be-43fd-9799-53be07814ac0": {
+    "uid": "7b1ec081-61be-43fd-9799-53be07814ac0",
+    "tags": {
+      "membank": 1.0,
+      "session": 1.0,
+      "feature": 1.0
+    },
+    "created_at": "2026-02-14T03:31:39.227980Z",
+    "updated_at": "2026-02-14T03:46:07.038989Z",
+    "component": "membank multi-session tracking",
+    "test_scenario": "Given session commands and read flows, persist multiple session files with active pointer metadata",
+    "expected_result": "Expected result: session.json indexes active/known ids and sessions/<id>.json stores served_uids and timestamps",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "feature"
+  },
+  "be0b7e58-2314-4f9d-a5dc-95ea3bd434da": {
+    "uid": "be0b7e58-2314-4f9d-a5dc-95ea3bd434da",
+    "tags": {
+      "task": 1.0,
+      "membank": 1.0,
+      "session": 1.0
+    },
+    "created_at": "2026-02-14T03:31:39.389885Z",
+    "updated_at": "2026-02-14T03:46:06.875794Z",
+    "content": "Implement multi-session storage, command semantics, migration, and tests",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "task"
+  },
+  "1dbfbce3-5b70-4514-b12a-fe6a43e68890": {
+    "uid": "1dbfbce3-5b70-4514-b12a-fe6a43e68890",
+    "tags": {
+      "progress": 1.0,
+      "membank": 1.0,
+      "session": 1.0,
+      "done": 1.0
+    },
+    "created_at": "2026-02-14T03:46:07.366499Z",
+    "updated_at": "2026-02-14T03:46:07.366500Z",
+    "content": "Implemented user-level multi-session storage with target-path hash buckets, env override (PVRCLAWK_SESSION_STORE_ROOT), session-scoped recent_uids for --last, legacy migration handling, and updated docs/tests.",
+    "status": "done",
+    "__type__": "progress"
   }
 }

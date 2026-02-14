@@ -25,7 +25,11 @@ def register_session(group: click.Group) -> None:
     def session_tear(ctx: click.Context) -> None:
         """End the active session and clear session context state."""
         storage = StorageEngine(Path(ctx.obj["root_path"]))
-        if storage.clear_session():
+        active = storage.load_active_session()
+        if active is None:
+            click.echo("No active session.")
+            return
+        if storage.clear_session(active.session_id):
             click.echo("Session cleared.")
             return
         click.echo("No active session.")
@@ -39,8 +43,8 @@ def register_session(group: click.Group) -> None:
         if active is None:
             click.echo("No active session.")
             return
-        storage.reset_session(session_id=active.session_id)
-        click.echo(active.session_id)
+        session = storage.reset_session(session_id=active.session_id)
+        click.echo(session.session_id)
 
     @session_group.command("info", help="Show active session UUID, age, and served UID count.")
     @click.pass_context

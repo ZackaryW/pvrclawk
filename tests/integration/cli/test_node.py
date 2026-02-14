@@ -266,6 +266,7 @@ def test_node_get_with_uid_prefix(runner, tmp_path):
 def test_node_status_with_last_option(runner, tmp_path):
     db_path = tmp_path / ".pvrclawk"
     runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "session", "up"])
     first = runner.invoke(
         main,
         ["membank", "--path", str(db_path), "node", "add", "story", "--title", "First", "--summary", "one"],
@@ -287,6 +288,7 @@ def test_node_status_with_last_option(runner, tmp_path):
 def test_node_remove_with_last_option(runner, tmp_path):
     db_path = tmp_path / ".pvrclawk"
     runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "session", "up"])
     first = runner.invoke(
         main,
         ["membank", "--path", str(db_path), "node", "add", "story", "--title", "First", "--summary", "one"],
@@ -315,6 +317,16 @@ def test_node_get_ambiguous_uid_prefix_errors(runner, tmp_path):
     result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "get", "abcd"])
     assert result.exit_code != 0
     assert "ambiguous uid prefix" in result.output.lower()
+
+
+def test_node_last_requires_active_session_recent_history(runner, tmp_path):
+    db_path = tmp_path / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(db_path), "init"])
+    runner.invoke(main, ["membank", "--path", str(db_path), "node", "add", "story", "--title", "First", "--summary", "one"])
+
+    result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "get", "--last", "1"])
+    assert result.exit_code != 0
+    assert "no recent uid found" in result.output.lower()
 
 
 def test_node_list_federated_reads_other_banks(runner, tmp_path):

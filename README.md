@@ -100,9 +100,24 @@ where `freq_decay = link.usage_count / total_frequency` (frequency-relative, not
 
 Nodes are stored in named JSON files under `.pvrclawk/nodes/`, grouped by top tags. An `index.json` maps tags and types to node UIDs for fast radiated loading. New nodes land in `_inbox.json` and get merged into clusters on `prune`.
 
-Recent node references are tracked in `.pvrclawk/recent_uid.json` (rolling last 10), which is auto-added to `.gitignore` on `membank init`.
+Session context is tracked per target bank in user-level storage at
+`~/.config/pvrclawk/sessions/{sha256(normalized_abs_path_to_bank)}/`.
+You can override the storage root for testing with `PVRCLAWK_SESSION_STORE_ROOT`.
+Each session file stores `served_uids` and `recent_uids` (rolling last 10).
 
-Session context state is tracked in `.pvrclawk/session.json` and is also auto-gitignored. With an active session, `focus`, `node list`, and `node list-all` render header-only for already-served nodes. Session resolution order is: `--session <uuid>` override, then `PVRCLAWK_SESSION` env var, then active `session.json`.
+With an active session, `focus`, `node list`, and `node list-all` render header-only for already-served nodes. Session resolution order is: `--session <uuid>` override, then `PVRCLAWK_SESSION` env var, then active session from the per-target session index.
+
+### Environment Setup (Repo-specific)
+
+Use environment variables in this repository to control runtime session behavior:
+
+```bash
+# Optional: pin active membank session id for this shell
+export PVRCLAWK_SESSION="<uuid>"
+
+# Optional: override session storage root (useful for local testing)
+export PVRCLAWK_SESSION_STORE_ROOT="<absolute/path>"
+```
 
 ### Mood & rules
 
@@ -182,6 +197,8 @@ TDD is mandatory: every feature starts with a failing test.
 - Full command reference with examples
 - Tag syntax, node types, story-driven workflow
 - Rules for maintaining the bank
+
+`AGENTS/membank.md` is an operations protocol for agents (instruction-first, imperative workflow rules), not feature prose. Keep it aligned with runtime CLI semantics whenever session/storage behavior changes.
 
 Drop the `AGENTS/` folder into any project that uses pvrclawk. The agent reads `index.md`, runs the CLI, and manages context autonomously.
 

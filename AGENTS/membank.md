@@ -115,7 +115,7 @@ Commands resolve session context in this order:
 
 1. `--session <uuid>` override on `membank` group
 2. `PVRCLAWK_SESSION` environment variable
-3. Active `.pvrclawk/session.json`
+3. Active session from session index
 4. No active session (full content output)
 
 ### Behavior
@@ -123,6 +123,7 @@ Commands resolve session context in this order:
 - `pvrclawk membank session up` creates/reuses active session state and prints UUID.
 - `focus`, `node list`, and `node list-all` render header-only for already-served nodes in the active session.
 - `node get` remains full detail and is never session-truncated.
+- `--last N` UID shortcuts are session-scoped (read from active session recent history only).
 - `pvrclawk membank session reset` clears served history for re-fetching complete context.
 - `pvrclawk membank session tear` clears active session state.
 - Session state expires after 2 days and is treated as absent.
@@ -259,7 +260,7 @@ pvrclawk membank session tear
 - Most frequent implementation-side nodes should be `pattern`, `memory`, and `progress`, and they should be linked to relevant work.
 - Prefer chain link operations for multi-node flows to reduce storage IO and keep updates atomic per command.
 - The membank should coexist as a graph for team/project management and developer context, bridging users and agents.
-- Session runtime state lives in `.pvrclawk/session.json` and must remain gitignored.
+- Session runtime state is maintained by pvrclawk session storage and should be treated as runtime state (not manual project context).
 - Keep TDD strict: failing test -> minimal fix -> refactor -> full tests.
 - Do not treat user stories as system requirements; stories capture user intent/value first, while technical requirements are refined during implementation planning.
 

@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 
 from pvrclawk.utils.config import AppConfig, load_config, write_config
 from pvrclawk.utils.json_io import read_json, write_json
+from pvrclawk.utils.session_store import resolve_session_bucket
 from pvrclawk.membank.models.index import ClusterMeta, IndexData
 from pvrclawk.membank.models.link import Link
 from pvrclawk.membank.models.nodes import (
@@ -20,7 +21,7 @@ from pvrclawk.membank.models.nodes import (
     Story,
     Task,
 )
-from pvrclawk.membank.models.session import Session
+from pvrclawk.membank.models.session import Session, SessionIndex
 from pvrclawk.membank.core.storage.index import add_unique
 from pvrclawk.membank.core.storage.cluster import derive_cluster_name
 
@@ -31,11 +32,12 @@ class StorageEngine:
         self.nodes_dir = self.root / "nodes"
         self.additional_memory_dir = self.root / "additional_memory"
         self.index_file = self.root / "index.json"
-        self.recent_uid_file = self.root / "recent_uid.json"
         self.links_file = self.root / "links.json"
         self.rules_file = self.root / "rules.json"
         self.mood_file = self.root / "mood.json"
-        self.session_file = self.root / "session.json"
+        self.session_bucket = resolve_session_bucket(self.root)
+        self.sessions_dir = self.session_bucket
+        self.session_index_file = self.session_bucket / "index.json"
         self.config_file = self.root / "config.toml"
 
     def _write_json(self, path: Path, data) -> None:
@@ -48,13 +50,12 @@ class StorageEngine:
         self.root.mkdir(parents=True, exist_ok=True)
         self.nodes_dir.mkdir(parents=True, exist_ok=True)
         self.additional_memory_dir.mkdir(parents=True, exist_ok=True)
+        self.sessions_dir.mkdir(parents=True, exist_ok=True)
         if not self.index_file.exists():
             self._write_json(
                 self.index_file,
                 {"tags": {}, "types": {}, "uid_file": {}, "links_in": {}, "clusters": {}},
             )
-        if not self.recent_uid_file.exists():
-            self._write_json(self.recent_uid_file, [])
         if not self.links_file.exists():
             self._write_json(self.links_file, {})
         if not self.rules_file.exists():
@@ -67,11 +68,51 @@ class StorageEngine:
         if not self.config_file.exists():
             write_config(self.config_file, AppConfig())
         self._ensure_runtime_state_gitignore()
+        if not self.session_index_file.exists():
+            self.save_session_index(SessionIndex())
+        self._migrate_legacy_session_if_needed()
 
-    def load_session(self) -> Session | None:
-        if not self.session_file.exists():
+    def _session_path(self, session_id: str) -> Path:
+        return self.sessions_dir / f"{session_id}.json"
+
+    def load_session_index(self) -> SessionIndex:
+        payload = self._read_json(self.session_index_file, {})
+        if not isinstance(payload, dict) or not payload:
+            return SessionIndex()
+        if "active_session_id" not in payload and "session_ids" not in payload:
+            return SessionIndex()
+        try:
+            return SessionIndex.model_validate(payload)
+        except Exception:
+            return SessionIndex()
+
+    def save_session_index(self, index: SessionIndex) -> None:
+        self.sessions_dir.mkdir(parents=True, exist_ok=True)
+        self._write_json(self.session_index_file, index.model_dump(mode="json"))
+
+    def _set_active_session_id(self, session_id: str | None) -> SessionIndex:
+        index = self.load_session_index()
+        if session_id is None:
+            index.active_session_id = None
+            self.save_session_index(index)
+            return index
+        if session_id in index.session_ids:
+            index.session_ids.remove(session_id)
+        index.session_ids.insert(0, session_id)
+        index.active_session_id = session_id
+        self.save_session_index(index)
+        return index
+
+    def load_session(self, session_id: str | None = None) -> Session | None:
+        sid = session_id
+        if sid is None:
+            sid = self.load_session_index().active_session_id
+        if not sid:
             return None
-        payload = self._read_json(self.session_file, {})
+        path = self._session_path(sid)
+        if not path.exists():
+            return None
+        payload = self._read_json(path, {})
         if not isinstance(payload, dict) or not payload:
             return None
         try:
@@ -80,38 +121,82 @@ class StorageEngine:
             return None
 
     def save_session(self, session: Session) -> None:
-        self._write_json(self.session_file, session.model_dump(mode="json"))
+        path = self._session_path(session.session_id)
+        self._write_json(path, session.model_dump(mode="json"))
+        index = self.load_session_index()
+        if session.session_id not in index.session_ids:
+            index.session_ids.insert(0, session.session_id)
+            self.save_session_index(index)
 
-    def clear_session(self) -> bool:
-        if not self.session_file.exists():
+    def clear_session(self, session_id: str | None = None) -> bool:
+        index = self.load_session_index()
+        target_id = session_id or index.active_session_id
+        if target_id is None:
             return False
-        self.session_file.unlink()
-        return True
+        removed = False
+        target_path = self._session_path(target_id)
+        if target_path.exists():
+            target_path.unlink()
+            removed = True
+        if target_id in index.session_ids:
+            index.session_ids.remove(target_id)
+            removed = True
+        if index.active_session_id == target_id:
+            index.active_session_id = index.session_ids[0] if index.session_ids else None
+            removed = True
+        self.save_session_index(index)
+        return removed
 
     def is_session_expired(self, session: Session, max_age_days: int = 2) -> bool:
         return datetime.now(timezone.utc) - session.created_at > timedelta(days=max_age_days)
 
     def load_active_session(self, max_age_days: int = 2) -> Session | None:
-        session = self.load_session()
+        index = self.load_session_index()
+        active_id = index.active_session_id
+        if active_id is None:
+            return None
+        session = self.load_session(active_id)
+        if session is None:
+            # Auto-recover missing referenced session by recreating it.
+            session = Session(session_id=active_id)
+            self.save_session(session)
+            self._set_active_session_id(active_id)
+            return session
         if session is None:
             return None
         if self.is_session_expired(session, max_age_days=max_age_days):
-            self.clear_session()
+            self.clear_session(session.session_id)
             return None
         return session
 
     def activate_session(self, session_id: str | None = None) -> Session:
-        existing = self.load_active_session()
-        if existing is not None and (session_id is None or existing.session_id == session_id):
-            return existing
-        session = Session(session_id=session_id) if session_id else Session()
+        self.init_db()
+        if session_id:
+            existing = self.load_session(session_id)
+            if existing is not None and not self.is_session_expired(existing):
+                self._set_active_session_id(existing.session_id)
+                return existing
+            session = Session(session_id=session_id)
+            self.save_session(session)
+            self._set_active_session_id(session.session_id)
+            return session
+
+        existing_active = self.load_active_session()
+        if existing_active is not None:
+            self._set_active_session_id(existing_active.session_id)
+            return existing_active
+
+        session = Session()
         self.save_session(session)
+        self._set_active_session_id(session.session_id)
         return session
 
     def reset_session(self, session_id: str | None = None) -> Session:
-        session = self.activate_session(session_id=session_id)
+        target_id = session_id or self.load_session_index().active_session_id
+        session = self.activate_session(session_id=target_id)
         session.served_uids = []
         self.save_session(session)
+        self._set_active_session_id(session.session_id)
         return session
 
     def record_session_served(self, session: Session, uids: list[str]) -> Session:
@@ -122,6 +207,56 @@ class StorageEngine:
                 seen.add(uid)
         self.save_session(session)
         return session
+
+    def _migrate_legacy_session_if_needed(self) -> None:
+        # Legacy local files under .pvrclawk/ are migrated into user-level session storage.
+        legacy_index_file = self.root / "session.json"
+        legacy_recent_file = self.root / "recent_uid.json"
+        index = self.load_session_index()
+
+        if legacy_index_file.exists():
+            payload = self._read_json(legacy_index_file, {})
+            if isinstance(payload, dict) and payload:
+                # Legacy single-session payload
+                if "session_id" in payload and "active_session_id" not in payload and "session_ids" not in payload:
+                    try:
+                        session = Session.model_validate(payload)
+                        self.save_session(session)
+                        self._set_active_session_id(session.session_id)
+                        index = self.load_session_index()
+                    except Exception:
+                        pass
+                # Transitional local multi-session index payload
+                elif "active_session_id" in payload or "session_ids" in payload:
+                    try:
+                        legacy_index = SessionIndex.model_validate(payload)
+                        for session_id in legacy_index.session_ids:
+                            local_path = self.root / "sessions" / f"{session_id}.json"
+                            if not local_path.exists():
+                                continue
+                            session_payload = self._read_json(local_path, {})
+                            try:
+                                session = Session.model_validate(session_payload)
+                            except Exception:
+                                continue
+                            self.save_session(session)
+                        if legacy_index.active_session_id:
+                            self._set_active_session_id(legacy_index.active_session_id)
+                        index = self.load_session_index()
+                    except Exception:
+                        pass
+
+        # Seed legacy recent_uid.json into active session only if missing recent history.
+        if legacy_recent_file.exists():
+            legacy_recent = self._read_json(legacy_recent_file, [])
+            active = self.load_active_session()
+            if active is not None and isinstance(legacy_recent, list) and not active.recent_uids:
+                active.recent_uids = [str(uid) for uid in legacy_recent[:10]]
+                self.save_session(active)
+
+        # Ensure index file exists even without any legacy artifacts.
+        if not self.session_index_file.exists():
+            self.save_session_index(index)
 
     def load_index(self) -> IndexData:
         return IndexData.model_validate(self._read_json(self.index_file, {}))
@@ -313,10 +448,13 @@ class StorageEngine:
         return None, "missing"
 
     def resolve_recent_uid(self, last: int) -> str | None:
-        """Resolve UID by recency index (1-based)."""
+        """Resolve UID by active-session recency index (1-based)."""
         if last < 1:
             return None
-        recent_uids = self._load_recent_uids()
+        active = self.load_active_session()
+        if active is None:
+            return None
+        recent_uids = list(active.recent_uids)
         if last > len(recent_uids):
             return None
         return recent_uids[last - 1]
@@ -357,10 +495,7 @@ class StorageEngine:
         node_type = str(payload.get("__type__", "memory"))
 
         index.uid_file.pop(uid, None)
-        recent_uids = self._load_recent_uids()
-        if uid in recent_uids:
-            recent_uids.remove(uid)
-            self._save_recent_uids(recent_uids)
+        self._remove_uid_from_all_session_recents(uid)
 
         type_uids = index.types.get(node_type, [])
         if uid in type_uids:
@@ -461,8 +596,7 @@ class StorageEngine:
                     add_unique(index.links_in, target, source)
 
         self.save_index(index)
-        recent_uids = [uid for uid in self._load_recent_uids() if uid in index.uid_file]
-        self._save_recent_uids(recent_uids)
+        self._prune_session_recent_uids(set(index.uid_file.keys()))
         return cluster_name
 
     def _touch_recent_uid(self, uid: str) -> None:
@@ -472,34 +606,43 @@ class StorageEngine:
         self._record_recent_uid(uid)
 
     def _record_recent_uid(self, uid: str) -> None:
-        recent_uids = self._load_recent_uids()
-        if uid in recent_uids:
-            recent_uids.remove(uid)
-        recent_uids.insert(0, uid)
-        self._save_recent_uids(recent_uids[:10])
+        active = self.load_active_session()
+        if active is None:
+            return
+        if uid in active.recent_uids:
+            active.recent_uids.remove(uid)
+        active.recent_uids.insert(0, uid)
+        active.recent_uids = active.recent_uids[:10]
+        self.save_session(active)
 
-    def _load_recent_uids(self) -> list[str]:
-        return list(self._read_json(self.recent_uid_file, []))
+    def _remove_uid_from_all_session_recents(self, uid: str) -> None:
+        index = self.load_session_index()
+        changed = False
+        for session_id in list(index.session_ids):
+            session = self.load_session(session_id)
+            if session is None:
+                continue
+            if uid in session.recent_uids:
+                session.recent_uids = [item for item in session.recent_uids if item != uid]
+                self.save_session(session)
+                changed = True
+        if changed:
+            self.save_session_index(index)
 
-    def _save_recent_uids(self, recent_uids: list[str]) -> None:
-        self._write_json(self.recent_uid_file, recent_uids)
+    def _prune_session_recent_uids(self, valid_uids: set[str]) -> None:
+        index = self.load_session_index()
+        for session_id in list(index.session_ids):
+            session = self.load_session(session_id)
+            if session is None:
+                continue
+            filtered = [uid for uid in session.recent_uids if uid in valid_uids]
+            if filtered != session.recent_uids:
+                session.recent_uids = filtered
+                self.save_session(session)
 
     def _ensure_runtime_state_gitignore(self) -> None:
-        gitignore = self.root.parent / ".gitignore"
-        ignore_entries = [
-            f"{self.root.name}/recent_uid.json",
-            f"{self.root.name}/session.json",
-        ]
-        if not gitignore.exists():
-            gitignore.write_text("".join(f"{entry}\n" for entry in ignore_entries), encoding="utf-8")
-            return
-        content = gitignore.read_text(encoding="utf-8")
-        lines = [line.strip() for line in content.splitlines()]
-        missing = [entry for entry in ignore_entries if entry not in lines]
-        if missing:
-            suffix = "" if content.endswith("\n") or content == "" else "\n"
-            additions = "".join(f"{entry}\n" for entry in missing)
-            gitignore.write_text(f"{content}{suffix}{additions}", encoding="utf-8")
+        # Session runtime state now lives in user-level config storage, not project files.
+        return
 
     def all_nodes(self):
         index = self.load_index()
