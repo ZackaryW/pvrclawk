@@ -48,11 +48,18 @@ class FederationConfig(BaseModel):
     dsl_rules: list[str] = Field(default_factory=list)
 
 
+class RetrievalConfig(BaseModel):
+    """Resistance factor: nodes with score below this threshold are excluded from focus results."""
+
+    resistance_threshold: float = 0.37
+
+
 class AppConfig(BaseModel):
     prune: PruneConfig = PruneConfig()
     decay: DecayConfig = DecayConfig()
     mood: MoodConfig = MoodConfig()
     federation: FederationConfig = FederationConfig()
+    retrieval: RetrievalConfig = RetrievalConfig()
     auto_archive_active: bool = True
 
 
@@ -81,6 +88,8 @@ def write_config(path: Path, config: AppConfig) -> None:
         "[mood]\n"
         f"default = {dumped['mood']['default']}\n"
         f"smoothing = {dumped['mood']['smoothing']}\n\n"
+        "[retrieval]\n"
+        f"resistance_threshold = {dumped['retrieval']['resistance_threshold']}\n\n"
         "[federation]\n"
         f"enabled_default = {str(dumped['federation']['enabled_default']).lower()}\n"
         f"dsl_rules = [{dsl_rules}]\n\n"

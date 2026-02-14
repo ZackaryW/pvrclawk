@@ -45,15 +45,25 @@ class GraphEngine:
             if link_score > 0:
                 scores[link.target] += link_score * multipliers.get(link.target, 1.0)
 
-        # Phase 3: Filter zeros, rank, expand 1-hop neighbors
-        positive = {uid: s for uid, s in scores.items() if s > 0}
+        # Phase 3: Filter zeros, apply resistance threshold, rank, expand 1-hop neighbors
+        threshold = self.scorer.config.retrieval.resistance_threshold
+        positive = {
+            uid: s for uid, s in scores.items() if s > 0 and s >= threshold
+        }
         ranked = sorted(positive.items(), key=lambda x: x[1], reverse=True)[:limit]
         expanded = dict(ranked)
         for uid, score in ranked:
             if uid in g:
                 for neighbor in g.neighbors(uid):
                     neighbor_score = score * 0.5
-                    if neighbor_score > 0:
-                        expanded[neighbor] = max(expanded.get(neighbor, 0.0), neighbor_score)
-
-        return sorted(expanded.items(), key=lambda x: x[1], reverse=True)[:limit]
+                    if neighbor_score >= threshold:
+                        expanded[neighbor] = max(
+                            expanded.get(neighbor, 0.0), neighbor_score
+                        )
+        # Apply resistance threshold to final results
+        above_threshold = {
+            uid: s for uid, s in expanded.items() if s >= threshold
+        }
+        return sorted(
+            above_threshold.items(), key=lambda x: x[1], reverse=True
+        )[:limit]

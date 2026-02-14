@@ -15,6 +15,7 @@ def test_app_config_defaults():
     assert cfg.decay.half_life_days == 7
     assert cfg.mood.default == 0.5
     assert cfg.mood.smoothing == 0.1
+    assert cfg.retrieval.resistance_threshold == 0.37
     assert cfg.auto_archive_active is True
     assert cfg.federation.discovery.only_dot_pvrclawk is True
     assert cfg.federation.discovery.max_git_lookup_levels == 10
@@ -67,3 +68,12 @@ def test_set_config_nested_federation_value(tmp_path: Path):
     write_config(path, AppConfig())
     updated = set_config_value(path, "federation.discovery.max_git_lookup_levels", "12")
     assert updated.federation.discovery.max_git_lookup_levels == 12
+
+
+def test_set_retrieval_resistance_threshold(tmp_path: Path):
+    path = tmp_path / "config.toml"
+    write_config(path, AppConfig())
+    updated = set_config_value(path, "retrieval.resistance_threshold", "0.5")
+    assert updated.retrieval.resistance_threshold == 0.5
+    loaded = load_config(path)
+    assert loaded.retrieval.resistance_threshold == 0.5

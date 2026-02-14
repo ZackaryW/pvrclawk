@@ -41,6 +41,14 @@ pvrclawk membank session tear
 pvrclawk membank focus --tags "architecture"
 pvrclawk membank focus --tags "task"
 pvrclawk membank --federated focus --tags "task"
+```
+
+**Resistance factor (focus filtering)**  
+Nodes whose score is below `retrieval.resistance_threshold` are excluded from `focus` results. This reduces token usage by dropping low-relevance nodes. Default is `0.37`. Set to `0` to include all positive-scoring nodes; raise (e.g. `0.5`–`0.7`) to keep only stronger matches.
+
+```bash
+pvrclawk membank config set retrieval.resistance_threshold 0.37
+pvrclawk membank config get retrieval.resistance_threshold
 
 # Inspect nodes
 pvrclawk membank node list-all
@@ -245,6 +253,8 @@ pvrclawk membank prune
 pvrclawk membank config list
 pvrclawk membank config get auto_archive_active
 pvrclawk membank config set auto_archive_active true
+pvrclawk membank config get retrieval.resistance_threshold
+pvrclawk membank config set retrieval.resistance_threshold 0.37
 pvrclawk membank session info
 
 # Cleanup workflow (run regularly)

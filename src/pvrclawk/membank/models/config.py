@@ -8,6 +8,7 @@ from pvrclawk.utils.config import (  # noqa: F401
     FederationScoringConfig,
     MoodConfig,
     PruneConfig,
+    RetrievalConfig,
     load_config,
     set_config_value,
     write_config,

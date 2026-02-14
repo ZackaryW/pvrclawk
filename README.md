@@ -96,6 +96,8 @@ score = tag_match * link.weight * freq_decay * mood_factor * rule_adjustment
 
 where `freq_decay = link.usage_count / total_frequency` (frequency-relative, not time-based).
 
+**Resistance factor:** `focus` only returns nodes whose score is at least `retrieval.resistance_threshold` (default `0.37`). This filters out low-scoring nodes and reduces token usage. Set to `0` to disable; raise to `0.5`–`0.7` for stricter filtering.
+
 ### Cluster storage
 
 Nodes are stored in named JSON files under `.pvrclawk/nodes/`, grouped by top tags. An `index.json` maps tags and types to node UIDs for fast radiated loading. New nodes land in `_inbox.json` and get merged into clusters on `prune`.
@@ -166,6 +168,7 @@ Settings live in `.pvrclawk/config.toml`:
 | `prune.min_cluster` | `3` | Minimum nodes per cluster |
 | `decay.base_rate` | `0.95` | Base decay rate |
 | `mood.smoothing` | `0.1` | EMA smoothing factor |
+| `retrieval.resistance_threshold` | `0.37` | Min score for nodes returned by `focus`; higher values reduce token usage by filtering weak matches |
 
 ## Project structure
 

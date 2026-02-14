@@ -1,6 +1,6 @@
 from pvrclawk.membank.core.graph.engine import GraphEngine
 from pvrclawk.membank.core.graph.scorer import VectorScorer
-from pvrclawk.membank.models.config import AppConfig
+from pvrclawk.membank.models.config import AppConfig, RetrievalConfig
 from pvrclawk.membank.models.link import Link
 from pvrclawk.membank.models.nodes import Memory
 
@@ -105,3 +105,20 @@ def test_graph_engine_applies_node_multipliers():
     )
     scores = {uid: score for uid, score in ranked}
     assert scores[n1.uid] > scores[n2.uid]
+
+
+def test_graph_engine_resistance_threshold_filters_low_scores():
+    """Nodes with score below retrieval.resistance_threshold are excluded."""
+    config = AppConfig(retrieval=RetrievalConfig(resistance_threshold=0.6))
+    scorer = VectorScorer(config)
+    engine = GraphEngine(scorer)
+
+    high = Memory(content="high")
+    high.add_tag("task", 1.0)
+    low = Memory(content="low")
+    low.add_tag("task", 0.3)
+
+    ranked = engine.retrieve([high, low], [], ["task"], limit=10)
+    uids = [uid for uid, _ in ranked]
+    assert high.uid in uids
+    assert low.uid not in uids

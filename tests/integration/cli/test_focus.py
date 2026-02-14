@@ -44,6 +44,11 @@ def test_focus_federated_reads_other_banks(runner, tmp_path):
     remote_db = repo / "libs" / "shared" / ".pvrclawk"
     runner.invoke(main, ["membank", "--path", str(host_db), "init"])
     runner.invoke(main, ["membank", "--path", str(remote_db), "init"])
+    # Disable resistance so federated remote node (lower score) is not filtered
+    runner.invoke(
+        main,
+        ["membank", "--path", str(host_db), "config", "set", "retrieval.resistance_threshold", "0"],
+    )
 
     runner.invoke(
         main,
