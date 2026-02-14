@@ -27,20 +27,6 @@
     "othermeta": {},
     "__type__": "task"
   },
-  "87141db1-5221-4aca-9017-0fd0b0414adc": {
-    "uid": "87141db1-5221-4aca-9017-0fd0b0414adc",
-    "tags": {
-      "progress": 1.0,
-      "membank": 1.0,
-      "docs": 1.0,
-      "session": 1.0
-    },
-    "created_at": "2026-02-12T21:02:49.988694Z",
-    "updated_at": "2026-02-12T21:02:49.988694Z",
-    "content": "Starting documentation update for session workflow in AGENTS and README to match implemented session up/tear/reset/info behavior and resolution priority.",
-    "status": "in_progress",
-    "__type__": "progress"
-  },
   "19ef8b04-08d8-4bab-9b2a-e41b835a1419": {
     "uid": "19ef8b04-08d8-4bab-9b2a-e41b835a1419",
     "tags": {
@@ -52,6 +38,116 @@
     "created_at": "2026-02-12T21:03:42.395415Z",
     "updated_at": "2026-02-12T21:03:42.395415Z",
     "content": "Updated AGENTS/membank.md and README.md to document session dedup lifecycle (session up/info/reset/tear), resolution priority, truncation behavior, expiry, and command reference additions.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "e2ab0340-28e2-40a5-8f1d-84b1194eacb9": {
+    "uid": "e2ab0340-28e2-40a5-8f1d-84b1194eacb9",
+    "tags": {
+      "membank": 1.0,
+      "federation": 1.0,
+      "story": 1.0
+    },
+    "created_at": "2026-02-14T03:04:24.053353Z",
+    "updated_at": "2026-02-14T03:21:25.433700Z",
+    "role": "As a maintainer",
+    "benefit": "I want federated membank retrieval across repo boundaries so that context discovery spans related projects while preserving relevance",
+    "criteria": [
+      "Federated mode is opt-in via --federated",
+      "Read commands aggregate candidates within git boundary",
+      "Ranking favors root proximity and host-bank proximity"
+    ],
+    "status": "done",
+    "othermeta": {},
+    "__type__": "story"
+  },
+  "3866e09e-7069-477a-989c-428107953d78": {
+    "uid": "3866e09e-7069-477a-989c-428107953d78",
+    "tags": {
+      "membank": 1.0,
+      "federation": 1.0,
+      "feature": 1.0
+    },
+    "created_at": "2026-02-14T03:04:27.707751Z",
+    "updated_at": "2026-02-14T03:17:28.320995Z",
+    "component": "membank federated retrieval",
+    "test_scenario": "Given --federated and read commands, discover in-boundary and configured banks and rank merged context",
+    "expected_result": "Expected result: read-only federated focus/list/get with configurable root/host scoring multipliers",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "feature"
+  },
+  "092c1e64-f38a-4079-b848-3f0f10686341": {
+    "uid": "092c1e64-f38a-4079-b848-3f0f10686341",
+    "tags": {
+      "task": 1.0,
+      "membank": 1.0,
+      "federation": 1.0
+    },
+    "created_at": "2026-02-14T03:04:30.704925Z",
+    "updated_at": "2026-02-14T03:17:27.983015Z",
+    "content": "Implement federated membank flag, discovery, configurable scoring, and read-command wiring with tests",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "task"
+  },
+  "39cf69a3-1a61-40f9-8a42-5e4b671e93f8": {
+    "uid": "39cf69a3-1a61-40f9-8a42-5e4b671e93f8",
+    "tags": {
+      "progress": 1.0,
+      "membank": 1.0,
+      "federation": 1.0,
+      "done": 1.0
+    },
+    "created_at": "2026-02-14T03:17:28.637368Z",
+    "updated_at": "2026-02-14T03:17:28.637370Z",
+    "content": "Implemented federated read-mode for membank via --federated with git-boundary discovery, configurable federation config, cross-bank scoring multipliers, federated link/list/get/focus wiring, and full targeted test coverage.",
+    "status": "done",
+    "__type__": "progress"
+  },
+  "6e3011fb-d99b-42e9-9e1b-aa30eccdae13": {
+    "uid": "6e3011fb-d99b-42e9-9e1b-aa30eccdae13",
+    "tags": {
+      "membank": 1.0,
+      "federation": 1.0,
+      "docs": 1.0,
+      "feature": 1.0
+    },
+    "created_at": "2026-02-14T03:20:42.215150Z",
+    "updated_at": "2026-02-14T03:21:25.117933Z",
+    "component": "membank federation instructions",
+    "test_scenario": "Given AGENTS membank guidance, document federated mode usage, boundaries, and scoring semantics",
+    "expected_result": "Expected result: practical federation workflow guidance with defaults, safety limits, and config knobs.",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "feature"
+  },
+  "e55c96f7-dc14-4a58-9639-95b4b87c0116": {
+    "uid": "e55c96f7-dc14-4a58-9639-95b4b87c0116",
+    "tags": {
+      "task": 1.0,
+      "membank": 1.0,
+      "docs": 1.0,
+      "federation": 1.0
+    },
+    "created_at": "2026-02-14T03:20:42.597715Z",
+    "updated_at": "2026-02-14T03:21:24.780094Z",
+    "content": "Update AGENTS/membank.md federation instructions and optimize usage workflow",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "task"
+  },
+  "30174fd6-c365-4e60-ad82-bb94a13f5135": {
+    "uid": "30174fd6-c365-4e60-ad82-bb94a13f5135",
+    "tags": {
+      "progress": 1.0,
+      "membank": 1.0,
+      "docs": 1.0,
+      "federation": 1.0
+    },
+    "created_at": "2026-02-14T03:21:25.762310Z",
+    "updated_at": "2026-02-14T03:21:25.762312Z",
+    "content": "Updated AGENTS/membank.md with federation mode guidance, read-only scope, git-boundary defaults, scoring semantics, practical workflow, and config usage notes aligned with CLI behavior.",
     "status": "done",
     "__type__": "progress"
   }

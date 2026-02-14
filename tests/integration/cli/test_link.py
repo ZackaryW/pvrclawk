@@ -92,3 +92,34 @@ def test_link_chain_requires_at_least_two_uids(runner, tmp_path):
     chain = runner.invoke(main, ["membank", "--path", str(db_path), "link", "chain", uid_a])
     assert chain.exit_code != 0
     assert "at least two uids" in chain.output.lower()
+
+
+def test_link_list_federated_reads_remote_source(runner, tmp_path):
+    repo = tmp_path / "repo"
+    (repo / ".git").mkdir(parents=True)
+    host_db = repo / "apps" / "host" / ".pvrclawk"
+    remote_db = repo / "libs" / "shared" / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(host_db), "init"])
+    runner.invoke(main, ["membank", "--path", str(remote_db), "init"])
+
+    source = runner.invoke(
+        main,
+        ["membank", "--path", str(remote_db), "node", "add", "memory", "--content", "remote source", "--tags", "federation:1.0"],
+    )
+    target = runner.invoke(
+        main,
+        ["membank", "--path", str(remote_db), "node", "add", "memory", "--content", "remote target", "--tags", "federation:1.0"],
+    )
+    source_uid = source.output.strip().splitlines()[-1]
+    target_uid = target.output.strip().splitlines()[-1]
+    runner.invoke(
+        main,
+        ["membank", "--path", str(remote_db), "link", "add", source_uid, target_uid, "--tags", "federation", "--weight", "1.0"],
+    )
+
+    result = runner.invoke(
+        main,
+        ["membank", "--path", str(host_db), "--federated", "link", "list", source_uid],
+    )
+    assert result.exit_code == 0
+    assert target_uid in result.output

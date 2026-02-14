@@ -315,3 +315,49 @@ def test_node_get_ambiguous_uid_prefix_errors(runner, tmp_path):
     result = runner.invoke(main, ["membank", "--path", str(db_path), "node", "get", "abcd"])
     assert result.exit_code != 0
     assert "ambiguous uid prefix" in result.output.lower()
+
+
+def test_node_list_federated_reads_other_banks(runner, tmp_path):
+    repo = tmp_path / "repo"
+    (repo / ".git").mkdir(parents=True)
+    host_db = repo / "apps" / "host" / ".pvrclawk"
+    remote_db = repo / "libs" / "shared" / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(host_db), "init"])
+    runner.invoke(main, ["membank", "--path", str(remote_db), "init"])
+    runner.invoke(main, ["membank", "--path", str(host_db), "node", "add", "story", "--title", "Host Story", "--summary", "h"])
+    runner.invoke(main, ["membank", "--path", str(remote_db), "node", "add", "story", "--title", "Remote Story", "--summary", "r"])
+
+    result = runner.invoke(main, ["membank", "--path", str(host_db), "--federated", "node", "list", "story"])
+    assert result.exit_code == 0
+    assert "Host Story" in result.output
+    assert "Remote Story" in result.output
+
+
+def test_node_add_stays_local_with_federated_flag(runner, tmp_path):
+    repo = tmp_path / "repo"
+    (repo / ".git").mkdir(parents=True)
+    host_db = repo / "apps" / "host" / ".pvrclawk"
+    remote_db = repo / "libs" / "shared" / ".pvrclawk"
+    runner.invoke(main, ["membank", "--path", str(host_db), "init"])
+    runner.invoke(main, ["membank", "--path", str(remote_db), "init"])
+
+    add_result = runner.invoke(
+        main,
+        [
+            "membank",
+            "--path",
+            str(host_db),
+            "--federated",
+            "node",
+            "add",
+            "memory",
+            "--content",
+            "local only",
+        ],
+    )
+    assert add_result.exit_code == 0
+
+    host_list = runner.invoke(main, ["membank", "--path", str(host_db), "node", "list", "memory"])
+    remote_list = runner.invoke(main, ["membank", "--path", str(remote_db), "node", "list", "memory"])
+    assert "local only" in host_list.output
+    assert "local only" not in remote_list.output

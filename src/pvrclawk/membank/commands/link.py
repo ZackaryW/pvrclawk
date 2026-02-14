@@ -2,6 +2,8 @@ from pathlib import Path
 
 import click
 
+from pvrclawk.membank.core.federation.service import FederatedMembankService
+from pvrclawk.membank.models.config import load_config
 from pvrclawk.membank.core.storage.engine import StorageEngine
 from pvrclawk.membank.models.link import Link
 
@@ -41,9 +43,19 @@ def register_link(group: click.Group) -> None:
     @click.pass_context
     def list_command(ctx: click.Context, source_uid: str) -> None:
         """List outgoing links for a source UID."""
-        storage = StorageEngine(Path(ctx.obj["root_path"]))
-        source_uid = _resolve_uid_reference(storage, source_uid)
-        links = storage.load_links([source_uid])
+        root_path = Path(ctx.obj["root_path"])
+        storage = StorageEngine(root_path)
+        federated = bool(ctx.obj.get("federated"))
+        if federated:
+            config = load_config(storage.config_file)
+            service = FederatedMembankService(root_path, config)
+            try:
+                links = service.aggregate_links_by_source_uid(source_uid)
+            except ValueError as exc:
+                raise click.ClickException(str(exc)) from exc
+        else:
+            source_uid = _resolve_uid_reference(storage, source_uid)
+            links = storage.load_links([source_uid])
         for link in links:
             click.echo(f"{link.source} -> {link.target} ({','.join(link.tags)}) w={link.weight}")
 

@@ -17,6 +17,7 @@ class GraphEngine:
         links: list[Link],
         query_tags: list[str],
         limit: int = 5,
+        node_multipliers: dict[str, float] | None = None,
     ) -> list[tuple[str, float]]:
         node_by_uid = {n.uid: n for n in nodes}
         g = nx.Graph()
@@ -27,12 +28,14 @@ class GraphEngine:
 
         # Phase 1: Direct tag match on nodes themselves
         scores: dict[str, float] = defaultdict(float)
+        multipliers = node_multipliers or {}
         for node in nodes:
             node_tags = set(node.tags.keys()) if isinstance(node.tags, dict) else set()
             overlap = node_tags & set(query_tags)
             if overlap:
                 # Sum the tag weights for matching tags
                 direct_score = sum(node.tags.get(t, 0.0) for t in overlap)
+                direct_score *= multipliers.get(node.uid, 1.0)
                 scores[node.uid] += direct_score
 
         # Phase 2: Link-based scoring — only add non-zero scores
@@ -40,7 +43,7 @@ class GraphEngine:
         for link in links:
             link_score = self.scorer.score_link(link, query_tags, total_frequency=total_frequency)
             if link_score > 0:
-                scores[link.target] += link_score
+                scores[link.target] += link_score * multipliers.get(link.target, 1.0)
 
         # Phase 3: Filter zeros, rank, expand 1-hop neighbors
         positive = {uid: s for uid, s in scores.items() if s > 0}

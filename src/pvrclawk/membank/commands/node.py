@@ -3,7 +3,9 @@ from pathlib import Path
 import click
 
 from pvrclawk.membank.commands.render import render_node, render_node_detail
+from pvrclawk.membank.core.federation.service import FederatedMembankService
 from pvrclawk.membank.core.storage.engine import StorageEngine
+from pvrclawk.membank.models.config import load_config
 from pvrclawk.membank.models.nodes import (
     Bug,
     Feature,
@@ -146,9 +148,21 @@ def register_node(group: click.Group) -> None:
     @click.pass_context
     def get_node(ctx: click.Context, uid: str | None, last_n: int | None) -> None:
         """Show full detail for a single node by UID."""
-        storage = StorageEngine(Path(ctx.obj["root_path"]))
-        resolved_uid = _resolve_uid_reference(storage, uid, last_n, allow_unresolved_uid=True)
-        node = storage.load_node(resolved_uid)
+        root_path = Path(ctx.obj["root_path"])
+        storage = StorageEngine(root_path)
+        federated = bool(ctx.obj.get("federated"))
+        node = None
+        resolved_uid = uid or ""
+        if federated and uid and last_n is None:
+            config = load_config(storage.config_file)
+            service = FederatedMembankService(root_path, config)
+            try:
+                node = service.aggregate_node_by_uid(uid)
+            except ValueError as exc:
+                raise click.ClickException(str(exc)) from exc
+        else:
+            resolved_uid = _resolve_uid_reference(storage, uid, last_n, allow_unresolved_uid=True)
+            node = storage.load_node(resolved_uid)
         if node is None:
             click.echo(f"Node not found: {resolved_uid}")
             return
@@ -187,12 +201,22 @@ def register_node(group: click.Group) -> None:
     @click.pass_context
     def list_nodes(ctx: click.Context, node_type: str, top: int | None) -> None:
         """List all nodes of a given type."""
-        storage = StorageEngine(Path(ctx.obj["root_path"]))
+        root_path = Path(ctx.obj["root_path"])
+        storage = StorageEngine(root_path)
         active_session = ctx.obj.get("session")
         active_session = active_session if isinstance(active_session, Session) else None
         served_uids = set(active_session.served_uids) if active_session is not None else set()
         newly_served: list[str] = []
-        nodes = _sort_recent(storage.load_nodes_by_type(node_type))
+        federated = bool(ctx.obj.get("federated"))
+        if federated:
+            config = load_config(storage.config_file)
+            service = FederatedMembankService(root_path, config)
+            try:
+                nodes = _sort_recent(service.aggregate_nodes(node_type=node_type))
+            except ValueError as exc:
+                raise click.ClickException(str(exc)) from exc
+        else:
+            nodes = _sort_recent(storage.load_nodes_by_type(node_type))
         if top is not None:
             nodes = nodes[:top]
         for node in nodes:
@@ -209,12 +233,22 @@ def register_node(group: click.Group) -> None:
     @click.pass_context
     def list_all_nodes(ctx: click.Context, top: int | None) -> None:
         """List all nodes across all types."""
-        storage = StorageEngine(Path(ctx.obj["root_path"]))
+        root_path = Path(ctx.obj["root_path"])
+        storage = StorageEngine(root_path)
         active_session = ctx.obj.get("session")
         active_session = active_session if isinstance(active_session, Session) else None
         served_uids = set(active_session.served_uids) if active_session is not None else set()
         newly_served: list[str] = []
-        nodes = _sort_recent(storage.all_nodes())
+        federated = bool(ctx.obj.get("federated"))
+        if federated:
+            config = load_config(storage.config_file)
+            service = FederatedMembankService(root_path, config)
+            try:
+                nodes = _sort_recent(service.aggregate_nodes())
+            except ValueError as exc:
+                raise click.ClickException(str(exc)) from exc
+        else:
+            nodes = _sort_recent(storage.all_nodes())
         if top is not None:
             nodes = nodes[:top]
         for node in nodes:

@@ -19,6 +19,16 @@ pvrclawk membank node list task
 
 Only after this planning update should coding and TDD begin.
 
+### Default Exclusions (Do Not Track Unless Explicitly Requested)
+
+Do not run membank planning updates for repository-maintenance work by default.
+This includes documentation-only edits, policy wording changes, environment/setup tweaks,
+tooling housekeeping, and other non-product implementation chores.
+
+- Skip membank context retrieval/node updates unless the user explicitly asks to consult or update membank.
+- Treat this as an opt-in path for maintenance/docs/policy/environment tasks.
+- If unsure, ask a single clarification question before creating/updating membank nodes.
+
 ## Core Commands
 
 ```bash
@@ -31,16 +41,69 @@ pvrclawk membank session tear
 # Query context
 pvrclawk membank focus --tags "architecture"
 pvrclawk membank focus --tags "task"
+pvrclawk membank --federated focus --tags "task"
 
 # Inspect nodes
 pvrclawk membank node list-all
 pvrclawk membank node list story
 pvrclawk membank node list feature
+pvrclawk membank --federated node list story
 pvrclawk membank node get <uid>
+pvrclawk membank --federated node get <uid_or_prefix>
 
 # Update status
 pvrclawk membank node status <uid> in_progress
 pvrclawk membank node status <uid> done
+```
+
+## Federation Mode (`--federated`)
+
+Use federated mode for read-time context synthesis across nearby membanks.
+
+- Trigger: `pvrclawk membank --federated <read-command> ...`
+- Supported intent: read/query only (`focus`, `node list`, `node list-all`, `node get`, `link list`).
+- Write/mutate commands remain local to `--path` even when `--federated` is set.
+- Discovery boundary: walk upward to `.git` root (default max 10 levels).
+- Safety default: fail if no `.git` boundary is found unless explicitly allowed in config.
+- Candidate default: only `.pvrclawk` directories are scanned.
+
+### Federation Scoring Semantics
+
+- **Root importance**: bank closer to repo root gets higher importance.
+- **Host relevance**: bank closer to the host bank gets higher relevance.
+- Final score composes base rank with federation multipliers from config.
+
+### Federation Config Keys
+
+```bash
+# Discovery
+pvrclawk membank config set federation.discovery.only_dot_pvrclawk true
+pvrclawk membank config set federation.discovery.max_git_lookup_levels 10
+pvrclawk membank config set federation.discovery.allow_no_git_boundary false
+
+# Scoring
+pvrclawk membank config set federation.scoring.root_importance_base 1.0
+pvrclawk membank config set federation.scoring.host_relevance_base 1.0
+pvrclawk membank config set federation.scoring.root_distance_decay 0.35
+pvrclawk membank config set federation.scoring.host_distance_decay 0.45
+```
+
+For list-valued keys such as `federation.discovery.candidate_paths` and
+`federation.discovery.external_roots`, edit `.pvrclawk/config.toml` directly as TOML arrays.
+
+### Recommended Federation Workflow
+
+```bash
+# 1) Keep local planning updates local-first
+pvrclawk membank session up
+pvrclawk membank focus --tags "task"
+
+# 2) Expand context only when needed
+pvrclawk membank --federated focus --tags "task,architecture" --limit 10
+pvrclawk membank --federated node list story --top 20
+
+# 3) Do writes against local host bank only
+pvrclawk membank node add task --content "<local actionable item>" --status in_progress
 ```
 
 ## Session Context Dedupe
@@ -184,10 +247,13 @@ pvrclawk membank session tear
 ## Policy
 
 - All context belongs in `.pvrclawk/` (no `memory-bank/` folder).
+- Use `pvrclawk` directly for membank workflows in this project.
+- By default, exclude repo-maintenance and documentation/policy/environment tasks from membank tracking unless explicitly requested by the user.
 - Do not bulk import markdown; decompose into typed nodes.
 - Always update membank first for every new task, then start TDD.
 - Add a cleanup pass before implementation: remove stale/superseded entries and deprecated taxonomy artifacts.
 - Do not encode status words in `content` (for example: `IN_PROGRESS:`, `DONE:`). Use the `status` field via `node status` or `--status`.
+- Prefer local mode for writes and state transitions; use `--federated` for read expansion and ranking.
 - In team-managed environments, keep `story` and `feature` lean; they are user-to-dev bridge artifacts and often managed via Jira.
 - Use `bug` for user-reported defects; use `issue` for tracked execution issues.
 - Use `task`/`subtask` for generic work only (subtask must be a child actionable item).

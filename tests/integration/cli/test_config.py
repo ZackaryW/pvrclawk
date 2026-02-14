@@ -30,3 +30,4 @@ def test_membank_config_list(runner, tmp_path):
     assert "prune" in list_result.output
     assert "decay" in list_result.output
     assert "mood" in list_result.output
+    assert "federation" in list_result.output

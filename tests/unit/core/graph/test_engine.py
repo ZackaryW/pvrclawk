@@ -85,3 +85,23 @@ def test_graph_engine_no_results_for_unknown_tag():
     n1.add_tag("membank", 1.0)
     ranked = engine.retrieve([n1], [], ["authentication"], limit=5)
     assert len(ranked) == 0
+
+
+def test_graph_engine_applies_node_multipliers():
+    scorer = VectorScorer(AppConfig())
+    engine = GraphEngine(scorer)
+
+    n1 = Memory(content="near host")
+    n1.add_tag("federation", 1.0)
+    n2 = Memory(content="far host")
+    n2.add_tag("federation", 1.0)
+
+    ranked = engine.retrieve(
+        [n1, n2],
+        [],
+        ["federation"],
+        limit=5,
+        node_multipliers={n1.uid: 2.0, n2.uid: 0.5},
+    )
+    scores = {uid: score for uid, score in ranked}
+    assert scores[n1.uid] > scores[n2.uid]

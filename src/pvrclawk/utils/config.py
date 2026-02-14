@@ -3,7 +3,7 @@
 from pathlib import Path
 import tomllib
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class PruneConfig(BaseModel):
@@ -20,10 +20,34 @@ class MoodConfig(BaseModel):
     smoothing: float = 0.1
 
 
+class FederationDiscoveryConfig(BaseModel):
+    only_dot_pvrclawk: bool = True
+    allow_no_git_boundary: bool = False
+    max_git_lookup_levels: int = 10
+    candidate_paths: list[str] = Field(default_factory=list)
+    external_roots: list[str] = Field(default_factory=list)
+
+
+class FederationScoringConfig(BaseModel):
+    root_importance_base: float = 1.0
+    host_relevance_base: float = 1.0
+    root_distance_decay: float = 0.35
+    host_distance_decay: float = 0.45
+    cross_bank_link_weight: float = 0.3
+
+
+class FederationConfig(BaseModel):
+    enabled_default: bool = False
+    discovery: FederationDiscoveryConfig = FederationDiscoveryConfig()
+    scoring: FederationScoringConfig = FederationScoringConfig()
+    dsl_rules: list[str] = Field(default_factory=list)
+
+
 class AppConfig(BaseModel):
     prune: PruneConfig = PruneConfig()
     decay: DecayConfig = DecayConfig()
     mood: MoodConfig = MoodConfig()
+    federation: FederationConfig = FederationConfig()
     auto_archive_active: bool = True
 
 
@@ -37,6 +61,11 @@ def load_config(path: Path) -> AppConfig:
 
 def write_config(path: Path, config: AppConfig) -> None:
     dumped = config.model_dump()
+    discovery = dumped["federation"]["discovery"]
+    scoring = dumped["federation"]["scoring"]
+    candidate_paths = ", ".join(f'"{item}"' for item in discovery["candidate_paths"])
+    external_roots = ", ".join(f'"{item}"' for item in discovery["external_roots"])
+    dsl_rules = ", ".join(f'"{item}"' for item in dumped["federation"]["dsl_rules"])
     content = (
         f"auto_archive_active = {str(dumped['auto_archive_active']).lower()}\n\n"
         "[prune]\n"
@@ -46,7 +75,22 @@ def write_config(path: Path, config: AppConfig) -> None:
         f"half_life_days = {dumped['decay']['half_life_days']}\n\n"
         "[mood]\n"
         f"default = {dumped['mood']['default']}\n"
-        f"smoothing = {dumped['mood']['smoothing']}\n"
+        f"smoothing = {dumped['mood']['smoothing']}\n\n"
+        "[federation]\n"
+        f"enabled_default = {str(dumped['federation']['enabled_default']).lower()}\n"
+        f"dsl_rules = [{dsl_rules}]\n\n"
+        "[federation.discovery]\n"
+        f"only_dot_pvrclawk = {str(discovery['only_dot_pvrclawk']).lower()}\n"
+        f"allow_no_git_boundary = {str(discovery['allow_no_git_boundary']).lower()}\n"
+        f"max_git_lookup_levels = {discovery['max_git_lookup_levels']}\n"
+        f"candidate_paths = [{candidate_paths}]\n"
+        f"external_roots = [{external_roots}]\n\n"
+        "[federation.scoring]\n"
+        f"root_importance_base = {scoring['root_importance_base']}\n"
+        f"host_relevance_base = {scoring['host_relevance_base']}\n"
+        f"root_distance_decay = {scoring['root_distance_decay']}\n"
+        f"host_distance_decay = {scoring['host_distance_decay']}\n"
+        f"cross_bank_link_weight = {scoring['cross_bank_link_weight']}\n"
     )
     path.write_text(content, encoding="utf-8")
 
@@ -65,11 +109,16 @@ def _parse_value(value: str):
 
 def set_config_value(path: Path, key: str, value: str) -> AppConfig:
     config = load_config(path)
-    if "." in key:
-        section, field = key.split(".", 1)
-        section_obj = getattr(config, section)
-        setattr(section_obj, field, _parse_value(value))
-    else:
-        setattr(config, key, _parse_value(value))
+    parsed = _parse_value(value)
+    if "." not in key:
+        setattr(config, key, parsed)
+        write_config(path, config)
+        return config
+
+    parts = key.split(".")
+    target = config
+    for part in parts[:-1]:
+        target = getattr(target, part)
+    setattr(target, parts[-1], parsed)
     write_config(path, config)
     return config

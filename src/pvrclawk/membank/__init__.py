@@ -47,14 +47,16 @@ def _resolve_session(storage: StorageEngine, explicit_session_id: str | None) ->
 @click.group(help="Manage the graph-based membank.")
 @click.option("--path", "root_path", default=".pvrclawk", help="Path to membank storage (or project root that contains .pvrclawk).")
 @click.option("--session", "session_id", default=None, help="Session UUID override.")
+@click.option("--federated", is_flag=True, help="Enable federated read-mode across discovered membanks.")
 @click.pass_context
-def membank_group(ctx: click.Context, root_path: str, session_id: str | None) -> None:
+def membank_group(ctx: click.Context, root_path: str, session_id: str | None, federated: bool) -> None:
     """Manage the graph-based membank."""
     ctx.ensure_object(dict)
     resolved_root = _resolve_storage_root(root_path)
     storage = StorageEngine(Path(resolved_root))
     ctx.obj["root_path"] = str(resolved_root)
     ctx.obj["session"] = _resolve_session(storage, session_id)
+    ctx.obj["federated"] = federated
 
 
 from pvrclawk.membank.commands.config import register_config  # noqa: E402
