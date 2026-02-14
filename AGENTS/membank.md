@@ -19,15 +19,14 @@ pvrclawk membank node list task
 
 Only after this planning update should coding and TDD begin.
 
-### Default Exclusions (Do Not Track Unless Explicitly Requested)
+### Default Exclusions (Actionable TODO Tracking)
 
-Do not run membank planning updates for repository-maintenance work by default.
-This includes documentation-only edits, policy wording changes, environment/setup tweaks,
-tooling housekeeping, and other non-product implementation chores.
+For repository-maintenance work (documentation, policy wording, environment/setup, tooling housekeeping),
+exclude actionable TODO tracking by default unless explicitly requested.
 
-- Skip membank context retrieval/node updates unless the user explicitly asks to consult or update membank.
-- Treat this as an opt-in path for maintenance/docs/policy/environment tasks.
-- If unsure, ask a single clarification question before creating/updating membank nodes.
+- Do not create or advance actionable execution nodes (`story`, `feature`, `task`, `subtask`, `issue`, `bug`) by default.
+- `pattern` and `progress` updates are still allowed when they add durable implementation context.
+- If unsure whether actionable tracking is requested, ask one clarification question first.
 
 ## Core Commands
 
@@ -248,7 +247,7 @@ pvrclawk membank session tear
 
 - All context belongs in `.pvrclawk/` (no `memory-bank/` folder).
 - Use `pvrclawk` directly for membank workflows in this project.
-- By default, exclude repo-maintenance and documentation/policy/environment tasks from membank tracking unless explicitly requested by the user.
+- For repo-maintenance and documentation/policy/environment tasks, exclude actionable TODO tracking by default unless explicitly requested; `pattern` and `progress` are allowed.
 - Do not bulk import markdown; decompose into typed nodes.
 - Always update membank first for every new task, then start TDD.
 - Add a cleanup pass before implementation: remove stale/superseded entries and deprecated taxonomy artifacts.
