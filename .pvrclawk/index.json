@@ -92,7 +92,8 @@
       "9b232d39-a29e-4f38-9739-e6aa308d9002",
       "7b1ec081-61be-43fd-9799-53be07814ac0",
       "be0b7e58-2314-4f9d-a5dc-95ea3bd434da",
-      "1dbfbce3-5b70-4514-b12a-fe6a43e68890"
+      "1dbfbce3-5b70-4514-b12a-fe6a43e68890",
+      "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f"
     ],
     "classification": [
       "ab22676e-e918-4fdd-b75c-8922c98275ed",
@@ -170,7 +171,8 @@
       "549f1b37-2736-46e0-8a8d-3ee9c1b8edec",
       "4ef41d5d-180f-42dc-bec8-ea1e25f59e49",
       "71c24841-acc6-4c93-b7e6-38771517abba",
-      "4aa161c4-f64b-4ae0-aa21-c6b26203f0d8"
+      "4aa161c4-f64b-4ae0-aa21-c6b26203f0d8",
+      "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f"
     ],
     "link": [
       "cd2b44b9-ceba-4571-8ad1-ecffac52d804"
@@ -243,7 +245,8 @@
       "9b232d39-a29e-4f38-9739-e6aa308d9002",
       "7b1ec081-61be-43fd-9799-53be07814ac0",
       "be0b7e58-2314-4f9d-a5dc-95ea3bd434da",
-      "1dbfbce3-5b70-4514-b12a-fe6a43e68890"
+      "1dbfbce3-5b70-4514-b12a-fe6a43e68890",
+      "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f"
     ],
     "context": [
       "ba278e88-6bb0-4c07-9028-0ee54fc36d59"
@@ -493,6 +496,15 @@
       "6e3011fb-d99b-42e9-9e1b-aa30eccdae13",
       "e55c96f7-dc14-4a58-9639-95b4b87c0116",
       "30174fd6-c365-4e60-ad82-bb94a13f5135"
+    ],
+    "pattern": [
+      "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f"
+    ],
+    "hash": [
+      "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f"
+    ],
+    "macos": [
+      "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f"
     ]
   },
   "types": {
@@ -603,7 +615,8 @@
       "4aa161c4-f64b-4ae0-aa21-c6b26203f0d8",
       "e640c279-2819-4fa6-95fb-aaeffa224ee5",
       "ea9963b9-9ed9-4fca-9e41-74cfee1e2553",
-      "49eb05e8-acd9-4f2a-b68b-ff6135613022"
+      "49eb05e8-acd9-4f2a-b68b-ff6135613022",
+      "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f"
     ],
     "memorylink": [
       "41beeacf-3fc7-4cbf-9711-b1747a39ce3e",
@@ -711,7 +724,8 @@
     "9b232d39-a29e-4f38-9739-e6aa308d9002": "_inbox",
     "7b1ec081-61be-43fd-9799-53be07814ac0": "_inbox",
     "be0b7e58-2314-4f9d-a5dc-95ea3bd434da": "_inbox",
-    "1dbfbce3-5b70-4514-b12a-fe6a43e68890": "_inbox"
+    "1dbfbce3-5b70-4514-b12a-fe6a43e68890": "_inbox",
+    "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f": "_inbox"
   },
   "links_in": {
     "bb21fcce-64c8-4edb-99da-795f2c557930": [
@@ -859,7 +873,7 @@
     },
     "_inbox": {
       "top_tags": [],
-      "size": 14
+      "size": 15
     }
   }
 }

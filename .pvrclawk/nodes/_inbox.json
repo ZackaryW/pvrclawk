@@ -214,5 +214,21 @@
     "content": "Implemented user-level multi-session storage with target-path hash buckets, env override (PVRCLAWK_SESSION_STORE_ROOT), session-scoped recent_uids for --last, legacy migration handling, and updated docs/tests.",
     "status": "done",
     "__type__": "progress"
+  },
+  "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f": {
+    "uid": "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f",
+    "tags": {
+      "pattern": 1.0,
+      "membank": 1.0,
+      "session": 1.0,
+      "storage": 1.0,
+      "hash": 1.0,
+      "macos": 1.0
+    },
+    "created_at": "2026-02-14T03:58:57.734925Z",
+    "updated_at": "2026-02-14T03:58:57.735049Z",
+    "content": "Session bucket hash must be computed from normalized resolved absolute bank path. On macOS, /var paths may resolve to /private/var, so manual hash checks should use resolved path to match runtime buckets.",
+    "pattern_type": "session-store-hash",
+    "__type__": "pattern"
   }
 }

@@ -107,6 +107,8 @@ Each session file stores `served_uids` and `recent_uids` (rolling last 10).
 
 With an active session, `focus`, `node list`, and `node list-all` render header-only for already-served nodes. Session resolution order is: `--session <uuid>` override, then `PVRCLAWK_SESSION` env var, then active session from the per-target session index.
 
+When verifying the hashed bucket manually, compute the hash from the fully resolved absolute bank path. On macOS, paths under `/var/...` may resolve to `/private/var/...`, which changes the hash input.
+
 ### Environment Setup (Repo-specific)
 
 Use environment variables in this repository to control runtime session behavior:
