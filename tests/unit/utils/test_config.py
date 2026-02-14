@@ -2,6 +2,7 @@ from pathlib import Path
 
 from pvrclawk.utils.config import (
     AppConfig,
+    FederationScoringConfig,
     load_config,
     set_config_value,
     write_config,
@@ -32,6 +33,9 @@ def test_write_and_load_config_roundtrip(tmp_path: Path):
     cfg.federation.discovery.external_roots = ["/tmp/remote-a"]
     cfg.federation.discovery.candidate_paths = ["custom-bank"]
     cfg.federation.scoring.host_distance_decay = 0.8
+    cfg.federation.scoring.bank_path_penalties = [
+        FederationScoringConfig.BankPathPenaltyRule(pattern=r"/legacy$", multiplier=0.25)
+    ]
     write_config(path, cfg)
     loaded = load_config(path)
     assert loaded.auto_archive_active is False
@@ -39,6 +43,9 @@ def test_write_and_load_config_roundtrip(tmp_path: Path):
     assert loaded.federation.discovery.external_roots == ["/tmp/remote-a"]
     assert loaded.federation.discovery.candidate_paths == ["custom-bank"]
     assert loaded.federation.scoring.host_distance_decay == 0.8
+    assert len(loaded.federation.scoring.bank_path_penalties) == 1
+    assert loaded.federation.scoring.bank_path_penalties[0].pattern == r"/legacy$"
+    assert loaded.federation.scoring.bank_path_penalties[0].multiplier == 0.25
 
 
 def test_set_config_value(tmp_path: Path):

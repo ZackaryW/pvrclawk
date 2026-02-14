@@ -646,5 +646,56 @@
       "created_at": "2026-02-14T03:46:11.309095Z",
       "last_accessed": "2026-02-14T03:46:11.309096Z"
     }
+  ],
+  "d2d09d73-affd-4d08-b843-842a72ef850e": [
+    {
+      "uid": "365cc86a-9a68-4ef3-b114-f99eb450bae3",
+      "source": "d2d09d73-affd-4d08-b843-842a72ef850e",
+      "target": "a46f8c40-9cab-42c3-aaef-1cf2cce4c8f9",
+      "tags": [
+        "dependency",
+        "scoring",
+        "federation"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-14T04:29:55.731421Z",
+      "last_accessed": "2026-02-14T04:29:55.731424Z"
+    }
+  ],
+  "a46f8c40-9cab-42c3-aaef-1cf2cce4c8f9": [
+    {
+      "uid": "e5d2aa6b-90c5-4392-b0cb-6569217d8c62",
+      "source": "a46f8c40-9cab-42c3-aaef-1cf2cce4c8f9",
+      "target": "552dc84b-9b2b-4549-ae3a-c5d1a57ee492",
+      "tags": [
+        "dependency",
+        "scoring",
+        "federation"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-14T04:29:55.731440Z",
+      "last_accessed": "2026-02-14T04:29:55.731441Z"
+    }
+  ],
+  "552dc84b-9b2b-4549-ae3a-c5d1a57ee492": [
+    {
+      "uid": "3763af2b-7673-4b64-9a9f-f496676d7fb2",
+      "source": "552dc84b-9b2b-4549-ae3a-c5d1a57ee492",
+      "target": "5a129c7a-3798-4df1-9fcf-30e09c68e3dc",
+      "tags": [
+        "completion",
+        "scoring",
+        "federation"
+      ],
+      "weight": 1.0,
+      "decay": 1.0,
+      "usage_count": 1,
+      "created_at": "2026-02-14T04:31:53.318607Z",
+      "last_accessed": "2026-02-14T04:31:53.318609Z"
+    }
   ]
 }

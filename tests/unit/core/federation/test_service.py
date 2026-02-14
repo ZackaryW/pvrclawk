@@ -6,6 +6,7 @@ from pvrclawk.membank.core.federation.service import FederatedMembankService
 from pvrclawk.membank.core.storage.engine import StorageEngine
 from pvrclawk.membank.models.config import AppConfig
 from pvrclawk.membank.models.nodes import Memory
+from pvrclawk.utils.config import FederationScoringConfig
 
 
 def _init_bank(path: Path, content: str, tag: str) -> None:
@@ -81,3 +82,24 @@ def test_host_proximity_increases_relevance(tmp_path: Path):
     service = FederatedMembankService(host, cfg)
     contexts = {ctx.root: ctx for ctx in service.discover_banks()}
     assert service._bank_multiplier(contexts[close_to_host]) > service._bank_multiplier(contexts[far_from_host])
+
+
+def test_regex_path_penalty_can_downrank_single_bank(tmp_path: Path):
+    repo = tmp_path / "repo"
+    (repo / ".git").mkdir(parents=True)
+    host = repo / "apps" / "host" / ".pvrclawk"
+    penalized = repo / "libs" / "legacy" / ".pvrclawk"
+    neutral = repo / "libs" / "modern" / ".pvrclawk"
+    _init_bank(host, "host", "federation")
+    _init_bank(penalized, "legacy", "federation")
+    _init_bank(neutral, "modern", "federation")
+
+    cfg = AppConfig()
+    cfg.federation.scoring.root_distance_decay = 0.0
+    cfg.federation.scoring.host_distance_decay = 0.0
+    cfg.federation.scoring.bank_path_penalties = [
+        FederationScoringConfig.BankPathPenaltyRule(pattern=r"/legacy$", multiplier=0.25)
+    ]
+    service = FederatedMembankService(host, cfg)
+    contexts = {ctx.root: ctx for ctx in service.discover_banks()}
+    assert service._bank_multiplier(contexts[penalized]) < service._bank_multiplier(contexts[neutral])

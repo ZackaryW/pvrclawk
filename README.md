@@ -121,6 +121,8 @@ export PVRCLAWK_SESSION="<uuid>"
 export PVRCLAWK_SESSION_STORE_ROOT="<absolute/path>"
 ```
 
+Federated scoring also supports per-bank regex path penalties via config (`federation.scoring.bank_path_penalties`) so specific membank paths can be down-ranked with custom multipliers.
+
 ### Mood & rules
 
 - **Mood**: per-tag EMA-smoothed signal. `pvrclawk membank report mood <tag> <value>` adjusts scoring weight.

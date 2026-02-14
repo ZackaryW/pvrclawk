@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
+import re
 
 from pvrclawk.membank.core.storage.engine import StorageEngine
 from pvrclawk.membank.models.base import BaseNode
@@ -130,7 +131,20 @@ class FederatedMembankService:
         scoring = self.config.federation.scoring
         root_factor = scoring.root_importance_base / (1.0 + scoring.root_distance_decay * float(ctx.root_depth))
         host_factor = scoring.host_relevance_base / (1.0 + scoring.host_distance_decay * float(ctx.host_distance))
-        return max(root_factor * host_factor, 0.0)
+        path_penalty = self._bank_path_penalty_multiplier(ctx.bank_id)
+        return max(root_factor * host_factor * path_penalty, 0.0)
+
+    def _bank_path_penalty_multiplier(self, bank_path: str) -> float:
+        multiplier = 1.0
+        for rule in self.config.federation.scoring.bank_path_penalties:
+            pattern = rule.pattern if hasattr(rule, "pattern") else str(rule.get("pattern", ""))
+            rule_multiplier = rule.multiplier if hasattr(rule, "multiplier") else float(rule.get("multiplier", 1.0))
+            try:
+                if pattern and re.search(pattern, bank_path):
+                    multiplier *= float(rule_multiplier)
+            except re.error:
+                continue
+        return max(multiplier, 0.0)
 
     def _build_cross_bank_links(self, nodes_by_bank: dict[str, list[BaseNode]], query_tags: list[str]) -> list[Link]:
         if not query_tags:

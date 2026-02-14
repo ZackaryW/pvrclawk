@@ -70,6 +70,7 @@ Use federated mode for read-time context synthesis across nearby membanks.
 
 - **Root importance**: bank closer to repo root gets higher importance.
 - **Host relevance**: bank closer to the host bank gets higher relevance.
+- **Path penalty rules**: regex-matched bank paths can apply additional per-bank multipliers.
 - Final score composes base rank with federation multipliers from config.
 
 ### Federation Config Keys
@@ -87,8 +88,18 @@ pvrclawk membank config set federation.scoring.root_distance_decay 0.35
 pvrclawk membank config set federation.scoring.host_distance_decay 0.45
 ```
 
-For list-valued keys such as `federation.discovery.candidate_paths` and
-`federation.discovery.external_roots`, edit `.pvrclawk/config.toml` directly as TOML arrays.
+For list-valued keys, edit `.pvrclawk/config.toml` directly (preferred for agent-assisted tuning):
+- `federation.discovery.candidate_paths`
+- `federation.discovery.external_roots`
+- `federation.scoring.bank_path_penalties` (regex path-based per-bank multipliers)
+
+Use this TOML shape for per-bank penalties:
+
+```toml
+[[federation.scoring.bank_path_penalties]]
+pattern = "/legacy$"
+multiplier = 0.25
+```
 
 ### Recommended Federation Workflow
 

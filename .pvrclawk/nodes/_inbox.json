@@ -230,5 +230,73 @@
     "content": "Session bucket hash must be computed from normalized resolved absolute bank path. On macOS, /var paths may resolve to /private/var, so manual hash checks should use resolved path to match runtime buckets.",
     "pattern_type": "session-store-hash",
     "__type__": "pattern"
+  },
+  "d2d09d73-affd-4d08-b843-842a72ef850e": {
+    "uid": "d2d09d73-affd-4d08-b843-842a72ef850e",
+    "tags": {
+      "membank": 1.0,
+      "federation": 1.0,
+      "scoring": 1.0,
+      "story": 1.0
+    },
+    "created_at": "2026-02-14T04:29:49.869008Z",
+    "updated_at": "2026-02-14T04:31:49.113058Z",
+    "role": "As a maintainer",
+    "benefit": "I want regex-based per-bank penalties in federated scoring so that specific repos can be down-ranked predictably",
+    "criteria": [
+      "Penalty rules match bank path via regex",
+      "Matched banks get multiplier adjustment",
+      "Ordering reflects per-bank penalty with tests"
+    ],
+    "status": "done",
+    "othermeta": {},
+    "__type__": "story"
+  },
+  "a46f8c40-9cab-42c3-aaef-1cf2cce4c8f9": {
+    "uid": "a46f8c40-9cab-42c3-aaef-1cf2cce4c8f9",
+    "tags": {
+      "membank": 1.0,
+      "federation": 1.0,
+      "scoring": 1.0,
+      "feature": 1.0
+    },
+    "created_at": "2026-02-14T04:29:50.194780Z",
+    "updated_at": "2026-02-14T04:31:48.614657Z",
+    "component": "federation bank path penalties",
+    "test_scenario": "Given federated focus ranking and regex path rules, matched banks apply configurable penalty multipliers",
+    "expected_result": "Expected result: per-bank regex penalties compose with existing root/host scoring factors",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "feature"
+  },
+  "552dc84b-9b2b-4549-ae3a-c5d1a57ee492": {
+    "uid": "552dc84b-9b2b-4549-ae3a-c5d1a57ee492",
+    "tags": {
+      "task": 1.0,
+      "membank": 1.0,
+      "federation": 1.0,
+      "scoring": 1.0
+    },
+    "created_at": "2026-02-14T04:29:50.577280Z",
+    "updated_at": "2026-02-14T04:31:48.210263Z",
+    "content": "Implement regex path based per-bank penalty in federated scoring with tests",
+    "status": "done",
+    "othermeta": {},
+    "__type__": "task"
+  },
+  "5a129c7a-3798-4df1-9fcf-30e09c68e3dc": {
+    "uid": "5a129c7a-3798-4df1-9fcf-30e09c68e3dc",
+    "tags": {
+      "progress": 1.0,
+      "membank": 1.0,
+      "federation": 1.0,
+      "scoring": 1.0,
+      "done": 1.0
+    },
+    "created_at": "2026-02-14T04:31:49.536306Z",
+    "updated_at": "2026-02-14T04:31:49.536308Z",
+    "content": "Added regex-based per-bank path penalties for federated scoring. New config supports federation.scoring.bank_path_penalties with pattern+multiplier rules that compose with root/host factors; tests validate down-ranking behavior and config roundtrip.",
+    "status": "done",
+    "__type__": "progress"
   }
 }

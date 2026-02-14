@@ -29,11 +29,16 @@ class FederationDiscoveryConfig(BaseModel):
 
 
 class FederationScoringConfig(BaseModel):
+    class BankPathPenaltyRule(BaseModel):
+        pattern: str
+        multiplier: float = 1.0
+
     root_importance_base: float = 1.0
     host_relevance_base: float = 1.0
     root_distance_decay: float = 0.35
     host_distance_decay: float = 0.45
     cross_bank_link_weight: float = 0.3
+    bank_path_penalties: list[BankPathPenaltyRule] = Field(default_factory=list)
 
 
 class FederationConfig(BaseModel):
@@ -92,6 +97,12 @@ def write_config(path: Path, config: AppConfig) -> None:
         f"host_distance_decay = {scoring['host_distance_decay']}\n"
         f"cross_bank_link_weight = {scoring['cross_bank_link_weight']}\n"
     )
+    for rule in scoring["bank_path_penalties"]:
+        content += (
+            "\n[[federation.scoring.bank_path_penalties]]\n"
+            f'pattern = "{rule["pattern"]}"\n'
+            f"multiplier = {rule['multiplier']}\n"
+        )
     path.write_text(content, encoding="utf-8")
 
 
