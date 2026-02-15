@@ -14,13 +14,15 @@
 | Phrase | Action |
 |---|---|
 | `update membank` | Record completed work as progress, update status, refresh task/subtask context |
-| `check context` | Run `pvrclawk membank focus --tags "task"` |
+| `check context` | Run `pvrclawk membank focus --tags "task"`. For query-scoped or latest context use `forctx` or `last`. |
 | `what's left` | List story/feature nodes and inspect non-done status |
 | `resolve skill` | Run `pvrclawk skills resolve <keywords...>` |
 | `list skills` | Run `pvrclawk skills list` |
 | `log pattern` | Add a pattern node to membank |
 
 ## Session Bootstrap
+
+Start with a new session (session tear then session up) unless reusing. Then:
 
 ```bash
 pvrclawk membank focus --tags "task"

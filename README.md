@@ -8,9 +8,9 @@ A modular Python CLI that gives AI coding agents a graph-based memory bank (`mem
 
 Traditional memory-bank approaches (a folder of markdown files) break down when an agent needs to reason about relationships, priority, and staleness. An agent writing to `activeContext.md` has no way to express "this fact is strongly related to that decision" or "this note has decayed in relevance." pvrclawk makes those relationships first-class: nodes have types, links have weights and decay, and queries return ranked results that reflect what actually matters right now.
 
-This tool is designed to be invoked directly by agents via CLI. The agent reads context with `pvrclawk membank focus`, updates status with `pvrclawk membank node status`, and records new knowledge with `pvrclawk membank node add` -- all without needing to parse or generate markdown.
+This tool is designed to be invoked directly by agents via CLI. The agent reads context with `pvrclawk membank focus` or `pvrclawk membank forctx "#tag [phrase]"`, updates status with `pvrclawk membank node status`, and records new knowledge with `pvrclawk membank node add` — all without needing to parse or generate markdown.
 
-For active usage, membank also supports session-based context deduplication via `pvrclawk membank session up`, so repeated `focus`/`node list` calls avoid re-sending full payload for already-served nodes.
+To reduce token usage, use `pvrclawk membank last` (most recently updated nodes, default 10) or `pvrclawk membank forctx "<query>"` (query-ranked context with `#tag` and `[phrase]` syntax, default top 50). Session-based deduplication via `pvrclawk membank session up` makes repeated `focus`, `forctx`, `last`, and `node list` calls return header-only for already-served nodes.
 
 ## Install
 
@@ -54,8 +54,12 @@ pvrclawk membank node add feature \
 # Link them
 pvrclawk membank link add <story-uid> <feature-uid> --tags "auth"
 
-# Retrieve context by tags
+# Retrieve context by tags (or by query with forctx)
 pvrclawk membank focus --tags "auth"
+pvrclawk membank forctx "#auth [sign-in]" --top 10
+
+# Recent context only (fewer tokens)
+pvrclawk membank last --top 10
 
 # Start a dedupe session for active agent usage
 pvrclawk membank session up
@@ -107,7 +111,7 @@ Session context is tracked per target bank in user-level storage at
 You can override the storage root for testing with `PVRCLAWK_SESSION_STORE_ROOT`.
 Each session file stores `served_uids` and `recent_uids` (rolling last 10).
 
-With an active session, `focus`, `node list`, and `node list-all` render header-only for already-served nodes. Session resolution order is: `--session <uuid>` override, then `PVRCLAWK_SESSION` env var, then active session from the per-target session index.
+With an active session, `focus`, `forctx`, `last`, `node list`, and `node list-all` render header-only for already-served nodes. Session resolution order is: `--session <uuid>` override, then `PVRCLAWK_SESSION` env var, then active session from the per-target session index.
 
 When verifying the hashed bucket manually, compute the hash from the fully resolved absolute bank path. On macOS, paths under `/var/...` may resolve to `/private/var/...`, which changes the hash input.
 
@@ -142,11 +146,13 @@ Federated scoring also supports per-bank regex path penalties via config (`feder
 | `membank node remove-type <type> --all` | Bulk remove nodes by type (explicit confirm) |
 | `membank node list <type> [--top N]` | List nodes by type |
 | `membank node list-all [--top N]` | List all nodes |
+| `membank focus --tags "t1,t2" [--limit N]` | Retrieve scored context by tags |
+| `membank forctx "<query>" [--top N]` | Query context: `#tag` for tags, `[phrase]` for content (tags weighted higher; default top 50) |
+| `membank last [--top N]` | Most recently updated nodes (default top 10) |
 | `membank link add <src> <tgt>` | Create a weighted link |
 | `membank link chain <u1> <u2> ...` | Batch-create adjacent links in one command (`u1->u2`, `u2->u3`, ...) |
 | `membank link list <uid>` | List links from a node |
 | `membank link weight <tags> <delta>` | Adjust link weights by tag match |
-| `membank focus --tags "t1,t2"` | Retrieve scored context |
 | `membank prune` | Rebalance clusters (Louvain) |
 | `membank report mood <tag> <val>` | Update mood signal |
 | `membank rule add "<dsl>"` | Add a scoring rule |
@@ -177,8 +183,8 @@ src/pvrclawk/
   app.py                  # Root Click group
   utils/                  # Universal utilities (json_io, config)
   membank/                # Feature package
-    commands/             # CLI commands (node, link, focus, prune, mood, rules, config, session)
-    core/                 # Business logic (storage, graph, mood, rules)
+    commands/             # CLI commands (node, link, focus, forctx, last, prune, mood, rules, config, session)
+    core/                 # Business logic (storage, graph, forctx, mood, rules)
     models/               # Pydantic models (nodes, links, index, types)
 ```
 
@@ -197,15 +203,9 @@ TDD is mandatory: every feature starts with a failing test.
 
 ## For agents
 
-[`AGENTS/index.md`](AGENTS/index.md) is the entry point for AI agents. It links to focused docs for membank and skills workflows, and covers:
+[`AGENTS/index.md`](AGENTS/index.md) is the entry point for AI agents. It links to focused docs for membank and skills workflows.
 
-- **Trigger phrases** (e.g. "update membank", "check context") and what actions they map to
-- Bootstrap protocol (what to run at session start)
-- Full command reference with examples
-- Tag syntax, node types, story-driven workflow
-- Rules for maintaining the bank
-
-`AGENTS/membank.md` is an operations protocol for agents (instruction-first, imperative workflow rules), not feature prose. Keep it aligned with runtime CLI semantics whenever session/storage behavior changes.
+`AGENTS/membank.md` is the membank protocol for agents only: mandatory order, trigger phrases (e.g. "membank first", "check context"), command reference, node types, and policy rules. It is instruction-first and imperative — no human-facing prose. Keep it aligned with CLI semantics when session, storage, or commands change.
 
 Drop the `AGENTS/` folder into any project that uses pvrclawk. The agent reads `index.md`, runs the CLI, and manages context autonomously.
 

@@ -1,287 +1,131 @@
-# Membank Workflow
+# Membank (agent instructions)
 
-## Mandatory Order (Do This First)
+## Mandatory order
 
-Before implementation or tests, update the membank plan context first.
+Before implementation or tests:
 
-```bash
-# 1) Review current context
-pvrclawk membank focus --tags "task"
-pvrclawk membank node list story
-pvrclawk membank node list feature
-pvrclawk membank node list task
+0. Start with a new session: run `pvrclawk membank session tear` then `pvrclawk membank session up` (unless reusing is specified).
+1. Run: `pvrclawk membank focus --tags "task"` (or `pvrclawk membank forctx "#task" --top 20`). If confidence in context for a tag has shifted, run `report mood <tag> <value>`.
+2. Add/update story and feature nodes for the incoming task; set relevant node status to `in_progress`. Link new task/feature/progress to at least one story|pattern|memory; prefer `link chain`.
+3. Cleanup: remove obsolete progress nodes and deprecated taxonomy artifacts; relink surviving nodes if needed.
+4. Then begin coding/TDD.
 
-# 2) Add/update story + feature nodes for the incoming task
-# 3) Set relevant node status to in_progress
-# 4) Cleanup stale/superseded nodes before implementation
-#    (remove obsolete progress snapshots and deprecated taxonomy artifacts)
-```
+## Trigger phrases
 
-Only after this planning update should coding and TDD begin.
+When user input matches (case-insensitive) any of:
 
-### Default Exclusions (Actionable TODO Tracking)
+- membank first | update membank first
+- consult/check membank | check context
+- sync context | load context
 
-For repository-maintenance work (documentation, policy wording, environment/setup, tooling housekeeping),
-exclude actionable TODO tracking by default unless explicitly requested.
+→ Execute mandatory order (steps 0–4 above) before implementation or tests.
 
-- Do not create or advance actionable execution nodes (`story`, `feature`, `task`, `subtask`, `issue`, `bug`) by default.
-- `pattern` and `progress` updates are still allowed when they add durable implementation context.
-- If unsure whether actionable tracking is requested, ask one clarification question first.
+## Default exclusions
 
-## Core Commands
+Repository-maintenance work (docs, policy, env, tooling): do not create or advance `story`|`feature`|`task`|`subtask`|`issue`|`bug` unless explicitly requested. `pattern` and `progress` allowed. If unclear, ask once.
+
+## Commands
+
+Membank group options: `--path` (default `.pvrclawk`), `--session <uuid>` (pin session when reusing).
 
 ```bash
-# Session lifecycle (context dedup for repeated retrievals)
+# Session
 pvrclawk membank session up
 pvrclawk membank session info
 pvrclawk membank session reset
 pvrclawk membank session tear
 
-# Query context
-pvrclawk membank focus --tags "architecture"
-pvrclawk membank focus --tags "task"
+# Context (planning)
+pvrclawk membank focus --tags "task" [--limit N]
+pvrclawk membank forctx "#tag [phrase]" --top 50
+pvrclawk membank last --top 10
+
+# Context (federated read-only)
 pvrclawk membank --federated focus --tags "task"
-```
-
-**Resistance factor (focus filtering)**  
-Nodes whose score is below `retrieval.resistance_threshold` are excluded from `focus` results. This reduces token usage by dropping low-relevance nodes. Default is `0.37`. Set to `0` to include all positive-scoring nodes; raise (e.g. `0.5`–`0.7`) to keep only stronger matches.
-
-```bash
-pvrclawk membank config set retrieval.resistance_threshold 0.37
-pvrclawk membank config get retrieval.resistance_threshold
-
-# Inspect nodes
-pvrclawk membank node list-all
-pvrclawk membank node list story
-pvrclawk membank node list feature
-pvrclawk membank --federated node list story
-pvrclawk membank node get <uid>
-pvrclawk membank --federated node get <uid_or_prefix>
-
-# Update status
-pvrclawk membank node status <uid> in_progress
-pvrclawk membank node status <uid> done
-```
-
-## Federation Mode (`--federated`)
-
-Use federated mode for read-time context synthesis across nearby membanks.
-
-- Trigger: `pvrclawk membank --federated <read-command> ...`
-- Supported intent: read/query only (`focus`, `node list`, `node list-all`, `node get`, `link list`).
-- Write/mutate commands remain local to `--path` even when `--federated` is set.
-- Discovery boundary: walk upward to `.git` root (default max 10 levels).
-- Safety default: fail if no `.git` boundary is found unless explicitly allowed in config.
-- Candidate default: only `.pvrclawk` directories are scanned.
-
-### Federation Scoring Semantics
-
-- **Root importance**: bank closer to repo root gets higher importance.
-- **Host relevance**: bank closer to the host bank gets higher relevance.
-- **Path penalty rules**: regex-matched bank paths can apply additional per-bank multipliers.
-- Final score composes base rank with federation multipliers from config.
-
-### Federation Config Keys
-
-```bash
-# Discovery
-pvrclawk membank config set federation.discovery.only_dot_pvrclawk true
-pvrclawk membank config set federation.discovery.max_git_lookup_levels 10
-pvrclawk membank config set federation.discovery.allow_no_git_boundary false
-
-# Scoring
-pvrclawk membank config set federation.scoring.root_importance_base 1.0
-pvrclawk membank config set federation.scoring.host_relevance_base 1.0
-pvrclawk membank config set federation.scoring.root_distance_decay 0.35
-pvrclawk membank config set federation.scoring.host_distance_decay 0.45
-```
-
-For list-valued keys, edit `.pvrclawk/config.toml` directly (preferred for agent-assisted tuning):
-- `federation.discovery.candidate_paths`
-- `federation.discovery.external_roots`
-- `federation.scoring.bank_path_penalties` (regex path-based per-bank multipliers)
-
-Use this TOML shape for per-bank penalties:
-
-```toml
-[[federation.scoring.bank_path_penalties]]
-pattern = "/legacy$"
-multiplier = 0.25
-```
-
-### Recommended Federation Workflow
-
-```bash
-# 1) Keep local planning updates local-first
-pvrclawk membank session up
-pvrclawk membank focus --tags "task"
-
-# 2) Expand context only when needed
-pvrclawk membank --federated focus --tags "task,architecture" --limit 10
 pvrclawk membank --federated node list story --top 20
 
-# 3) Do writes against local host bank only
-pvrclawk membank node add task --content "<local actionable item>" --status in_progress
-```
+# Nodes (node get/status/remove accept [--last N] for session-scoped recent UID, N 1–10)
+pvrclawk membank node list-all [--top N]
+pvrclawk membank node list <type> [--top N]
+pvrclawk membank node get <uid> [--last N]
+pvrclawk membank node add <type> --content "..." [--title "..." --summary "..." --tags "..." --status todo|in_progress|done|blocked]
+pvrclawk membank node status <uid> <status>  # or --last N <status>
+pvrclawk membank node remove <uid> [--last N]
+pvrclawk membank node remove-type <type> --all   # explicit confirm
 
-## Session Context Dedupe
-
-Use session-aware retrieval to reduce repeated context payload during active agent work.
-
-### Resolution Priority
-
-Commands resolve session context in this order:
-
-1. `--session <uuid>` override on `membank` group
-2. `PVRCLAWK_SESSION` environment variable
-3. Active session from session index
-4. No active session (full content output)
-
-### Behavior
-
-- `pvrclawk membank session up` creates/reuses active session state and prints UUID.
-- `focus`, `node list`, and `node list-all` render header-only for already-served nodes in the active session.
-- `node get` remains full detail and is never session-truncated.
-- `--last N` UID shortcuts are session-scoped (read from active session recent history only).
-- `pvrclawk membank session reset` clears served history for re-fetching complete context.
-- `pvrclawk membank session tear` clears active session state.
-- Session state expires after 2 days and is treated as absent.
-
-## Node Type Boundaries
-
-Use node types with strict intent boundaries:
-
-- `story`: user-facing outcome mapping to developer requirements bridge
-- `feature`: user-to-dev requirement slice (testable implementation bridge)
-- `bug`: user-reported defect that developers fix
-- `issue`: tracked issue item for development/project execution
-- `task`: generic actionable work item
-- `subtask`: child actionable item of a task
-- `progress`: developer-specific implementation progress/log
-- `pattern`: code implementation pattern/convention
-- `memory` / `memorylink`: developer-generic context that does not fit other types
-
-Keep these boundaries explicit when creating nodes.
-
-## Query Playbook (Everything Must Be Queryable)
-
-```bash
-# Planning bridge (user -> dev)
-pvrclawk membank node list story --top 20
-pvrclawk membank node list feature --top 20
-
-# Execution tracking
-pvrclawk membank node list issue --top 20
-pvrclawk membank node list bug --top 20
-pvrclawk membank node list task --top 20
-pvrclawk membank node list subtask --top 20
-
-# Developer context
-pvrclawk membank node list progress --top 20
-pvrclawk membank node list pattern --top 20
-pvrclawk membank node list memory --top 20
-pvrclawk membank node list memorylink --top 20
-```
-
-## Node Creation
-
-### Story Authoring Standard (Agile User Stories)
-
-- A `story` is an end-user outcome, not a technical requirement or implementation task.
-- Use concise, non-technical language centered on user value.
-- Recommended shape:
-  - `title` (`--title`): persona phrase (the "As a ..." part)
-  - `summary` (`--summary`): goal + benefit (the "I want ... so that ..." part)
-  - `criteria` (`--criteria`): confirmation checks that define done
-- Apply the 3 C's explicitly:
-  - Card: concise story statement
-  - Conversation: implementation details happen later with the team
-  - Confirmation: acceptance criteria are testable and concrete
-
-```bash
-# Story
-pvrclawk membank node add story \
-  --title "As a <persona>" \
-  --summary "I want <goal> so that <benefit>" \
-  --criteria "<criterion 1>" \
-  --criteria "<criterion 2>" \
-  --tags "tag1,tag2" \
-  --status todo
-
-# Feature
-pvrclawk membank node add feature \
-  --title "<component>" \
-  --summary "<test scenario>" \
-  --content "<expected result>" \
-  --tags "tag1,tag2" \
-  --status todo
-
-# Progress + Task/Subtask
-pvrclawk membank node add progress --content "<change summary>" --tags "status,done" --status done
-pvrclawk membank node add task --content "<current state>" --tags "task" --status in_progress
-pvrclawk membank node add subtask --content "<next granular step>" --tags "subtask" --status todo
-```
-
-## Links, Mood, Rules
-
-```bash
-# Single link
-pvrclawk membank link add <source_uid> <target_uid> --tags "tag1,tag2"
-
-# Chain links (low-IO batch): creates A->B, B->C, C->D
-pvrclawk membank link chain <uid_a> <uid_b> <uid_c> <uid_d> --tags "flow,dependency"
-
-# Inspect and tune
+# Links
+pvrclawk membank link add <source_uid> <target_uid> --tags "..."
+pvrclawk membank link chain <uid_a> <uid_b> [<uid_c> ...] --tags "..."
 pvrclawk membank link list <uid>
 pvrclawk membank link weight "tag1,tag2" +0.1
-pvrclawk membank report mood <tag> <value>
-pvrclawk membank rule add "if tag == tcp then boost 1.5"
-```
 
-## Linking Discipline (Required)
-
-- Every new `task`, `subtask`, `bug`, `issue`, `feature`, or `progress` node should be linked to at least one relevant context node (`story`, `pattern`, `memory`, or related execution node).
-- Prefer `link chain` when creating multiple sequential links to reduce IO and keep graph updates compact.
-- Use UID shorthand only when unambiguous; if a prefix collides, provide a longer prefix or full UID.
-- During cleanup, remove stale nodes first, then relink surviving nodes to preserve graph continuity.
-- Treat linking as part of the definition of done for membank updates.
-
-## Maintenance
-
-```bash
+# Config / maintenance
+pvrclawk membank config get <key>
+pvrclawk membank config set <key> <value>
 pvrclawk membank prune
-pvrclawk membank config list
-pvrclawk membank config get auto_archive_active
-pvrclawk membank config set auto_archive_active true
-pvrclawk membank config get retrieval.resistance_threshold
-pvrclawk membank config set retrieval.resistance_threshold 0.37
-pvrclawk membank session info
-
-# Cleanup workflow (run regularly)
-pvrclawk membank node list-all --top 50
-pvrclawk membank node list progress --top 50
-pvrclawk membank node remove <uid>
-pvrclawk membank node remove-type <node_type> --all
-pvrclawk membank session tear
+pvrclawk membank report mood <tag> <value>
+pvrclawk membank rule add "<if predicate then action>"
+pvrclawk membank rule list
 ```
 
-## Policy
+## Focus / forctx behavior
 
-- All context belongs in `.pvrclawk/` (no `memory-bank/` folder).
-- Use `pvrclawk` directly for membank workflows in this project.
-- For repo-maintenance and documentation/policy/environment tasks, exclude actionable TODO tracking by default unless explicitly requested; `pattern` and `progress` are allowed.
-- Do not bulk import markdown; decompose into typed nodes.
-- Always update membank first for every new task, then start TDD.
-- Add a cleanup pass before implementation: remove stale/superseded entries and deprecated taxonomy artifacts.
-- Do not encode status words in `content` (for example: `IN_PROGRESS:`, `DONE:`). Use the `status` field via `node status` or `--status`.
-- Prefer local mode for writes and state transitions; use `--federated` for read expansion and ranking.
-- In team-managed environments, keep `story` and `feature` lean; they are user-to-dev bridge artifacts and often managed via Jira.
-- Use `bug` for user-reported defects; use `issue` for tracked execution issues.
-- Use `task`/`subtask` for generic work only (subtask must be a child actionable item).
-- Most frequent implementation-side nodes should be `pattern`, `memory`, and `progress`, and they should be linked to relevant work.
-- Prefer chain link operations for multi-node flows to reduce storage IO and keep updates atomic per command.
-- The membank should coexist as a graph for team/project management and developer context, bridging users and agents.
-- Session runtime state is maintained by pvrclawk session storage and should be treated as runtime state (not manual project context).
-- Keep TDD strict: failing test -> minimal fix -> refactor -> full tests.
-- Do not treat user stories as system requirements; stories capture user intent/value first, while technical requirements are refined during implementation planning.
+- `focus --tags "t1,t2"`: tag-based ranking; default `--limit 5`; use `--limit N` for more nodes. Nodes below `retrieval.resistance_threshold` (default 0.37) excluded. Config: `pvrclawk membank config get/set retrieval.resistance_threshold`.
+- `forctx "query"`: `#tag` = tag match, `[phrase]` = content phrase; tags weighted higher. Default `--top 50`.
+- `last`: most recently updated nodes; default `--top 10`.
 
+**When to use:** `focus` for tag-based planning (e.g. `--tags "task"`); `forctx` for query with `#tag` and `[phrase]`; `last` for latest-updated nodes.
+
+## Federation (`--federated`)
+
+- Read-only: `focus`, `node list`, `node list-all`, `node get`, `link list`. Writes stay local to `--path`.
+- Discovery: walk up to `.git` (max 10 levels); scan `.pvrclawk` dirs; fail if no `.git` unless config allows.
+- Scoring: root importance, host relevance, optional `federation.scoring.bank_path_penalties` (regex + multiplier). List keys in `config.toml`: `federation.discovery.candidate_paths`, `external_roots`, `bank_path_penalties`.
+
+## Session
+
+- Default: use a new session for each run (run `session tear` then `session up`) unless the user or context specifies reusing (e.g. `--session`, `PVRCLAWK_SESSION`, or "reuse session").
+- Resolution: `--session <uuid>` > `PVRCLAWK_SESSION` > active session index > no session (full output).
+- `session up`: create/reuse session. `focus` / `node list` / `node list-all` / `forctx` / `last`: already-served nodes output header-only. `node get` always full. `--last N` UID is session-scoped. `session reset`: clear served; `session tear`: clear session. Expiry: 2 days.
+
+## Report (mood)
+
+Update mood whenever confidence of current context shifts. After running focus, forctx, or last, if your confidence in the relevance or quality of context for a given tag (or area) changes, run `pvrclawk membank report mood <tag> <value>`. Use a numeric value (float); e.g. 0–1 for confidence, or any scale. Values are EMA-smoothed and affect future scoring for that tag. Example: context for tag `task` felt weak → `report mood task 0.3`; after adding nodes and relinking, context feels strong → `report mood task 0.9`.
+
+## Node types
+
+| type      | intent |
+|----------|--------|
+| story    | user outcome → requirements bridge |
+| feature  | requirement slice (testable bridge) |
+| bug      | user-reported defect |
+| issue    | tracked execution item |
+| task     | generic actionable item |
+| subtask  | child of task |
+| progress | implementation progress log |
+| pattern  | implementation pattern/convention |
+| memory   | generic context |
+| memorylink | file-backed context |
+
+## Node creation (minimal)
+
+- story: `--title "As a <persona>"` `--summary "I want <goal> so that <benefit>"` `--criteria "..."` (repeatable).
+- feature: `--title "<component>"` `--summary "<test scenario>"` `--content "<expected result>"`.
+- task/subtask/issue/bug: `--content "..."` `--status todo|in_progress|done|blocked`.
+- progress: `--content "..."` `--status done`.
+- pattern: `--content "..."` `--title "<pattern_type>"`.
+- Link every new task/subtask/bug/issue/feature/progress to at least one story|pattern|memory. Prefer `link chain` for A→B→C.
+
+## Policy (rules)
+
+- Context path: `.pvrclawk/` only. Invoke `pvrclawk` for membank.
+- Default to new session; reuse only when specified.
+- New task → mandatory order first, then TDD.
+- No status in `content`; use `node status` or `--status`.
+- Writes local; use `--federated` for read expansion only.
+- bug = user defect; issue = execution item. task/subtask = generic; subtask is child of task.
+- pattern, memory, progress = main implementation nodes; link to work.
+- Use `link chain` for multi-node links. Cleanup: remove stale nodes then relink.
+- Update report mood whenever confidence of current context shifts (e.g. after focus/forctx/last).
+- TDD: failing test → minimal fix → refactor → tests.
+- Stories = user intent; technical requirements refined in implementation.

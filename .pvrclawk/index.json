@@ -98,7 +98,10 @@
       "d2d09d73-affd-4d08-b843-842a72ef850e",
       "a46f8c40-9cab-42c3-aaef-1cf2cce4c8f9",
       "552dc84b-9b2b-4549-ae3a-c5d1a57ee492",
-      "5a129c7a-3798-4df1-9fcf-30e09c68e3dc"
+      "5a129c7a-3798-4df1-9fcf-30e09c68e3dc",
+      "95fc4f03-36b5-49b1-bb3e-bc6681a4fffe",
+      "338c72a5-b38d-476c-9623-9265c34923b3",
+      "b49dc5d0-5646-41d3-9bd8-a4bc3f8ec16d"
     ],
     "classification": [
       "ab22676e-e918-4fdd-b75c-8922c98275ed",
@@ -114,7 +117,8 @@
       "092c1e64-f38a-4079-b848-3f0f10686341",
       "e55c96f7-dc14-4a58-9639-95b4b87c0116",
       "be0b7e58-2314-4f9d-a5dc-95ea3bd434da",
-      "552dc84b-9b2b-4549-ae3a-c5d1a57ee492"
+      "552dc84b-9b2b-4549-ae3a-c5d1a57ee492",
+      "b49dc5d0-5646-41d3-9bd8-a4bc3f8ec16d"
     ],
     "audit": [
       "59f2e855-3de4-45d6-8803-66b3c5eebe66",
@@ -154,7 +158,8 @@
       "b5e240fc-55cc-4855-988a-878557a4a702",
       "30cb856b-361b-44e2-bd27-4803ed36b34e",
       "72ee10d6-0922-4c29-bfb1-65a7e19b4b4b",
-      "f45c5821-c258-43c3-b0d8-e5835c701b1d"
+      "f45c5821-c258-43c3-b0d8-e5835c701b1d",
+      "338c72a5-b38d-476c-9623-9265c34923b3"
     ],
     "in_progress": [
       "b35c20a5-579f-46cb-98cb-20d5abf22f12",
@@ -256,7 +261,8 @@
       "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f"
     ],
     "context": [
-      "ba278e88-6bb0-4c07-9028-0ee54fc36d59"
+      "ba278e88-6bb0-4c07-9028-0ee54fc36d59",
+      "95fc4f03-36b5-49b1-bb3e-bc6681a4fffe"
     ],
     "story": [
       "ba278e88-6bb0-4c07-9028-0ee54fc36d59",
@@ -522,6 +528,17 @@
     ],
     "macos": [
       "bc54b52a-e804-4f3e-8150-b9f1ba3ef62f"
+    ],
+    "token": [
+      "95fc4f03-36b5-49b1-bb3e-bc6681a4fffe"
+    ],
+    "last": [
+      "338c72a5-b38d-476c-9623-9265c34923b3",
+      "b49dc5d0-5646-41d3-9bd8-a4bc3f8ec16d"
+    ],
+    "forctx": [
+      "338c72a5-b38d-476c-9623-9265c34923b3",
+      "b49dc5d0-5646-41d3-9bd8-a4bc3f8ec16d"
     ]
   },
   "types": {
@@ -574,7 +591,8 @@
       "092c1e64-f38a-4079-b848-3f0f10686341",
       "e55c96f7-dc14-4a58-9639-95b4b87c0116",
       "be0b7e58-2314-4f9d-a5dc-95ea3bd434da",
-      "552dc84b-9b2b-4549-ae3a-c5d1a57ee492"
+      "552dc84b-9b2b-4549-ae3a-c5d1a57ee492",
+      "b49dc5d0-5646-41d3-9bd8-a4bc3f8ec16d"
     ],
     "feature": [
       "a59518db-d324-4e67-857f-9a98c8d0310f",
@@ -614,7 +632,8 @@
       "3866e09e-7069-477a-989c-428107953d78",
       "6e3011fb-d99b-42e9-9e1b-aa30eccdae13",
       "7b1ec081-61be-43fd-9799-53be07814ac0",
-      "a46f8c40-9cab-42c3-aaef-1cf2cce4c8f9"
+      "a46f8c40-9cab-42c3-aaef-1cf2cce4c8f9",
+      "338c72a5-b38d-476c-9623-9265c34923b3"
     ],
     "story": [
       "b461d598-c23a-4591-a766-5db53c891854",
@@ -628,7 +647,8 @@
       "9e00eddc-55dd-4544-bce1-db46d8b16a3d",
       "e2ab0340-28e2-40a5-8f1d-84b1194eacb9",
       "9b232d39-a29e-4f38-9739-e6aa308d9002",
-      "d2d09d73-affd-4d08-b843-842a72ef850e"
+      "d2d09d73-affd-4d08-b843-842a72ef850e",
+      "95fc4f03-36b5-49b1-bb3e-bc6681a4fffe"
     ],
     "pattern": [
       "30e0cb5b-fab3-4e52-9db5-390400da35dd",
@@ -750,7 +770,10 @@
     "d2d09d73-affd-4d08-b843-842a72ef850e": "_inbox",
     "a46f8c40-9cab-42c3-aaef-1cf2cce4c8f9": "_inbox",
     "552dc84b-9b2b-4549-ae3a-c5d1a57ee492": "_inbox",
-    "5a129c7a-3798-4df1-9fcf-30e09c68e3dc": "_inbox"
+    "5a129c7a-3798-4df1-9fcf-30e09c68e3dc": "_inbox",
+    "95fc4f03-36b5-49b1-bb3e-bc6681a4fffe": "_inbox",
+    "338c72a5-b38d-476c-9623-9265c34923b3": "_inbox",
+    "b49dc5d0-5646-41d3-9bd8-a4bc3f8ec16d": "_inbox"
   },
   "links_in": {
     "bb21fcce-64c8-4edb-99da-795f2c557930": [
@@ -870,6 +893,12 @@
     ],
     "5a129c7a-3798-4df1-9fcf-30e09c68e3dc": [
       "552dc84b-9b2b-4549-ae3a-c5d1a57ee492"
+    ],
+    "338c72a5-b38d-476c-9623-9265c34923b3": [
+      "95fc4f03-36b5-49b1-bb3e-bc6681a4fffe"
+    ],
+    "b49dc5d0-5646-41d3-9bd8-a4bc3f8ec16d": [
+      "338c72a5-b38d-476c-9623-9265c34923b3"
     ]
   },
   "clusters": {
@@ -907,7 +936,7 @@
     },
     "_inbox": {
       "top_tags": [],
-      "size": 19
+      "size": 22
     }
   }
 }
